@@ -26,124 +26,124 @@ var (
 	_ = event.NewSubscription
 )
 
-// PancakeABI is the input ABI used to generate the binding from.
-const PancakeABI = "[]"
+// SafeMathABI is the input ABI used to generate the binding from.
+const SafeMathABI = "[]"
 
-// PancakeBin is the compiled bytecode used for deploying new contracts.
-var PancakeBin = "0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220c613136ab0ebd42c52ca8ea8e96603936852d6acc2d11fd6442af5ce68c1acee64736f6c63430006060033"
+// SafeMathBin is the compiled bytecode used for deploying new contracts.
+var SafeMathBin = "0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220ca2d7958202617e225f8b9fcaa0d30d9987bd4345e9c18f29d7178e7f985aba964736f6c63430006060033"
 
-// DeployPancake deploys a new Ethereum contract, binding an instance of Pancake to it.
-func DeployPancake(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *Pancake, error) {
-	parsed, err := abi.JSON(strings.NewReader(PancakeABI))
+// DeploySafeMath deploys a new Ethereum contract, binding an instance of SafeMath to it.
+func DeploySafeMath(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *SafeMath, error) {
+	parsed, err := abi.JSON(strings.NewReader(SafeMathABI))
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
 
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(PancakeBin), backend)
+	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(SafeMathBin), backend)
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
-	return address, tx, &Pancake{PancakeCaller: PancakeCaller{contract: contract}, PancakeTransactor: PancakeTransactor{contract: contract}, PancakeFilterer: PancakeFilterer{contract: contract}}, nil
+	return address, tx, &SafeMath{SafeMathCaller: SafeMathCaller{contract: contract}, SafeMathTransactor: SafeMathTransactor{contract: contract}, SafeMathFilterer: SafeMathFilterer{contract: contract}}, nil
 }
 
-// Pancake is an auto generated Go binding around an Ethereum contract.
-type Pancake struct {
-	PancakeCaller     // Read-only binding to the contract
-	PancakeTransactor // Write-only binding to the contract
-	PancakeFilterer   // Log filterer for contract events
+// SafeMath is an auto generated Go binding around an Ethereum contract.
+type SafeMath struct {
+	SafeMathCaller     // Read-only binding to the contract
+	SafeMathTransactor // Write-only binding to the contract
+	SafeMathFilterer   // Log filterer for contract events
 }
 
-// PancakeCaller is an auto generated read-only Go binding around an Ethereum contract.
-type PancakeCaller struct {
+// SafeMathCaller is an auto generated read-only Go binding around an Ethereum contract.
+type SafeMathCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type PancakeTransactor struct {
+// SafeMathTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type SafeMathTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type PancakeFilterer struct {
+// SafeMathFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type SafeMathFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeSession is an auto generated Go binding around an Ethereum contract,
+// SafeMathSession is an auto generated Go binding around an Ethereum contract,
 // with pre-set call and transact options.
-type PancakeSession struct {
-	Contract     *Pancake          // Generic contract binding to set the session for
+type SafeMathSession struct {
+	Contract     *SafeMath         // Generic contract binding to set the session for
 	CallOpts     bind.CallOpts     // Call options to use throughout this session
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// PancakeCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// SafeMathCallerSession is an auto generated read-only Go binding around an Ethereum contract,
 // with pre-set call options.
-type PancakeCallerSession struct {
-	Contract *PancakeCaller // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts  // Call options to use throughout this session
+type SafeMathCallerSession struct {
+	Contract *SafeMathCaller // Generic contract caller binding to set the session for
+	CallOpts bind.CallOpts   // Call options to use throughout this session
 }
 
-// PancakeTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// SafeMathTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
 // with pre-set transact options.
-type PancakeTransactorSession struct {
-	Contract     *PancakeTransactor // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts  // Transaction auth options to use throughout this session
+type SafeMathTransactorSession struct {
+	Contract     *SafeMathTransactor // Generic contract transactor binding to set the session for
+	TransactOpts bind.TransactOpts   // Transaction auth options to use throughout this session
 }
 
-// PancakeRaw is an auto generated low-level Go binding around an Ethereum contract.
-type PancakeRaw struct {
-	Contract *Pancake // Generic contract binding to access the raw methods on
+// SafeMathRaw is an auto generated low-level Go binding around an Ethereum contract.
+type SafeMathRaw struct {
+	Contract *SafeMath // Generic contract binding to access the raw methods on
 }
 
-// PancakeCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type PancakeCallerRaw struct {
-	Contract *PancakeCaller // Generic read-only contract binding to access the raw methods on
+// SafeMathCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type SafeMathCallerRaw struct {
+	Contract *SafeMathCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// PancakeTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type PancakeTransactorRaw struct {
-	Contract *PancakeTransactor // Generic write-only contract binding to access the raw methods on
+// SafeMathTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type SafeMathTransactorRaw struct {
+	Contract *SafeMathTransactor // Generic write-only contract binding to access the raw methods on
 }
 
-// NewPancake creates a new instance of Pancake, bound to a specific deployed contract.
-func NewPancake(address common.Address, backend bind.ContractBackend) (*Pancake, error) {
-	contract, err := bindPancake(address, backend, backend, backend)
+// NewSafeMath creates a new instance of SafeMath, bound to a specific deployed contract.
+func NewSafeMath(address common.Address, backend bind.ContractBackend) (*SafeMath, error) {
+	contract, err := bindSafeMath(address, backend, backend, backend)
 	if err != nil {
 		return nil, err
 	}
-	return &Pancake{PancakeCaller: PancakeCaller{contract: contract}, PancakeTransactor: PancakeTransactor{contract: contract}, PancakeFilterer: PancakeFilterer{contract: contract}}, nil
+	return &SafeMath{SafeMathCaller: SafeMathCaller{contract: contract}, SafeMathTransactor: SafeMathTransactor{contract: contract}, SafeMathFilterer: SafeMathFilterer{contract: contract}}, nil
 }
 
-// NewPancakeCaller creates a new read-only instance of Pancake, bound to a specific deployed contract.
-func NewPancakeCaller(address common.Address, caller bind.ContractCaller) (*PancakeCaller, error) {
-	contract, err := bindPancake(address, caller, nil, nil)
+// NewSafeMathCaller creates a new read-only instance of SafeMath, bound to a specific deployed contract.
+func NewSafeMathCaller(address common.Address, caller bind.ContractCaller) (*SafeMathCaller, error) {
+	contract, err := bindSafeMath(address, caller, nil, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeCaller{contract: contract}, nil
+	return &SafeMathCaller{contract: contract}, nil
 }
 
-// NewPancakeTransactor creates a new write-only instance of Pancake, bound to a specific deployed contract.
-func NewPancakeTransactor(address common.Address, transactor bind.ContractTransactor) (*PancakeTransactor, error) {
-	contract, err := bindPancake(address, nil, transactor, nil)
+// NewSafeMathTransactor creates a new write-only instance of SafeMath, bound to a specific deployed contract.
+func NewSafeMathTransactor(address common.Address, transactor bind.ContractTransactor) (*SafeMathTransactor, error) {
+	contract, err := bindSafeMath(address, nil, transactor, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeTransactor{contract: contract}, nil
+	return &SafeMathTransactor{contract: contract}, nil
 }
 
-// NewPancakeFilterer creates a new log filterer instance of Pancake, bound to a specific deployed contract.
-func NewPancakeFilterer(address common.Address, filterer bind.ContractFilterer) (*PancakeFilterer, error) {
-	contract, err := bindPancake(address, nil, nil, filterer)
+// NewSafeMathFilterer creates a new log filterer instance of SafeMath, bound to a specific deployed contract.
+func NewSafeMathFilterer(address common.Address, filterer bind.ContractFilterer) (*SafeMathFilterer, error) {
+	contract, err := bindSafeMath(address, nil, nil, filterer)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeFilterer{contract: contract}, nil
+	return &SafeMathFilterer{contract: contract}, nil
 }
 
-// bindPancake binds a generic wrapper to an already deployed contract.
-func bindPancake(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(PancakeABI))
+// bindSafeMath binds a generic wrapper to an already deployed contract.
+func bindSafeMath(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := abi.JSON(strings.NewReader(SafeMathABI))
 	if err != nil {
 		return nil, err
 	}
@@ -154,36 +154,36 @@ func bindPancake(address common.Address, caller bind.ContractCaller, transactor 
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Pancake *PancakeRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Pancake.Contract.PancakeCaller.contract.Call(opts, result, method, params...)
+func (_SafeMath *SafeMathRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _SafeMath.Contract.SafeMathCaller.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pancake *PancakeRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Pancake.Contract.PancakeTransactor.contract.Transfer(opts)
+func (_SafeMath *SafeMathRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _SafeMath.Contract.SafeMathTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pancake *PancakeRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Pancake.Contract.PancakeTransactor.contract.Transact(opts, method, params...)
+func (_SafeMath *SafeMathRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _SafeMath.Contract.SafeMathTransactor.contract.Transact(opts, method, params...)
 }
 
 // Call invokes the (constant) contract method with params as input values and
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Pancake *PancakeCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Pancake.Contract.contract.Call(opts, result, method, params...)
+func (_SafeMath *SafeMathCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _SafeMath.Contract.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pancake *PancakeTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Pancake.Contract.contract.Transfer(opts)
+func (_SafeMath *SafeMathTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _SafeMath.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pancake *PancakeTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Pancake.Contract.contract.Transact(opts, method, params...)
+func (_SafeMath *SafeMathTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _SafeMath.Contract.contract.Transact(opts, method, params...)
 }

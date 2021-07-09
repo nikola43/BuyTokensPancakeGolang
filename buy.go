@@ -25,17 +25,18 @@ func main() {
 	}
 
 	// connect with rpc
-	rawurl := "https://data-seed-prebsc-1-s1.binance.org:8545/"
+	// connect with rpc
+	rawurl := "https://bsc-dataseed.binance.org/"
 	plainPrivateKey := os.Getenv("PRIVATE_KEY")
 	ethBasedClient := ethbasedclient.New(rawurl, plainPrivateKey)
 
 	// contract addresses
-	pancakeContractAddress := common.HexToAddress("0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3") // pancake router address
-	wBnbContractAddress := "0xae13d989dac2f0debff460ac112a837c89baa7cd"                         // wbnb token adddress
-	tokenContractAddress := common.HexToAddress("0x8babbb98678facc7342735486c851abd7a0d17ca")   // eth token adddress
+	pancakeContractAddress := common.HexToAddress("0x10ed43c718714eb63d5aa57b78b54704e256024e") // pancake router address
+	wBnbContractAddress := common.HexToAddress("0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c")    // wbnb token adddress
+	tokenContractAddress := common.HexToAddress("0xba2ae424d960c26247dd6c32edc70b295c744c43")   // peg doge token adddress
 
 	// create pancakeRouter pancakeRouterInstance
-	pancakeRouterInstance, instanceErr := PancakeRouter.NewPancake(pancakeContractAddress, ethBasedClient.Client)
+	pancakeRouterInstance, instanceErr := PancakeRouter.NewPancakeRouter(pancakeContractAddress, ethBasedClient.Client)
 	errorsutil.HandleError(instanceErr)
 	fmt.Println("pancakeRouterInstance contract is loaded")
 
@@ -53,7 +54,7 @@ func main() {
 	ethBasedClient.ConfigureTransactor(finalValue, gasPrice, gasLimit)
 	amountOutMin := big.NewInt(1000)
 	deadline := big.NewInt(time.Now().Unix() + 10000)
-	path := ethutils.GeneratePath(wBnbContractAddress, tokenContractAddress.Hex())
+	path := ethutils.GeneratePath(wBnbContractAddress.Hex(), tokenContractAddress.Hex())
 
 	// send transaction
 	swapTx, SwapExactETHForTokensErr := pancakeRouterInstance.SwapExactETHForTokens(
@@ -65,19 +66,21 @@ func main() {
 	if SwapExactETHForTokensErr != nil {
 		fmt.Println("SwapExactETHForTokensErr")
 		fmt.Println(SwapExactETHForTokensErr)
+		os.Exit(0)
 	}
 
 	txHash := swapTx.Hash().Hex()
 	fmt.Println(txHash)
-	genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
+	genericutils.OpenBrowser("https://bscscan.com/tx/" + txHash)
 
-	tx, err := ethutils.CancelTransaction(ethBasedClient.Client, swapTx, ethBasedClient.PrivateKey)
-	errorsutil.HandleError(err)
+	/*
+		tx, err := ethutils.CancelTransaction(ethBasedClient.Client, swapTx, ethBasedClient.PrivateKey)
+		errorsutil.HandleError(err)
 
-	txHash = tx.Hash().Hex()
-	fmt.Println(txHash)
-	genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
-	os.Exit(0)
+		txHash = tx.Hash().Hex()
+		fmt.Println(txHash)
+		genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
+	*/
 }
 
 /*

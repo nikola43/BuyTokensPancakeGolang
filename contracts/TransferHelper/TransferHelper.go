@@ -26,124 +26,124 @@ var (
 	_ = event.NewSubscription
 )
 
-// PancakeABI is the input ABI used to generate the binding from.
-const PancakeABI = "[]"
+// TransferHelperABI is the input ABI used to generate the binding from.
+const TransferHelperABI = "[]"
 
-// PancakeBin is the compiled bytecode used for deploying new contracts.
-var PancakeBin = "0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212207f85ac0eaed49fca814d4d4094339934f89277f3c42bbc0227af69c7e7058b6f64736f6c63430006060033"
+// TransferHelperBin is the compiled bytecode used for deploying new contracts.
+var TransferHelperBin = "0x60566023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220b8d9d370ff69f63fbfa7871d86e4dd78f608fdd33767a5ccbb6cfbf5c5018ffb64736f6c63430006060033"
 
-// DeployPancake deploys a new Ethereum contract, binding an instance of Pancake to it.
-func DeployPancake(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *Pancake, error) {
-	parsed, err := abi.JSON(strings.NewReader(PancakeABI))
+// DeployTransferHelper deploys a new Ethereum contract, binding an instance of TransferHelper to it.
+func DeployTransferHelper(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *TransferHelper, error) {
+	parsed, err := abi.JSON(strings.NewReader(TransferHelperABI))
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
 
-	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(PancakeBin), backend)
+	address, tx, contract, err := bind.DeployContract(auth, parsed, common.FromHex(TransferHelperBin), backend)
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
-	return address, tx, &Pancake{PancakeCaller: PancakeCaller{contract: contract}, PancakeTransactor: PancakeTransactor{contract: contract}, PancakeFilterer: PancakeFilterer{contract: contract}}, nil
+	return address, tx, &TransferHelper{TransferHelperCaller: TransferHelperCaller{contract: contract}, TransferHelperTransactor: TransferHelperTransactor{contract: contract}, TransferHelperFilterer: TransferHelperFilterer{contract: contract}}, nil
 }
 
-// Pancake is an auto generated Go binding around an Ethereum contract.
-type Pancake struct {
-	PancakeCaller     // Read-only binding to the contract
-	PancakeTransactor // Write-only binding to the contract
-	PancakeFilterer   // Log filterer for contract events
+// TransferHelper is an auto generated Go binding around an Ethereum contract.
+type TransferHelper struct {
+	TransferHelperCaller     // Read-only binding to the contract
+	TransferHelperTransactor // Write-only binding to the contract
+	TransferHelperFilterer   // Log filterer for contract events
 }
 
-// PancakeCaller is an auto generated read-only Go binding around an Ethereum contract.
-type PancakeCaller struct {
+// TransferHelperCaller is an auto generated read-only Go binding around an Ethereum contract.
+type TransferHelperCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type PancakeTransactor struct {
+// TransferHelperTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type TransferHelperTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type PancakeFilterer struct {
+// TransferHelperFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type TransferHelperFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeSession is an auto generated Go binding around an Ethereum contract,
+// TransferHelperSession is an auto generated Go binding around an Ethereum contract,
 // with pre-set call and transact options.
-type PancakeSession struct {
-	Contract     *Pancake          // Generic contract binding to set the session for
+type TransferHelperSession struct {
+	Contract     *TransferHelper   // Generic contract binding to set the session for
 	CallOpts     bind.CallOpts     // Call options to use throughout this session
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// PancakeCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// TransferHelperCallerSession is an auto generated read-only Go binding around an Ethereum contract,
 // with pre-set call options.
-type PancakeCallerSession struct {
-	Contract *PancakeCaller // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts  // Call options to use throughout this session
+type TransferHelperCallerSession struct {
+	Contract *TransferHelperCaller // Generic contract caller binding to set the session for
+	CallOpts bind.CallOpts         // Call options to use throughout this session
 }
 
-// PancakeTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// TransferHelperTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
 // with pre-set transact options.
-type PancakeTransactorSession struct {
-	Contract     *PancakeTransactor // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts  // Transaction auth options to use throughout this session
+type TransferHelperTransactorSession struct {
+	Contract     *TransferHelperTransactor // Generic contract transactor binding to set the session for
+	TransactOpts bind.TransactOpts         // Transaction auth options to use throughout this session
 }
 
-// PancakeRaw is an auto generated low-level Go binding around an Ethereum contract.
-type PancakeRaw struct {
-	Contract *Pancake // Generic contract binding to access the raw methods on
+// TransferHelperRaw is an auto generated low-level Go binding around an Ethereum contract.
+type TransferHelperRaw struct {
+	Contract *TransferHelper // Generic contract binding to access the raw methods on
 }
 
-// PancakeCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type PancakeCallerRaw struct {
-	Contract *PancakeCaller // Generic read-only contract binding to access the raw methods on
+// TransferHelperCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type TransferHelperCallerRaw struct {
+	Contract *TransferHelperCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// PancakeTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type PancakeTransactorRaw struct {
-	Contract *PancakeTransactor // Generic write-only contract binding to access the raw methods on
+// TransferHelperTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type TransferHelperTransactorRaw struct {
+	Contract *TransferHelperTransactor // Generic write-only contract binding to access the raw methods on
 }
 
-// NewPancake creates a new instance of Pancake, bound to a specific deployed contract.
-func NewPancake(address common.Address, backend bind.ContractBackend) (*Pancake, error) {
-	contract, err := bindPancake(address, backend, backend, backend)
+// NewTransferHelper creates a new instance of TransferHelper, bound to a specific deployed contract.
+func NewTransferHelper(address common.Address, backend bind.ContractBackend) (*TransferHelper, error) {
+	contract, err := bindTransferHelper(address, backend, backend, backend)
 	if err != nil {
 		return nil, err
 	}
-	return &Pancake{PancakeCaller: PancakeCaller{contract: contract}, PancakeTransactor: PancakeTransactor{contract: contract}, PancakeFilterer: PancakeFilterer{contract: contract}}, nil
+	return &TransferHelper{TransferHelperCaller: TransferHelperCaller{contract: contract}, TransferHelperTransactor: TransferHelperTransactor{contract: contract}, TransferHelperFilterer: TransferHelperFilterer{contract: contract}}, nil
 }
 
-// NewPancakeCaller creates a new read-only instance of Pancake, bound to a specific deployed contract.
-func NewPancakeCaller(address common.Address, caller bind.ContractCaller) (*PancakeCaller, error) {
-	contract, err := bindPancake(address, caller, nil, nil)
+// NewTransferHelperCaller creates a new read-only instance of TransferHelper, bound to a specific deployed contract.
+func NewTransferHelperCaller(address common.Address, caller bind.ContractCaller) (*TransferHelperCaller, error) {
+	contract, err := bindTransferHelper(address, caller, nil, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeCaller{contract: contract}, nil
+	return &TransferHelperCaller{contract: contract}, nil
 }
 
-// NewPancakeTransactor creates a new write-only instance of Pancake, bound to a specific deployed contract.
-func NewPancakeTransactor(address common.Address, transactor bind.ContractTransactor) (*PancakeTransactor, error) {
-	contract, err := bindPancake(address, nil, transactor, nil)
+// NewTransferHelperTransactor creates a new write-only instance of TransferHelper, bound to a specific deployed contract.
+func NewTransferHelperTransactor(address common.Address, transactor bind.ContractTransactor) (*TransferHelperTransactor, error) {
+	contract, err := bindTransferHelper(address, nil, transactor, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeTransactor{contract: contract}, nil
+	return &TransferHelperTransactor{contract: contract}, nil
 }
 
-// NewPancakeFilterer creates a new log filterer instance of Pancake, bound to a specific deployed contract.
-func NewPancakeFilterer(address common.Address, filterer bind.ContractFilterer) (*PancakeFilterer, error) {
-	contract, err := bindPancake(address, nil, nil, filterer)
+// NewTransferHelperFilterer creates a new log filterer instance of TransferHelper, bound to a specific deployed contract.
+func NewTransferHelperFilterer(address common.Address, filterer bind.ContractFilterer) (*TransferHelperFilterer, error) {
+	contract, err := bindTransferHelper(address, nil, nil, filterer)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeFilterer{contract: contract}, nil
+	return &TransferHelperFilterer{contract: contract}, nil
 }
 
-// bindPancake binds a generic wrapper to an already deployed contract.
-func bindPancake(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(PancakeABI))
+// bindTransferHelper binds a generic wrapper to an already deployed contract.
+func bindTransferHelper(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := abi.JSON(strings.NewReader(TransferHelperABI))
 	if err != nil {
 		return nil, err
 	}
@@ -154,36 +154,36 @@ func bindPancake(address common.Address, caller bind.ContractCaller, transactor 
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Pancake *PancakeRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Pancake.Contract.PancakeCaller.contract.Call(opts, result, method, params...)
+func (_TransferHelper *TransferHelperRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _TransferHelper.Contract.TransferHelperCaller.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pancake *PancakeRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Pancake.Contract.PancakeTransactor.contract.Transfer(opts)
+func (_TransferHelper *TransferHelperRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _TransferHelper.Contract.TransferHelperTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pancake *PancakeRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Pancake.Contract.PancakeTransactor.contract.Transact(opts, method, params...)
+func (_TransferHelper *TransferHelperRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _TransferHelper.Contract.TransferHelperTransactor.contract.Transact(opts, method, params...)
 }
 
 // Call invokes the (constant) contract method with params as input values and
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Pancake *PancakeCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Pancake.Contract.contract.Call(opts, result, method, params...)
+func (_TransferHelper *TransferHelperCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _TransferHelper.Contract.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pancake *PancakeTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Pancake.Contract.contract.Transfer(opts)
+func (_TransferHelper *TransferHelperTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _TransferHelper.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pancake *PancakeTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Pancake.Contract.contract.Transact(opts, method, params...)
+func (_TransferHelper *TransferHelperTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _TransferHelper.Contract.contract.Transact(opts, method, params...)
 }

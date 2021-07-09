@@ -26,107 +26,107 @@ var (
 	_ = event.NewSubscription
 )
 
-// PancakeABI is the input ABI used to generate the binding from.
-const PancakeABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token0\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token1\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"pair\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"PairCreated\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allPairs\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"pair\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allPairsLength\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenB\",\"type\":\"address\"}],\"name\":\"createPair\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"pair\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feeTo\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feeToSetter\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenB\",\"type\":\"address\"}],\"name\":\"getPair\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"pair\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"setFeeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"setFeeToSetter\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+// IPancakeFactoryABI is the input ABI used to generate the binding from.
+const IPancakeFactoryABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token0\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token1\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"pair\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"PairCreated\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"INIT_CODE_PAIR_HASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allPairs\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"pair\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allPairsLength\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenB\",\"type\":\"address\"}],\"name\":\"createPair\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"pair\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feeTo\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feeToSetter\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"tokenA\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"tokenB\",\"type\":\"address\"}],\"name\":\"getPair\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"pair\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"setFeeTo\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"setFeeToSetter\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
-// Pancake is an auto generated Go binding around an Ethereum contract.
-type Pancake struct {
-	PancakeCaller     // Read-only binding to the contract
-	PancakeTransactor // Write-only binding to the contract
-	PancakeFilterer   // Log filterer for contract events
+// IPancakeFactory is an auto generated Go binding around an Ethereum contract.
+type IPancakeFactory struct {
+	IPancakeFactoryCaller     // Read-only binding to the contract
+	IPancakeFactoryTransactor // Write-only binding to the contract
+	IPancakeFactoryFilterer   // Log filterer for contract events
 }
 
-// PancakeCaller is an auto generated read-only Go binding around an Ethereum contract.
-type PancakeCaller struct {
+// IPancakeFactoryCaller is an auto generated read-only Go binding around an Ethereum contract.
+type IPancakeFactoryCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type PancakeTransactor struct {
+// IPancakeFactoryTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type IPancakeFactoryTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type PancakeFilterer struct {
+// IPancakeFactoryFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type IPancakeFactoryFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeSession is an auto generated Go binding around an Ethereum contract,
+// IPancakeFactorySession is an auto generated Go binding around an Ethereum contract,
 // with pre-set call and transact options.
-type PancakeSession struct {
-	Contract     *Pancake          // Generic contract binding to set the session for
+type IPancakeFactorySession struct {
+	Contract     *IPancakeFactory  // Generic contract binding to set the session for
 	CallOpts     bind.CallOpts     // Call options to use throughout this session
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// PancakeCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// IPancakeFactoryCallerSession is an auto generated read-only Go binding around an Ethereum contract,
 // with pre-set call options.
-type PancakeCallerSession struct {
-	Contract *PancakeCaller // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts  // Call options to use throughout this session
+type IPancakeFactoryCallerSession struct {
+	Contract *IPancakeFactoryCaller // Generic contract caller binding to set the session for
+	CallOpts bind.CallOpts          // Call options to use throughout this session
 }
 
-// PancakeTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// IPancakeFactoryTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
 // with pre-set transact options.
-type PancakeTransactorSession struct {
-	Contract     *PancakeTransactor // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts  // Transaction auth options to use throughout this session
+type IPancakeFactoryTransactorSession struct {
+	Contract     *IPancakeFactoryTransactor // Generic contract transactor binding to set the session for
+	TransactOpts bind.TransactOpts          // Transaction auth options to use throughout this session
 }
 
-// PancakeRaw is an auto generated low-level Go binding around an Ethereum contract.
-type PancakeRaw struct {
-	Contract *Pancake // Generic contract binding to access the raw methods on
+// IPancakeFactoryRaw is an auto generated low-level Go binding around an Ethereum contract.
+type IPancakeFactoryRaw struct {
+	Contract *IPancakeFactory // Generic contract binding to access the raw methods on
 }
 
-// PancakeCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type PancakeCallerRaw struct {
-	Contract *PancakeCaller // Generic read-only contract binding to access the raw methods on
+// IPancakeFactoryCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type IPancakeFactoryCallerRaw struct {
+	Contract *IPancakeFactoryCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// PancakeTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type PancakeTransactorRaw struct {
-	Contract *PancakeTransactor // Generic write-only contract binding to access the raw methods on
+// IPancakeFactoryTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type IPancakeFactoryTransactorRaw struct {
+	Contract *IPancakeFactoryTransactor // Generic write-only contract binding to access the raw methods on
 }
 
-// NewPancake creates a new instance of Pancake, bound to a specific deployed contract.
-func NewPancake(address common.Address, backend bind.ContractBackend) (*Pancake, error) {
-	contract, err := bindPancake(address, backend, backend, backend)
+// NewIPancakeFactory creates a new instance of IPancakeFactory, bound to a specific deployed contract.
+func NewIPancakeFactory(address common.Address, backend bind.ContractBackend) (*IPancakeFactory, error) {
+	contract, err := bindIPancakeFactory(address, backend, backend, backend)
 	if err != nil {
 		return nil, err
 	}
-	return &Pancake{PancakeCaller: PancakeCaller{contract: contract}, PancakeTransactor: PancakeTransactor{contract: contract}, PancakeFilterer: PancakeFilterer{contract: contract}}, nil
+	return &IPancakeFactory{IPancakeFactoryCaller: IPancakeFactoryCaller{contract: contract}, IPancakeFactoryTransactor: IPancakeFactoryTransactor{contract: contract}, IPancakeFactoryFilterer: IPancakeFactoryFilterer{contract: contract}}, nil
 }
 
-// NewPancakeCaller creates a new read-only instance of Pancake, bound to a specific deployed contract.
-func NewPancakeCaller(address common.Address, caller bind.ContractCaller) (*PancakeCaller, error) {
-	contract, err := bindPancake(address, caller, nil, nil)
+// NewIPancakeFactoryCaller creates a new read-only instance of IPancakeFactory, bound to a specific deployed contract.
+func NewIPancakeFactoryCaller(address common.Address, caller bind.ContractCaller) (*IPancakeFactoryCaller, error) {
+	contract, err := bindIPancakeFactory(address, caller, nil, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeCaller{contract: contract}, nil
+	return &IPancakeFactoryCaller{contract: contract}, nil
 }
 
-// NewPancakeTransactor creates a new write-only instance of Pancake, bound to a specific deployed contract.
-func NewPancakeTransactor(address common.Address, transactor bind.ContractTransactor) (*PancakeTransactor, error) {
-	contract, err := bindPancake(address, nil, transactor, nil)
+// NewIPancakeFactoryTransactor creates a new write-only instance of IPancakeFactory, bound to a specific deployed contract.
+func NewIPancakeFactoryTransactor(address common.Address, transactor bind.ContractTransactor) (*IPancakeFactoryTransactor, error) {
+	contract, err := bindIPancakeFactory(address, nil, transactor, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeTransactor{contract: contract}, nil
+	return &IPancakeFactoryTransactor{contract: contract}, nil
 }
 
-// NewPancakeFilterer creates a new log filterer instance of Pancake, bound to a specific deployed contract.
-func NewPancakeFilterer(address common.Address, filterer bind.ContractFilterer) (*PancakeFilterer, error) {
-	contract, err := bindPancake(address, nil, nil, filterer)
+// NewIPancakeFactoryFilterer creates a new log filterer instance of IPancakeFactory, bound to a specific deployed contract.
+func NewIPancakeFactoryFilterer(address common.Address, filterer bind.ContractFilterer) (*IPancakeFactoryFilterer, error) {
+	contract, err := bindIPancakeFactory(address, nil, nil, filterer)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeFilterer{contract: contract}, nil
+	return &IPancakeFactoryFilterer{contract: contract}, nil
 }
 
-// bindPancake binds a generic wrapper to an already deployed contract.
-func bindPancake(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(PancakeABI))
+// bindIPancakeFactory binds a generic wrapper to an already deployed contract.
+func bindIPancakeFactory(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := abi.JSON(strings.NewReader(IPancakeFactoryABI))
 	if err != nil {
 		return nil, err
 	}
@@ -137,46 +137,77 @@ func bindPancake(address common.Address, caller bind.ContractCaller, transactor 
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Pancake *PancakeRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Pancake.Contract.PancakeCaller.contract.Call(opts, result, method, params...)
+func (_IPancakeFactory *IPancakeFactoryRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _IPancakeFactory.Contract.IPancakeFactoryCaller.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pancake *PancakeRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Pancake.Contract.PancakeTransactor.contract.Transfer(opts)
+func (_IPancakeFactory *IPancakeFactoryRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.IPancakeFactoryTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pancake *PancakeRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Pancake.Contract.PancakeTransactor.contract.Transact(opts, method, params...)
+func (_IPancakeFactory *IPancakeFactoryRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.IPancakeFactoryTransactor.contract.Transact(opts, method, params...)
 }
 
 // Call invokes the (constant) contract method with params as input values and
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Pancake *PancakeCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Pancake.Contract.contract.Call(opts, result, method, params...)
+func (_IPancakeFactory *IPancakeFactoryCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _IPancakeFactory.Contract.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pancake *PancakeTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Pancake.Contract.contract.Transfer(opts)
+func (_IPancakeFactory *IPancakeFactoryTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pancake *PancakeTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Pancake.Contract.contract.Transact(opts, method, params...)
+func (_IPancakeFactory *IPancakeFactoryTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.contract.Transact(opts, method, params...)
+}
+
+// INITCODEPAIRHASH is a free data retrieval call binding the contract method 0x5855a25a.
+//
+// Solidity: function INIT_CODE_PAIR_HASH() view returns(bytes32)
+func (_IPancakeFactory *IPancakeFactoryCaller) INITCODEPAIRHASH(opts *bind.CallOpts) ([32]byte, error) {
+	var out []interface{}
+	err := _IPancakeFactory.contract.Call(opts, &out, "INIT_CODE_PAIR_HASH")
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// INITCODEPAIRHASH is a free data retrieval call binding the contract method 0x5855a25a.
+//
+// Solidity: function INIT_CODE_PAIR_HASH() view returns(bytes32)
+func (_IPancakeFactory *IPancakeFactorySession) INITCODEPAIRHASH() ([32]byte, error) {
+	return _IPancakeFactory.Contract.INITCODEPAIRHASH(&_IPancakeFactory.CallOpts)
+}
+
+// INITCODEPAIRHASH is a free data retrieval call binding the contract method 0x5855a25a.
+//
+// Solidity: function INIT_CODE_PAIR_HASH() view returns(bytes32)
+func (_IPancakeFactory *IPancakeFactoryCallerSession) INITCODEPAIRHASH() ([32]byte, error) {
+	return _IPancakeFactory.Contract.INITCODEPAIRHASH(&_IPancakeFactory.CallOpts)
 }
 
 // AllPairs is a free data retrieval call binding the contract method 0x1e3dd18b.
 //
 // Solidity: function allPairs(uint256 ) view returns(address pair)
-func (_Pancake *PancakeCaller) AllPairs(opts *bind.CallOpts, arg0 *big.Int) (common.Address, error) {
+func (_IPancakeFactory *IPancakeFactoryCaller) AllPairs(opts *bind.CallOpts, arg0 *big.Int) (common.Address, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "allPairs", arg0)
+	err := _IPancakeFactory.contract.Call(opts, &out, "allPairs", arg0)
 
 	if err != nil {
 		return *new(common.Address), err
@@ -191,23 +222,23 @@ func (_Pancake *PancakeCaller) AllPairs(opts *bind.CallOpts, arg0 *big.Int) (com
 // AllPairs is a free data retrieval call binding the contract method 0x1e3dd18b.
 //
 // Solidity: function allPairs(uint256 ) view returns(address pair)
-func (_Pancake *PancakeSession) AllPairs(arg0 *big.Int) (common.Address, error) {
-	return _Pancake.Contract.AllPairs(&_Pancake.CallOpts, arg0)
+func (_IPancakeFactory *IPancakeFactorySession) AllPairs(arg0 *big.Int) (common.Address, error) {
+	return _IPancakeFactory.Contract.AllPairs(&_IPancakeFactory.CallOpts, arg0)
 }
 
 // AllPairs is a free data retrieval call binding the contract method 0x1e3dd18b.
 //
 // Solidity: function allPairs(uint256 ) view returns(address pair)
-func (_Pancake *PancakeCallerSession) AllPairs(arg0 *big.Int) (common.Address, error) {
-	return _Pancake.Contract.AllPairs(&_Pancake.CallOpts, arg0)
+func (_IPancakeFactory *IPancakeFactoryCallerSession) AllPairs(arg0 *big.Int) (common.Address, error) {
+	return _IPancakeFactory.Contract.AllPairs(&_IPancakeFactory.CallOpts, arg0)
 }
 
 // AllPairsLength is a free data retrieval call binding the contract method 0x574f2ba3.
 //
 // Solidity: function allPairsLength() view returns(uint256)
-func (_Pancake *PancakeCaller) AllPairsLength(opts *bind.CallOpts) (*big.Int, error) {
+func (_IPancakeFactory *IPancakeFactoryCaller) AllPairsLength(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "allPairsLength")
+	err := _IPancakeFactory.contract.Call(opts, &out, "allPairsLength")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -222,23 +253,23 @@ func (_Pancake *PancakeCaller) AllPairsLength(opts *bind.CallOpts) (*big.Int, er
 // AllPairsLength is a free data retrieval call binding the contract method 0x574f2ba3.
 //
 // Solidity: function allPairsLength() view returns(uint256)
-func (_Pancake *PancakeSession) AllPairsLength() (*big.Int, error) {
-	return _Pancake.Contract.AllPairsLength(&_Pancake.CallOpts)
+func (_IPancakeFactory *IPancakeFactorySession) AllPairsLength() (*big.Int, error) {
+	return _IPancakeFactory.Contract.AllPairsLength(&_IPancakeFactory.CallOpts)
 }
 
 // AllPairsLength is a free data retrieval call binding the contract method 0x574f2ba3.
 //
 // Solidity: function allPairsLength() view returns(uint256)
-func (_Pancake *PancakeCallerSession) AllPairsLength() (*big.Int, error) {
-	return _Pancake.Contract.AllPairsLength(&_Pancake.CallOpts)
+func (_IPancakeFactory *IPancakeFactoryCallerSession) AllPairsLength() (*big.Int, error) {
+	return _IPancakeFactory.Contract.AllPairsLength(&_IPancakeFactory.CallOpts)
 }
 
 // FeeTo is a free data retrieval call binding the contract method 0x017e7e58.
 //
 // Solidity: function feeTo() view returns(address)
-func (_Pancake *PancakeCaller) FeeTo(opts *bind.CallOpts) (common.Address, error) {
+func (_IPancakeFactory *IPancakeFactoryCaller) FeeTo(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "feeTo")
+	err := _IPancakeFactory.contract.Call(opts, &out, "feeTo")
 
 	if err != nil {
 		return *new(common.Address), err
@@ -253,23 +284,23 @@ func (_Pancake *PancakeCaller) FeeTo(opts *bind.CallOpts) (common.Address, error
 // FeeTo is a free data retrieval call binding the contract method 0x017e7e58.
 //
 // Solidity: function feeTo() view returns(address)
-func (_Pancake *PancakeSession) FeeTo() (common.Address, error) {
-	return _Pancake.Contract.FeeTo(&_Pancake.CallOpts)
+func (_IPancakeFactory *IPancakeFactorySession) FeeTo() (common.Address, error) {
+	return _IPancakeFactory.Contract.FeeTo(&_IPancakeFactory.CallOpts)
 }
 
 // FeeTo is a free data retrieval call binding the contract method 0x017e7e58.
 //
 // Solidity: function feeTo() view returns(address)
-func (_Pancake *PancakeCallerSession) FeeTo() (common.Address, error) {
-	return _Pancake.Contract.FeeTo(&_Pancake.CallOpts)
+func (_IPancakeFactory *IPancakeFactoryCallerSession) FeeTo() (common.Address, error) {
+	return _IPancakeFactory.Contract.FeeTo(&_IPancakeFactory.CallOpts)
 }
 
 // FeeToSetter is a free data retrieval call binding the contract method 0x094b7415.
 //
 // Solidity: function feeToSetter() view returns(address)
-func (_Pancake *PancakeCaller) FeeToSetter(opts *bind.CallOpts) (common.Address, error) {
+func (_IPancakeFactory *IPancakeFactoryCaller) FeeToSetter(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "feeToSetter")
+	err := _IPancakeFactory.contract.Call(opts, &out, "feeToSetter")
 
 	if err != nil {
 		return *new(common.Address), err
@@ -284,23 +315,23 @@ func (_Pancake *PancakeCaller) FeeToSetter(opts *bind.CallOpts) (common.Address,
 // FeeToSetter is a free data retrieval call binding the contract method 0x094b7415.
 //
 // Solidity: function feeToSetter() view returns(address)
-func (_Pancake *PancakeSession) FeeToSetter() (common.Address, error) {
-	return _Pancake.Contract.FeeToSetter(&_Pancake.CallOpts)
+func (_IPancakeFactory *IPancakeFactorySession) FeeToSetter() (common.Address, error) {
+	return _IPancakeFactory.Contract.FeeToSetter(&_IPancakeFactory.CallOpts)
 }
 
 // FeeToSetter is a free data retrieval call binding the contract method 0x094b7415.
 //
 // Solidity: function feeToSetter() view returns(address)
-func (_Pancake *PancakeCallerSession) FeeToSetter() (common.Address, error) {
-	return _Pancake.Contract.FeeToSetter(&_Pancake.CallOpts)
+func (_IPancakeFactory *IPancakeFactoryCallerSession) FeeToSetter() (common.Address, error) {
+	return _IPancakeFactory.Contract.FeeToSetter(&_IPancakeFactory.CallOpts)
 }
 
 // GetPair is a free data retrieval call binding the contract method 0xe6a43905.
 //
 // Solidity: function getPair(address tokenA, address tokenB) view returns(address pair)
-func (_Pancake *PancakeCaller) GetPair(opts *bind.CallOpts, tokenA common.Address, tokenB common.Address) (common.Address, error) {
+func (_IPancakeFactory *IPancakeFactoryCaller) GetPair(opts *bind.CallOpts, tokenA common.Address, tokenB common.Address) (common.Address, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "getPair", tokenA, tokenB)
+	err := _IPancakeFactory.contract.Call(opts, &out, "getPair", tokenA, tokenB)
 
 	if err != nil {
 		return *new(common.Address), err
@@ -315,83 +346,83 @@ func (_Pancake *PancakeCaller) GetPair(opts *bind.CallOpts, tokenA common.Addres
 // GetPair is a free data retrieval call binding the contract method 0xe6a43905.
 //
 // Solidity: function getPair(address tokenA, address tokenB) view returns(address pair)
-func (_Pancake *PancakeSession) GetPair(tokenA common.Address, tokenB common.Address) (common.Address, error) {
-	return _Pancake.Contract.GetPair(&_Pancake.CallOpts, tokenA, tokenB)
+func (_IPancakeFactory *IPancakeFactorySession) GetPair(tokenA common.Address, tokenB common.Address) (common.Address, error) {
+	return _IPancakeFactory.Contract.GetPair(&_IPancakeFactory.CallOpts, tokenA, tokenB)
 }
 
 // GetPair is a free data retrieval call binding the contract method 0xe6a43905.
 //
 // Solidity: function getPair(address tokenA, address tokenB) view returns(address pair)
-func (_Pancake *PancakeCallerSession) GetPair(tokenA common.Address, tokenB common.Address) (common.Address, error) {
-	return _Pancake.Contract.GetPair(&_Pancake.CallOpts, tokenA, tokenB)
+func (_IPancakeFactory *IPancakeFactoryCallerSession) GetPair(tokenA common.Address, tokenB common.Address) (common.Address, error) {
+	return _IPancakeFactory.Contract.GetPair(&_IPancakeFactory.CallOpts, tokenA, tokenB)
 }
 
 // CreatePair is a paid mutator transaction binding the contract method 0xc9c65396.
 //
 // Solidity: function createPair(address tokenA, address tokenB) returns(address pair)
-func (_Pancake *PancakeTransactor) CreatePair(opts *bind.TransactOpts, tokenA common.Address, tokenB common.Address) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "createPair", tokenA, tokenB)
+func (_IPancakeFactory *IPancakeFactoryTransactor) CreatePair(opts *bind.TransactOpts, tokenA common.Address, tokenB common.Address) (*types.Transaction, error) {
+	return _IPancakeFactory.contract.Transact(opts, "createPair", tokenA, tokenB)
 }
 
 // CreatePair is a paid mutator transaction binding the contract method 0xc9c65396.
 //
 // Solidity: function createPair(address tokenA, address tokenB) returns(address pair)
-func (_Pancake *PancakeSession) CreatePair(tokenA common.Address, tokenB common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.CreatePair(&_Pancake.TransactOpts, tokenA, tokenB)
+func (_IPancakeFactory *IPancakeFactorySession) CreatePair(tokenA common.Address, tokenB common.Address) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.CreatePair(&_IPancakeFactory.TransactOpts, tokenA, tokenB)
 }
 
 // CreatePair is a paid mutator transaction binding the contract method 0xc9c65396.
 //
 // Solidity: function createPair(address tokenA, address tokenB) returns(address pair)
-func (_Pancake *PancakeTransactorSession) CreatePair(tokenA common.Address, tokenB common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.CreatePair(&_Pancake.TransactOpts, tokenA, tokenB)
+func (_IPancakeFactory *IPancakeFactoryTransactorSession) CreatePair(tokenA common.Address, tokenB common.Address) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.CreatePair(&_IPancakeFactory.TransactOpts, tokenA, tokenB)
 }
 
 // SetFeeTo is a paid mutator transaction binding the contract method 0xf46901ed.
 //
 // Solidity: function setFeeTo(address ) returns()
-func (_Pancake *PancakeTransactor) SetFeeTo(opts *bind.TransactOpts, arg0 common.Address) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "setFeeTo", arg0)
+func (_IPancakeFactory *IPancakeFactoryTransactor) SetFeeTo(opts *bind.TransactOpts, arg0 common.Address) (*types.Transaction, error) {
+	return _IPancakeFactory.contract.Transact(opts, "setFeeTo", arg0)
 }
 
 // SetFeeTo is a paid mutator transaction binding the contract method 0xf46901ed.
 //
 // Solidity: function setFeeTo(address ) returns()
-func (_Pancake *PancakeSession) SetFeeTo(arg0 common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.SetFeeTo(&_Pancake.TransactOpts, arg0)
+func (_IPancakeFactory *IPancakeFactorySession) SetFeeTo(arg0 common.Address) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.SetFeeTo(&_IPancakeFactory.TransactOpts, arg0)
 }
 
 // SetFeeTo is a paid mutator transaction binding the contract method 0xf46901ed.
 //
 // Solidity: function setFeeTo(address ) returns()
-func (_Pancake *PancakeTransactorSession) SetFeeTo(arg0 common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.SetFeeTo(&_Pancake.TransactOpts, arg0)
+func (_IPancakeFactory *IPancakeFactoryTransactorSession) SetFeeTo(arg0 common.Address) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.SetFeeTo(&_IPancakeFactory.TransactOpts, arg0)
 }
 
 // SetFeeToSetter is a paid mutator transaction binding the contract method 0xa2e74af6.
 //
 // Solidity: function setFeeToSetter(address ) returns()
-func (_Pancake *PancakeTransactor) SetFeeToSetter(opts *bind.TransactOpts, arg0 common.Address) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "setFeeToSetter", arg0)
+func (_IPancakeFactory *IPancakeFactoryTransactor) SetFeeToSetter(opts *bind.TransactOpts, arg0 common.Address) (*types.Transaction, error) {
+	return _IPancakeFactory.contract.Transact(opts, "setFeeToSetter", arg0)
 }
 
 // SetFeeToSetter is a paid mutator transaction binding the contract method 0xa2e74af6.
 //
 // Solidity: function setFeeToSetter(address ) returns()
-func (_Pancake *PancakeSession) SetFeeToSetter(arg0 common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.SetFeeToSetter(&_Pancake.TransactOpts, arg0)
+func (_IPancakeFactory *IPancakeFactorySession) SetFeeToSetter(arg0 common.Address) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.SetFeeToSetter(&_IPancakeFactory.TransactOpts, arg0)
 }
 
 // SetFeeToSetter is a paid mutator transaction binding the contract method 0xa2e74af6.
 //
 // Solidity: function setFeeToSetter(address ) returns()
-func (_Pancake *PancakeTransactorSession) SetFeeToSetter(arg0 common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.SetFeeToSetter(&_Pancake.TransactOpts, arg0)
+func (_IPancakeFactory *IPancakeFactoryTransactorSession) SetFeeToSetter(arg0 common.Address) (*types.Transaction, error) {
+	return _IPancakeFactory.Contract.SetFeeToSetter(&_IPancakeFactory.TransactOpts, arg0)
 }
 
-// PancakePairCreatedIterator is returned from FilterPairCreated and is used to iterate over the raw logs and unpacked data for PairCreated events raised by the Pancake contract.
-type PancakePairCreatedIterator struct {
-	Event *PancakePairCreated // Event containing the contract specifics and raw log
+// IPancakeFactoryPairCreatedIterator is returned from FilterPairCreated and is used to iterate over the raw logs and unpacked data for PairCreated events raised by the IPancakeFactory contract.
+type IPancakeFactoryPairCreatedIterator struct {
+	Event *IPancakeFactoryPairCreated // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -405,7 +436,7 @@ type PancakePairCreatedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *PancakePairCreatedIterator) Next() bool {
+func (it *IPancakeFactoryPairCreatedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -414,7 +445,7 @@ func (it *PancakePairCreatedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(PancakePairCreated)
+			it.Event = new(IPancakeFactoryPairCreated)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -429,7 +460,7 @@ func (it *PancakePairCreatedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(PancakePairCreated)
+		it.Event = new(IPancakeFactoryPairCreated)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -445,19 +476,19 @@ func (it *PancakePairCreatedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *PancakePairCreatedIterator) Error() error {
+func (it *IPancakeFactoryPairCreatedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *PancakePairCreatedIterator) Close() error {
+func (it *IPancakeFactoryPairCreatedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// PancakePairCreated represents a PairCreated event raised by the Pancake contract.
-type PancakePairCreated struct {
+// IPancakeFactoryPairCreated represents a PairCreated event raised by the IPancakeFactory contract.
+type IPancakeFactoryPairCreated struct {
 	Token0 common.Address
 	Token1 common.Address
 	Pair   common.Address
@@ -468,7 +499,7 @@ type PancakePairCreated struct {
 // FilterPairCreated is a free log retrieval operation binding the contract event 0x0d3648bd0f6ba80134a33ba9275ac585d9d315f0ad8355cddefde31afa28d0e9.
 //
 // Solidity: event PairCreated(address indexed token0, address indexed token1, address pair, uint256 arg3)
-func (_Pancake *PancakeFilterer) FilterPairCreated(opts *bind.FilterOpts, token0 []common.Address, token1 []common.Address) (*PancakePairCreatedIterator, error) {
+func (_IPancakeFactory *IPancakeFactoryFilterer) FilterPairCreated(opts *bind.FilterOpts, token0 []common.Address, token1 []common.Address) (*IPancakeFactoryPairCreatedIterator, error) {
 
 	var token0Rule []interface{}
 	for _, token0Item := range token0 {
@@ -479,17 +510,17 @@ func (_Pancake *PancakeFilterer) FilterPairCreated(opts *bind.FilterOpts, token0
 		token1Rule = append(token1Rule, token1Item)
 	}
 
-	logs, sub, err := _Pancake.contract.FilterLogs(opts, "PairCreated", token0Rule, token1Rule)
+	logs, sub, err := _IPancakeFactory.contract.FilterLogs(opts, "PairCreated", token0Rule, token1Rule)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakePairCreatedIterator{contract: _Pancake.contract, event: "PairCreated", logs: logs, sub: sub}, nil
+	return &IPancakeFactoryPairCreatedIterator{contract: _IPancakeFactory.contract, event: "PairCreated", logs: logs, sub: sub}, nil
 }
 
 // WatchPairCreated is a free log subscription operation binding the contract event 0x0d3648bd0f6ba80134a33ba9275ac585d9d315f0ad8355cddefde31afa28d0e9.
 //
 // Solidity: event PairCreated(address indexed token0, address indexed token1, address pair, uint256 arg3)
-func (_Pancake *PancakeFilterer) WatchPairCreated(opts *bind.WatchOpts, sink chan<- *PancakePairCreated, token0 []common.Address, token1 []common.Address) (event.Subscription, error) {
+func (_IPancakeFactory *IPancakeFactoryFilterer) WatchPairCreated(opts *bind.WatchOpts, sink chan<- *IPancakeFactoryPairCreated, token0 []common.Address, token1 []common.Address) (event.Subscription, error) {
 
 	var token0Rule []interface{}
 	for _, token0Item := range token0 {
@@ -500,7 +531,7 @@ func (_Pancake *PancakeFilterer) WatchPairCreated(opts *bind.WatchOpts, sink cha
 		token1Rule = append(token1Rule, token1Item)
 	}
 
-	logs, sub, err := _Pancake.contract.WatchLogs(opts, "PairCreated", token0Rule, token1Rule)
+	logs, sub, err := _IPancakeFactory.contract.WatchLogs(opts, "PairCreated", token0Rule, token1Rule)
 	if err != nil {
 		return nil, err
 	}
@@ -510,8 +541,8 @@ func (_Pancake *PancakeFilterer) WatchPairCreated(opts *bind.WatchOpts, sink cha
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(PancakePairCreated)
-				if err := _Pancake.contract.UnpackLog(event, "PairCreated", log); err != nil {
+				event := new(IPancakeFactoryPairCreated)
+				if err := _IPancakeFactory.contract.UnpackLog(event, "PairCreated", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -535,9 +566,9 @@ func (_Pancake *PancakeFilterer) WatchPairCreated(opts *bind.WatchOpts, sink cha
 // ParsePairCreated is a log parse operation binding the contract event 0x0d3648bd0f6ba80134a33ba9275ac585d9d315f0ad8355cddefde31afa28d0e9.
 //
 // Solidity: event PairCreated(address indexed token0, address indexed token1, address pair, uint256 arg3)
-func (_Pancake *PancakeFilterer) ParsePairCreated(log types.Log) (*PancakePairCreated, error) {
-	event := new(PancakePairCreated)
-	if err := _Pancake.contract.UnpackLog(event, "PairCreated", log); err != nil {
+func (_IPancakeFactory *IPancakeFactoryFilterer) ParsePairCreated(log types.Log) (*IPancakeFactoryPairCreated, error) {
+	event := new(IPancakeFactoryPairCreated)
+	if err := _IPancakeFactory.contract.UnpackLog(event, "PairCreated", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

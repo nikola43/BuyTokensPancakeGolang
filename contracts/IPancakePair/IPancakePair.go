@@ -26,107 +26,107 @@ var (
 	_ = event.NewSubscription
 )
 
-// PancakeABI is the input ABI used to generate the binding from.
-const PancakeABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount0\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount1\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"Burn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount0\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount1\",\"type\":\"uint256\"}],\"name\":\"Mint\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount0In\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount1In\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount0Out\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount1Out\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"Swap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint112\",\"name\":\"reserve0\",\"type\":\"uint112\"},{\"indexed\":false,\"internalType\":\"uint112\",\"name\":\"reserve1\",\"type\":\"uint112\"}],\"name\":\"Sync\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DOMAIN_SEPARATOR\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MINIMUM_LIQUIDITY\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"PERMIT_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"burn\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"amount0\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount1\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"factory\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getReserves\",\"outputs\":[{\"internalType\":\"uint112\",\"name\":\"reserve0\",\"type\":\"uint112\"},{\"internalType\":\"uint112\",\"name\":\"reserve1\",\"type\":\"uint112\"},{\"internalType\":\"uint32\",\"name\":\"blockTimestampLast\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"kLast\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"liquidity\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"permit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price0CumulativeLast\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price1CumulativeLast\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"skim\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount0Out\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount1Out\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"swap\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"sync\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token0\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token1\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+// IPancakePairABI is the input ABI used to generate the binding from.
+const IPancakePairABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount0\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount1\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"Burn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount0\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount1\",\"type\":\"uint256\"}],\"name\":\"Mint\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount0In\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount1In\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount0Out\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount1Out\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"Swap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint112\",\"name\":\"reserve0\",\"type\":\"uint112\"},{\"indexed\":false,\"internalType\":\"uint112\",\"name\":\"reserve1\",\"type\":\"uint112\"}],\"name\":\"Sync\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DOMAIN_SEPARATOR\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MINIMUM_LIQUIDITY\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"PERMIT_TYPEHASH\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"burn\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"amount0\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount1\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"factory\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getReserves\",\"outputs\":[{\"internalType\":\"uint112\",\"name\":\"reserve0\",\"type\":\"uint112\"},{\"internalType\":\"uint112\",\"name\":\"reserve1\",\"type\":\"uint112\"},{\"internalType\":\"uint32\",\"name\":\"blockTimestampLast\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"kLast\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"liquidity\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"nonces\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"v\",\"type\":\"uint8\"},{\"internalType\":\"bytes32\",\"name\":\"r\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"s\",\"type\":\"bytes32\"}],\"name\":\"permit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price0CumulativeLast\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"price1CumulativeLast\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"skim\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount0Out\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"amount1Out\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"swap\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"sync\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token0\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token1\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
-// Pancake is an auto generated Go binding around an Ethereum contract.
-type Pancake struct {
-	PancakeCaller     // Read-only binding to the contract
-	PancakeTransactor // Write-only binding to the contract
-	PancakeFilterer   // Log filterer for contract events
+// IPancakePair is an auto generated Go binding around an Ethereum contract.
+type IPancakePair struct {
+	IPancakePairCaller     // Read-only binding to the contract
+	IPancakePairTransactor // Write-only binding to the contract
+	IPancakePairFilterer   // Log filterer for contract events
 }
 
-// PancakeCaller is an auto generated read-only Go binding around an Ethereum contract.
-type PancakeCaller struct {
+// IPancakePairCaller is an auto generated read-only Go binding around an Ethereum contract.
+type IPancakePairCaller struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeTransactor is an auto generated write-only Go binding around an Ethereum contract.
-type PancakeTransactor struct {
+// IPancakePairTransactor is an auto generated write-only Go binding around an Ethereum contract.
+type IPancakePairTransactor struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
-type PancakeFilterer struct {
+// IPancakePairFilterer is an auto generated log filtering Go binding around an Ethereum contract events.
+type IPancakePairFilterer struct {
 	contract *bind.BoundContract // Generic contract wrapper for the low level calls
 }
 
-// PancakeSession is an auto generated Go binding around an Ethereum contract,
+// IPancakePairSession is an auto generated Go binding around an Ethereum contract,
 // with pre-set call and transact options.
-type PancakeSession struct {
-	Contract     *Pancake          // Generic contract binding to set the session for
+type IPancakePairSession struct {
+	Contract     *IPancakePair     // Generic contract binding to set the session for
 	CallOpts     bind.CallOpts     // Call options to use throughout this session
 	TransactOpts bind.TransactOpts // Transaction auth options to use throughout this session
 }
 
-// PancakeCallerSession is an auto generated read-only Go binding around an Ethereum contract,
+// IPancakePairCallerSession is an auto generated read-only Go binding around an Ethereum contract,
 // with pre-set call options.
-type PancakeCallerSession struct {
-	Contract *PancakeCaller // Generic contract caller binding to set the session for
-	CallOpts bind.CallOpts  // Call options to use throughout this session
+type IPancakePairCallerSession struct {
+	Contract *IPancakePairCaller // Generic contract caller binding to set the session for
+	CallOpts bind.CallOpts       // Call options to use throughout this session
 }
 
-// PancakeTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
+// IPancakePairTransactorSession is an auto generated write-only Go binding around an Ethereum contract,
 // with pre-set transact options.
-type PancakeTransactorSession struct {
-	Contract     *PancakeTransactor // Generic contract transactor binding to set the session for
-	TransactOpts bind.TransactOpts  // Transaction auth options to use throughout this session
+type IPancakePairTransactorSession struct {
+	Contract     *IPancakePairTransactor // Generic contract transactor binding to set the session for
+	TransactOpts bind.TransactOpts       // Transaction auth options to use throughout this session
 }
 
-// PancakeRaw is an auto generated low-level Go binding around an Ethereum contract.
-type PancakeRaw struct {
-	Contract *Pancake // Generic contract binding to access the raw methods on
+// IPancakePairRaw is an auto generated low-level Go binding around an Ethereum contract.
+type IPancakePairRaw struct {
+	Contract *IPancakePair // Generic contract binding to access the raw methods on
 }
 
-// PancakeCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
-type PancakeCallerRaw struct {
-	Contract *PancakeCaller // Generic read-only contract binding to access the raw methods on
+// IPancakePairCallerRaw is an auto generated low-level read-only Go binding around an Ethereum contract.
+type IPancakePairCallerRaw struct {
+	Contract *IPancakePairCaller // Generic read-only contract binding to access the raw methods on
 }
 
-// PancakeTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
-type PancakeTransactorRaw struct {
-	Contract *PancakeTransactor // Generic write-only contract binding to access the raw methods on
+// IPancakePairTransactorRaw is an auto generated low-level write-only Go binding around an Ethereum contract.
+type IPancakePairTransactorRaw struct {
+	Contract *IPancakePairTransactor // Generic write-only contract binding to access the raw methods on
 }
 
-// NewPancake creates a new instance of Pancake, bound to a specific deployed contract.
-func NewPancake(address common.Address, backend bind.ContractBackend) (*Pancake, error) {
-	contract, err := bindPancake(address, backend, backend, backend)
+// NewIPancakePair creates a new instance of IPancakePair, bound to a specific deployed contract.
+func NewIPancakePair(address common.Address, backend bind.ContractBackend) (*IPancakePair, error) {
+	contract, err := bindIPancakePair(address, backend, backend, backend)
 	if err != nil {
 		return nil, err
 	}
-	return &Pancake{PancakeCaller: PancakeCaller{contract: contract}, PancakeTransactor: PancakeTransactor{contract: contract}, PancakeFilterer: PancakeFilterer{contract: contract}}, nil
+	return &IPancakePair{IPancakePairCaller: IPancakePairCaller{contract: contract}, IPancakePairTransactor: IPancakePairTransactor{contract: contract}, IPancakePairFilterer: IPancakePairFilterer{contract: contract}}, nil
 }
 
-// NewPancakeCaller creates a new read-only instance of Pancake, bound to a specific deployed contract.
-func NewPancakeCaller(address common.Address, caller bind.ContractCaller) (*PancakeCaller, error) {
-	contract, err := bindPancake(address, caller, nil, nil)
+// NewIPancakePairCaller creates a new read-only instance of IPancakePair, bound to a specific deployed contract.
+func NewIPancakePairCaller(address common.Address, caller bind.ContractCaller) (*IPancakePairCaller, error) {
+	contract, err := bindIPancakePair(address, caller, nil, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeCaller{contract: contract}, nil
+	return &IPancakePairCaller{contract: contract}, nil
 }
 
-// NewPancakeTransactor creates a new write-only instance of Pancake, bound to a specific deployed contract.
-func NewPancakeTransactor(address common.Address, transactor bind.ContractTransactor) (*PancakeTransactor, error) {
-	contract, err := bindPancake(address, nil, transactor, nil)
+// NewIPancakePairTransactor creates a new write-only instance of IPancakePair, bound to a specific deployed contract.
+func NewIPancakePairTransactor(address common.Address, transactor bind.ContractTransactor) (*IPancakePairTransactor, error) {
+	contract, err := bindIPancakePair(address, nil, transactor, nil)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeTransactor{contract: contract}, nil
+	return &IPancakePairTransactor{contract: contract}, nil
 }
 
-// NewPancakeFilterer creates a new log filterer instance of Pancake, bound to a specific deployed contract.
-func NewPancakeFilterer(address common.Address, filterer bind.ContractFilterer) (*PancakeFilterer, error) {
-	contract, err := bindPancake(address, nil, nil, filterer)
+// NewIPancakePairFilterer creates a new log filterer instance of IPancakePair, bound to a specific deployed contract.
+func NewIPancakePairFilterer(address common.Address, filterer bind.ContractFilterer) (*IPancakePairFilterer, error) {
+	contract, err := bindIPancakePair(address, nil, nil, filterer)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeFilterer{contract: contract}, nil
+	return &IPancakePairFilterer{contract: contract}, nil
 }
 
-// bindPancake binds a generic wrapper to an already deployed contract.
-func bindPancake(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
-	parsed, err := abi.JSON(strings.NewReader(PancakeABI))
+// bindIPancakePair binds a generic wrapper to an already deployed contract.
+func bindIPancakePair(address common.Address, caller bind.ContractCaller, transactor bind.ContractTransactor, filterer bind.ContractFilterer) (*bind.BoundContract, error) {
+	parsed, err := abi.JSON(strings.NewReader(IPancakePairABI))
 	if err != nil {
 		return nil, err
 	}
@@ -137,46 +137,46 @@ func bindPancake(address common.Address, caller bind.ContractCaller, transactor 
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Pancake *PancakeRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Pancake.Contract.PancakeCaller.contract.Call(opts, result, method, params...)
+func (_IPancakePair *IPancakePairRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _IPancakePair.Contract.IPancakePairCaller.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pancake *PancakeRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Pancake.Contract.PancakeTransactor.contract.Transfer(opts)
+func (_IPancakePair *IPancakePairRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _IPancakePair.Contract.IPancakePairTransactor.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pancake *PancakeRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Pancake.Contract.PancakeTransactor.contract.Transact(opts, method, params...)
+func (_IPancakePair *IPancakePairRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _IPancakePair.Contract.IPancakePairTransactor.contract.Transact(opts, method, params...)
 }
 
 // Call invokes the (constant) contract method with params as input values and
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Pancake *PancakeCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
-	return _Pancake.Contract.contract.Call(opts, result, method, params...)
+func (_IPancakePair *IPancakePairCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+	return _IPancakePair.Contract.contract.Call(opts, result, method, params...)
 }
 
 // Transfer initiates a plain transaction to move funds to the contract, calling
 // its default method if one is available.
-func (_Pancake *PancakeTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Pancake.Contract.contract.Transfer(opts)
+func (_IPancakePair *IPancakePairTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _IPancakePair.Contract.contract.Transfer(opts)
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Pancake *PancakeTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
-	return _Pancake.Contract.contract.Transact(opts, method, params...)
+func (_IPancakePair *IPancakePairTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+	return _IPancakePair.Contract.contract.Transact(opts, method, params...)
 }
 
 // DOMAINSEPARATOR is a free data retrieval call binding the contract method 0x3644e515.
 //
 // Solidity: function DOMAIN_SEPARATOR() view returns(bytes32)
-func (_Pancake *PancakeCaller) DOMAINSEPARATOR(opts *bind.CallOpts) ([32]byte, error) {
+func (_IPancakePair *IPancakePairCaller) DOMAINSEPARATOR(opts *bind.CallOpts) ([32]byte, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "DOMAIN_SEPARATOR")
+	err := _IPancakePair.contract.Call(opts, &out, "DOMAIN_SEPARATOR")
 
 	if err != nil {
 		return *new([32]byte), err
@@ -191,23 +191,23 @@ func (_Pancake *PancakeCaller) DOMAINSEPARATOR(opts *bind.CallOpts) ([32]byte, e
 // DOMAINSEPARATOR is a free data retrieval call binding the contract method 0x3644e515.
 //
 // Solidity: function DOMAIN_SEPARATOR() view returns(bytes32)
-func (_Pancake *PancakeSession) DOMAINSEPARATOR() ([32]byte, error) {
-	return _Pancake.Contract.DOMAINSEPARATOR(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) DOMAINSEPARATOR() ([32]byte, error) {
+	return _IPancakePair.Contract.DOMAINSEPARATOR(&_IPancakePair.CallOpts)
 }
 
 // DOMAINSEPARATOR is a free data retrieval call binding the contract method 0x3644e515.
 //
 // Solidity: function DOMAIN_SEPARATOR() view returns(bytes32)
-func (_Pancake *PancakeCallerSession) DOMAINSEPARATOR() ([32]byte, error) {
-	return _Pancake.Contract.DOMAINSEPARATOR(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) DOMAINSEPARATOR() ([32]byte, error) {
+	return _IPancakePair.Contract.DOMAINSEPARATOR(&_IPancakePair.CallOpts)
 }
 
 // MINIMUMLIQUIDITY is a free data retrieval call binding the contract method 0xba9a7a56.
 //
 // Solidity: function MINIMUM_LIQUIDITY() pure returns(uint256)
-func (_Pancake *PancakeCaller) MINIMUMLIQUIDITY(opts *bind.CallOpts) (*big.Int, error) {
+func (_IPancakePair *IPancakePairCaller) MINIMUMLIQUIDITY(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "MINIMUM_LIQUIDITY")
+	err := _IPancakePair.contract.Call(opts, &out, "MINIMUM_LIQUIDITY")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -222,23 +222,23 @@ func (_Pancake *PancakeCaller) MINIMUMLIQUIDITY(opts *bind.CallOpts) (*big.Int, 
 // MINIMUMLIQUIDITY is a free data retrieval call binding the contract method 0xba9a7a56.
 //
 // Solidity: function MINIMUM_LIQUIDITY() pure returns(uint256)
-func (_Pancake *PancakeSession) MINIMUMLIQUIDITY() (*big.Int, error) {
-	return _Pancake.Contract.MINIMUMLIQUIDITY(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) MINIMUMLIQUIDITY() (*big.Int, error) {
+	return _IPancakePair.Contract.MINIMUMLIQUIDITY(&_IPancakePair.CallOpts)
 }
 
 // MINIMUMLIQUIDITY is a free data retrieval call binding the contract method 0xba9a7a56.
 //
 // Solidity: function MINIMUM_LIQUIDITY() pure returns(uint256)
-func (_Pancake *PancakeCallerSession) MINIMUMLIQUIDITY() (*big.Int, error) {
-	return _Pancake.Contract.MINIMUMLIQUIDITY(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) MINIMUMLIQUIDITY() (*big.Int, error) {
+	return _IPancakePair.Contract.MINIMUMLIQUIDITY(&_IPancakePair.CallOpts)
 }
 
 // PERMITTYPEHASH is a free data retrieval call binding the contract method 0x30adf81f.
 //
 // Solidity: function PERMIT_TYPEHASH() pure returns(bytes32)
-func (_Pancake *PancakeCaller) PERMITTYPEHASH(opts *bind.CallOpts) ([32]byte, error) {
+func (_IPancakePair *IPancakePairCaller) PERMITTYPEHASH(opts *bind.CallOpts) ([32]byte, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "PERMIT_TYPEHASH")
+	err := _IPancakePair.contract.Call(opts, &out, "PERMIT_TYPEHASH")
 
 	if err != nil {
 		return *new([32]byte), err
@@ -253,23 +253,23 @@ func (_Pancake *PancakeCaller) PERMITTYPEHASH(opts *bind.CallOpts) ([32]byte, er
 // PERMITTYPEHASH is a free data retrieval call binding the contract method 0x30adf81f.
 //
 // Solidity: function PERMIT_TYPEHASH() pure returns(bytes32)
-func (_Pancake *PancakeSession) PERMITTYPEHASH() ([32]byte, error) {
-	return _Pancake.Contract.PERMITTYPEHASH(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) PERMITTYPEHASH() ([32]byte, error) {
+	return _IPancakePair.Contract.PERMITTYPEHASH(&_IPancakePair.CallOpts)
 }
 
 // PERMITTYPEHASH is a free data retrieval call binding the contract method 0x30adf81f.
 //
 // Solidity: function PERMIT_TYPEHASH() pure returns(bytes32)
-func (_Pancake *PancakeCallerSession) PERMITTYPEHASH() ([32]byte, error) {
-	return _Pancake.Contract.PERMITTYPEHASH(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) PERMITTYPEHASH() ([32]byte, error) {
+	return _IPancakePair.Contract.PERMITTYPEHASH(&_IPancakePair.CallOpts)
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
-func (_Pancake *PancakeCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
+func (_IPancakePair *IPancakePairCaller) Allowance(opts *bind.CallOpts, owner common.Address, spender common.Address) (*big.Int, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "allowance", owner, spender)
+	err := _IPancakePair.contract.Call(opts, &out, "allowance", owner, spender)
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -284,23 +284,23 @@ func (_Pancake *PancakeCaller) Allowance(opts *bind.CallOpts, owner common.Addre
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
-func (_Pancake *PancakeSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _Pancake.Contract.Allowance(&_Pancake.CallOpts, owner, spender)
+func (_IPancakePair *IPancakePairSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
+	return _IPancakePair.Contract.Allowance(&_IPancakePair.CallOpts, owner, spender)
 }
 
 // Allowance is a free data retrieval call binding the contract method 0xdd62ed3e.
 //
 // Solidity: function allowance(address owner, address spender) view returns(uint256)
-func (_Pancake *PancakeCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
-	return _Pancake.Contract.Allowance(&_Pancake.CallOpts, owner, spender)
+func (_IPancakePair *IPancakePairCallerSession) Allowance(owner common.Address, spender common.Address) (*big.Int, error) {
+	return _IPancakePair.Contract.Allowance(&_IPancakePair.CallOpts, owner, spender)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
 // Solidity: function balanceOf(address owner) view returns(uint256)
-func (_Pancake *PancakeCaller) BalanceOf(opts *bind.CallOpts, owner common.Address) (*big.Int, error) {
+func (_IPancakePair *IPancakePairCaller) BalanceOf(opts *bind.CallOpts, owner common.Address) (*big.Int, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "balanceOf", owner)
+	err := _IPancakePair.contract.Call(opts, &out, "balanceOf", owner)
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -315,23 +315,23 @@ func (_Pancake *PancakeCaller) BalanceOf(opts *bind.CallOpts, owner common.Addre
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
 // Solidity: function balanceOf(address owner) view returns(uint256)
-func (_Pancake *PancakeSession) BalanceOf(owner common.Address) (*big.Int, error) {
-	return _Pancake.Contract.BalanceOf(&_Pancake.CallOpts, owner)
+func (_IPancakePair *IPancakePairSession) BalanceOf(owner common.Address) (*big.Int, error) {
+	return _IPancakePair.Contract.BalanceOf(&_IPancakePair.CallOpts, owner)
 }
 
 // BalanceOf is a free data retrieval call binding the contract method 0x70a08231.
 //
 // Solidity: function balanceOf(address owner) view returns(uint256)
-func (_Pancake *PancakeCallerSession) BalanceOf(owner common.Address) (*big.Int, error) {
-	return _Pancake.Contract.BalanceOf(&_Pancake.CallOpts, owner)
+func (_IPancakePair *IPancakePairCallerSession) BalanceOf(owner common.Address) (*big.Int, error) {
+	return _IPancakePair.Contract.BalanceOf(&_IPancakePair.CallOpts, owner)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
 // Solidity: function decimals() pure returns(uint8)
-func (_Pancake *PancakeCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
+func (_IPancakePair *IPancakePairCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "decimals")
+	err := _IPancakePair.contract.Call(opts, &out, "decimals")
 
 	if err != nil {
 		return *new(uint8), err
@@ -346,23 +346,23 @@ func (_Pancake *PancakeCaller) Decimals(opts *bind.CallOpts) (uint8, error) {
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
 // Solidity: function decimals() pure returns(uint8)
-func (_Pancake *PancakeSession) Decimals() (uint8, error) {
-	return _Pancake.Contract.Decimals(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) Decimals() (uint8, error) {
+	return _IPancakePair.Contract.Decimals(&_IPancakePair.CallOpts)
 }
 
 // Decimals is a free data retrieval call binding the contract method 0x313ce567.
 //
 // Solidity: function decimals() pure returns(uint8)
-func (_Pancake *PancakeCallerSession) Decimals() (uint8, error) {
-	return _Pancake.Contract.Decimals(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) Decimals() (uint8, error) {
+	return _IPancakePair.Contract.Decimals(&_IPancakePair.CallOpts)
 }
 
 // Factory is a free data retrieval call binding the contract method 0xc45a0155.
 //
 // Solidity: function factory() view returns(address)
-func (_Pancake *PancakeCaller) Factory(opts *bind.CallOpts) (common.Address, error) {
+func (_IPancakePair *IPancakePairCaller) Factory(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "factory")
+	err := _IPancakePair.contract.Call(opts, &out, "factory")
 
 	if err != nil {
 		return *new(common.Address), err
@@ -377,27 +377,27 @@ func (_Pancake *PancakeCaller) Factory(opts *bind.CallOpts) (common.Address, err
 // Factory is a free data retrieval call binding the contract method 0xc45a0155.
 //
 // Solidity: function factory() view returns(address)
-func (_Pancake *PancakeSession) Factory() (common.Address, error) {
-	return _Pancake.Contract.Factory(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) Factory() (common.Address, error) {
+	return _IPancakePair.Contract.Factory(&_IPancakePair.CallOpts)
 }
 
 // Factory is a free data retrieval call binding the contract method 0xc45a0155.
 //
 // Solidity: function factory() view returns(address)
-func (_Pancake *PancakeCallerSession) Factory() (common.Address, error) {
-	return _Pancake.Contract.Factory(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) Factory() (common.Address, error) {
+	return _IPancakePair.Contract.Factory(&_IPancakePair.CallOpts)
 }
 
 // GetReserves is a free data retrieval call binding the contract method 0x0902f1ac.
 //
 // Solidity: function getReserves() view returns(uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast)
-func (_Pancake *PancakeCaller) GetReserves(opts *bind.CallOpts) (struct {
+func (_IPancakePair *IPancakePairCaller) GetReserves(opts *bind.CallOpts) (struct {
 	Reserve0           *big.Int
 	Reserve1           *big.Int
 	BlockTimestampLast uint32
 }, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "getReserves")
+	err := _IPancakePair.contract.Call(opts, &out, "getReserves")
 
 	outstruct := new(struct {
 		Reserve0           *big.Int
@@ -419,31 +419,31 @@ func (_Pancake *PancakeCaller) GetReserves(opts *bind.CallOpts) (struct {
 // GetReserves is a free data retrieval call binding the contract method 0x0902f1ac.
 //
 // Solidity: function getReserves() view returns(uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast)
-func (_Pancake *PancakeSession) GetReserves() (struct {
+func (_IPancakePair *IPancakePairSession) GetReserves() (struct {
 	Reserve0           *big.Int
 	Reserve1           *big.Int
 	BlockTimestampLast uint32
 }, error) {
-	return _Pancake.Contract.GetReserves(&_Pancake.CallOpts)
+	return _IPancakePair.Contract.GetReserves(&_IPancakePair.CallOpts)
 }
 
 // GetReserves is a free data retrieval call binding the contract method 0x0902f1ac.
 //
 // Solidity: function getReserves() view returns(uint112 reserve0, uint112 reserve1, uint32 blockTimestampLast)
-func (_Pancake *PancakeCallerSession) GetReserves() (struct {
+func (_IPancakePair *IPancakePairCallerSession) GetReserves() (struct {
 	Reserve0           *big.Int
 	Reserve1           *big.Int
 	BlockTimestampLast uint32
 }, error) {
-	return _Pancake.Contract.GetReserves(&_Pancake.CallOpts)
+	return _IPancakePair.Contract.GetReserves(&_IPancakePair.CallOpts)
 }
 
 // KLast is a free data retrieval call binding the contract method 0x7464fc3d.
 //
 // Solidity: function kLast() view returns(uint256)
-func (_Pancake *PancakeCaller) KLast(opts *bind.CallOpts) (*big.Int, error) {
+func (_IPancakePair *IPancakePairCaller) KLast(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "kLast")
+	err := _IPancakePair.contract.Call(opts, &out, "kLast")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -458,23 +458,23 @@ func (_Pancake *PancakeCaller) KLast(opts *bind.CallOpts) (*big.Int, error) {
 // KLast is a free data retrieval call binding the contract method 0x7464fc3d.
 //
 // Solidity: function kLast() view returns(uint256)
-func (_Pancake *PancakeSession) KLast() (*big.Int, error) {
-	return _Pancake.Contract.KLast(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) KLast() (*big.Int, error) {
+	return _IPancakePair.Contract.KLast(&_IPancakePair.CallOpts)
 }
 
 // KLast is a free data retrieval call binding the contract method 0x7464fc3d.
 //
 // Solidity: function kLast() view returns(uint256)
-func (_Pancake *PancakeCallerSession) KLast() (*big.Int, error) {
-	return _Pancake.Contract.KLast(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) KLast() (*big.Int, error) {
+	return _IPancakePair.Contract.KLast(&_IPancakePair.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
 // Solidity: function name() pure returns(string)
-func (_Pancake *PancakeCaller) Name(opts *bind.CallOpts) (string, error) {
+func (_IPancakePair *IPancakePairCaller) Name(opts *bind.CallOpts) (string, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "name")
+	err := _IPancakePair.contract.Call(opts, &out, "name")
 
 	if err != nil {
 		return *new(string), err
@@ -489,23 +489,23 @@ func (_Pancake *PancakeCaller) Name(opts *bind.CallOpts) (string, error) {
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
 // Solidity: function name() pure returns(string)
-func (_Pancake *PancakeSession) Name() (string, error) {
-	return _Pancake.Contract.Name(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) Name() (string, error) {
+	return _IPancakePair.Contract.Name(&_IPancakePair.CallOpts)
 }
 
 // Name is a free data retrieval call binding the contract method 0x06fdde03.
 //
 // Solidity: function name() pure returns(string)
-func (_Pancake *PancakeCallerSession) Name() (string, error) {
-	return _Pancake.Contract.Name(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) Name() (string, error) {
+	return _IPancakePair.Contract.Name(&_IPancakePair.CallOpts)
 }
 
 // Nonces is a free data retrieval call binding the contract method 0x7ecebe00.
 //
 // Solidity: function nonces(address owner) view returns(uint256)
-func (_Pancake *PancakeCaller) Nonces(opts *bind.CallOpts, owner common.Address) (*big.Int, error) {
+func (_IPancakePair *IPancakePairCaller) Nonces(opts *bind.CallOpts, owner common.Address) (*big.Int, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "nonces", owner)
+	err := _IPancakePair.contract.Call(opts, &out, "nonces", owner)
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -520,23 +520,23 @@ func (_Pancake *PancakeCaller) Nonces(opts *bind.CallOpts, owner common.Address)
 // Nonces is a free data retrieval call binding the contract method 0x7ecebe00.
 //
 // Solidity: function nonces(address owner) view returns(uint256)
-func (_Pancake *PancakeSession) Nonces(owner common.Address) (*big.Int, error) {
-	return _Pancake.Contract.Nonces(&_Pancake.CallOpts, owner)
+func (_IPancakePair *IPancakePairSession) Nonces(owner common.Address) (*big.Int, error) {
+	return _IPancakePair.Contract.Nonces(&_IPancakePair.CallOpts, owner)
 }
 
 // Nonces is a free data retrieval call binding the contract method 0x7ecebe00.
 //
 // Solidity: function nonces(address owner) view returns(uint256)
-func (_Pancake *PancakeCallerSession) Nonces(owner common.Address) (*big.Int, error) {
-	return _Pancake.Contract.Nonces(&_Pancake.CallOpts, owner)
+func (_IPancakePair *IPancakePairCallerSession) Nonces(owner common.Address) (*big.Int, error) {
+	return _IPancakePair.Contract.Nonces(&_IPancakePair.CallOpts, owner)
 }
 
 // Price0CumulativeLast is a free data retrieval call binding the contract method 0x5909c0d5.
 //
 // Solidity: function price0CumulativeLast() view returns(uint256)
-func (_Pancake *PancakeCaller) Price0CumulativeLast(opts *bind.CallOpts) (*big.Int, error) {
+func (_IPancakePair *IPancakePairCaller) Price0CumulativeLast(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "price0CumulativeLast")
+	err := _IPancakePair.contract.Call(opts, &out, "price0CumulativeLast")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -551,23 +551,23 @@ func (_Pancake *PancakeCaller) Price0CumulativeLast(opts *bind.CallOpts) (*big.I
 // Price0CumulativeLast is a free data retrieval call binding the contract method 0x5909c0d5.
 //
 // Solidity: function price0CumulativeLast() view returns(uint256)
-func (_Pancake *PancakeSession) Price0CumulativeLast() (*big.Int, error) {
-	return _Pancake.Contract.Price0CumulativeLast(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) Price0CumulativeLast() (*big.Int, error) {
+	return _IPancakePair.Contract.Price0CumulativeLast(&_IPancakePair.CallOpts)
 }
 
 // Price0CumulativeLast is a free data retrieval call binding the contract method 0x5909c0d5.
 //
 // Solidity: function price0CumulativeLast() view returns(uint256)
-func (_Pancake *PancakeCallerSession) Price0CumulativeLast() (*big.Int, error) {
-	return _Pancake.Contract.Price0CumulativeLast(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) Price0CumulativeLast() (*big.Int, error) {
+	return _IPancakePair.Contract.Price0CumulativeLast(&_IPancakePair.CallOpts)
 }
 
 // Price1CumulativeLast is a free data retrieval call binding the contract method 0x5a3d5493.
 //
 // Solidity: function price1CumulativeLast() view returns(uint256)
-func (_Pancake *PancakeCaller) Price1CumulativeLast(opts *bind.CallOpts) (*big.Int, error) {
+func (_IPancakePair *IPancakePairCaller) Price1CumulativeLast(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "price1CumulativeLast")
+	err := _IPancakePair.contract.Call(opts, &out, "price1CumulativeLast")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -582,23 +582,23 @@ func (_Pancake *PancakeCaller) Price1CumulativeLast(opts *bind.CallOpts) (*big.I
 // Price1CumulativeLast is a free data retrieval call binding the contract method 0x5a3d5493.
 //
 // Solidity: function price1CumulativeLast() view returns(uint256)
-func (_Pancake *PancakeSession) Price1CumulativeLast() (*big.Int, error) {
-	return _Pancake.Contract.Price1CumulativeLast(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) Price1CumulativeLast() (*big.Int, error) {
+	return _IPancakePair.Contract.Price1CumulativeLast(&_IPancakePair.CallOpts)
 }
 
 // Price1CumulativeLast is a free data retrieval call binding the contract method 0x5a3d5493.
 //
 // Solidity: function price1CumulativeLast() view returns(uint256)
-func (_Pancake *PancakeCallerSession) Price1CumulativeLast() (*big.Int, error) {
-	return _Pancake.Contract.Price1CumulativeLast(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) Price1CumulativeLast() (*big.Int, error) {
+	return _IPancakePair.Contract.Price1CumulativeLast(&_IPancakePair.CallOpts)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
 // Solidity: function symbol() pure returns(string)
-func (_Pancake *PancakeCaller) Symbol(opts *bind.CallOpts) (string, error) {
+func (_IPancakePair *IPancakePairCaller) Symbol(opts *bind.CallOpts) (string, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "symbol")
+	err := _IPancakePair.contract.Call(opts, &out, "symbol")
 
 	if err != nil {
 		return *new(string), err
@@ -613,23 +613,23 @@ func (_Pancake *PancakeCaller) Symbol(opts *bind.CallOpts) (string, error) {
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
 // Solidity: function symbol() pure returns(string)
-func (_Pancake *PancakeSession) Symbol() (string, error) {
-	return _Pancake.Contract.Symbol(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) Symbol() (string, error) {
+	return _IPancakePair.Contract.Symbol(&_IPancakePair.CallOpts)
 }
 
 // Symbol is a free data retrieval call binding the contract method 0x95d89b41.
 //
 // Solidity: function symbol() pure returns(string)
-func (_Pancake *PancakeCallerSession) Symbol() (string, error) {
-	return _Pancake.Contract.Symbol(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) Symbol() (string, error) {
+	return _IPancakePair.Contract.Symbol(&_IPancakePair.CallOpts)
 }
 
 // Token0 is a free data retrieval call binding the contract method 0x0dfe1681.
 //
 // Solidity: function token0() view returns(address)
-func (_Pancake *PancakeCaller) Token0(opts *bind.CallOpts) (common.Address, error) {
+func (_IPancakePair *IPancakePairCaller) Token0(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "token0")
+	err := _IPancakePair.contract.Call(opts, &out, "token0")
 
 	if err != nil {
 		return *new(common.Address), err
@@ -644,23 +644,23 @@ func (_Pancake *PancakeCaller) Token0(opts *bind.CallOpts) (common.Address, erro
 // Token0 is a free data retrieval call binding the contract method 0x0dfe1681.
 //
 // Solidity: function token0() view returns(address)
-func (_Pancake *PancakeSession) Token0() (common.Address, error) {
-	return _Pancake.Contract.Token0(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) Token0() (common.Address, error) {
+	return _IPancakePair.Contract.Token0(&_IPancakePair.CallOpts)
 }
 
 // Token0 is a free data retrieval call binding the contract method 0x0dfe1681.
 //
 // Solidity: function token0() view returns(address)
-func (_Pancake *PancakeCallerSession) Token0() (common.Address, error) {
-	return _Pancake.Contract.Token0(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) Token0() (common.Address, error) {
+	return _IPancakePair.Contract.Token0(&_IPancakePair.CallOpts)
 }
 
 // Token1 is a free data retrieval call binding the contract method 0xd21220a7.
 //
 // Solidity: function token1() view returns(address)
-func (_Pancake *PancakeCaller) Token1(opts *bind.CallOpts) (common.Address, error) {
+func (_IPancakePair *IPancakePairCaller) Token1(opts *bind.CallOpts) (common.Address, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "token1")
+	err := _IPancakePair.contract.Call(opts, &out, "token1")
 
 	if err != nil {
 		return *new(common.Address), err
@@ -675,23 +675,23 @@ func (_Pancake *PancakeCaller) Token1(opts *bind.CallOpts) (common.Address, erro
 // Token1 is a free data retrieval call binding the contract method 0xd21220a7.
 //
 // Solidity: function token1() view returns(address)
-func (_Pancake *PancakeSession) Token1() (common.Address, error) {
-	return _Pancake.Contract.Token1(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) Token1() (common.Address, error) {
+	return _IPancakePair.Contract.Token1(&_IPancakePair.CallOpts)
 }
 
 // Token1 is a free data retrieval call binding the contract method 0xd21220a7.
 //
 // Solidity: function token1() view returns(address)
-func (_Pancake *PancakeCallerSession) Token1() (common.Address, error) {
-	return _Pancake.Contract.Token1(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) Token1() (common.Address, error) {
+	return _IPancakePair.Contract.Token1(&_IPancakePair.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
 // Solidity: function totalSupply() view returns(uint256)
-func (_Pancake *PancakeCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
+func (_IPancakePair *IPancakePairCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error) {
 	var out []interface{}
-	err := _Pancake.contract.Call(opts, &out, "totalSupply")
+	err := _IPancakePair.contract.Call(opts, &out, "totalSupply")
 
 	if err != nil {
 		return *new(*big.Int), err
@@ -706,230 +706,230 @@ func (_Pancake *PancakeCaller) TotalSupply(opts *bind.CallOpts) (*big.Int, error
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
 // Solidity: function totalSupply() view returns(uint256)
-func (_Pancake *PancakeSession) TotalSupply() (*big.Int, error) {
-	return _Pancake.Contract.TotalSupply(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairSession) TotalSupply() (*big.Int, error) {
+	return _IPancakePair.Contract.TotalSupply(&_IPancakePair.CallOpts)
 }
 
 // TotalSupply is a free data retrieval call binding the contract method 0x18160ddd.
 //
 // Solidity: function totalSupply() view returns(uint256)
-func (_Pancake *PancakeCallerSession) TotalSupply() (*big.Int, error) {
-	return _Pancake.Contract.TotalSupply(&_Pancake.CallOpts)
+func (_IPancakePair *IPancakePairCallerSession) TotalSupply() (*big.Int, error) {
+	return _IPancakePair.Contract.TotalSupply(&_IPancakePair.CallOpts)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
 //
 // Solidity: function approve(address spender, uint256 value) returns(bool)
-func (_Pancake *PancakeTransactor) Approve(opts *bind.TransactOpts, spender common.Address, value *big.Int) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "approve", spender, value)
+func (_IPancakePair *IPancakePairTransactor) Approve(opts *bind.TransactOpts, spender common.Address, value *big.Int) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "approve", spender, value)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
 //
 // Solidity: function approve(address spender, uint256 value) returns(bool)
-func (_Pancake *PancakeSession) Approve(spender common.Address, value *big.Int) (*types.Transaction, error) {
-	return _Pancake.Contract.Approve(&_Pancake.TransactOpts, spender, value)
+func (_IPancakePair *IPancakePairSession) Approve(spender common.Address, value *big.Int) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Approve(&_IPancakePair.TransactOpts, spender, value)
 }
 
 // Approve is a paid mutator transaction binding the contract method 0x095ea7b3.
 //
 // Solidity: function approve(address spender, uint256 value) returns(bool)
-func (_Pancake *PancakeTransactorSession) Approve(spender common.Address, value *big.Int) (*types.Transaction, error) {
-	return _Pancake.Contract.Approve(&_Pancake.TransactOpts, spender, value)
+func (_IPancakePair *IPancakePairTransactorSession) Approve(spender common.Address, value *big.Int) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Approve(&_IPancakePair.TransactOpts, spender, value)
 }
 
 // Burn is a paid mutator transaction binding the contract method 0x89afcb44.
 //
 // Solidity: function burn(address to) returns(uint256 amount0, uint256 amount1)
-func (_Pancake *PancakeTransactor) Burn(opts *bind.TransactOpts, to common.Address) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "burn", to)
+func (_IPancakePair *IPancakePairTransactor) Burn(opts *bind.TransactOpts, to common.Address) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "burn", to)
 }
 
 // Burn is a paid mutator transaction binding the contract method 0x89afcb44.
 //
 // Solidity: function burn(address to) returns(uint256 amount0, uint256 amount1)
-func (_Pancake *PancakeSession) Burn(to common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.Burn(&_Pancake.TransactOpts, to)
+func (_IPancakePair *IPancakePairSession) Burn(to common.Address) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Burn(&_IPancakePair.TransactOpts, to)
 }
 
 // Burn is a paid mutator transaction binding the contract method 0x89afcb44.
 //
 // Solidity: function burn(address to) returns(uint256 amount0, uint256 amount1)
-func (_Pancake *PancakeTransactorSession) Burn(to common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.Burn(&_Pancake.TransactOpts, to)
+func (_IPancakePair *IPancakePairTransactorSession) Burn(to common.Address) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Burn(&_IPancakePair.TransactOpts, to)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x485cc955.
 //
 // Solidity: function initialize(address , address ) returns()
-func (_Pancake *PancakeTransactor) Initialize(opts *bind.TransactOpts, arg0 common.Address, arg1 common.Address) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "initialize", arg0, arg1)
+func (_IPancakePair *IPancakePairTransactor) Initialize(opts *bind.TransactOpts, arg0 common.Address, arg1 common.Address) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "initialize", arg0, arg1)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x485cc955.
 //
 // Solidity: function initialize(address , address ) returns()
-func (_Pancake *PancakeSession) Initialize(arg0 common.Address, arg1 common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.Initialize(&_Pancake.TransactOpts, arg0, arg1)
+func (_IPancakePair *IPancakePairSession) Initialize(arg0 common.Address, arg1 common.Address) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Initialize(&_IPancakePair.TransactOpts, arg0, arg1)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x485cc955.
 //
 // Solidity: function initialize(address , address ) returns()
-func (_Pancake *PancakeTransactorSession) Initialize(arg0 common.Address, arg1 common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.Initialize(&_Pancake.TransactOpts, arg0, arg1)
+func (_IPancakePair *IPancakePairTransactorSession) Initialize(arg0 common.Address, arg1 common.Address) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Initialize(&_IPancakePair.TransactOpts, arg0, arg1)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x6a627842.
 //
 // Solidity: function mint(address to) returns(uint256 liquidity)
-func (_Pancake *PancakeTransactor) Mint(opts *bind.TransactOpts, to common.Address) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "mint", to)
+func (_IPancakePair *IPancakePairTransactor) Mint(opts *bind.TransactOpts, to common.Address) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "mint", to)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x6a627842.
 //
 // Solidity: function mint(address to) returns(uint256 liquidity)
-func (_Pancake *PancakeSession) Mint(to common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.Mint(&_Pancake.TransactOpts, to)
+func (_IPancakePair *IPancakePairSession) Mint(to common.Address) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Mint(&_IPancakePair.TransactOpts, to)
 }
 
 // Mint is a paid mutator transaction binding the contract method 0x6a627842.
 //
 // Solidity: function mint(address to) returns(uint256 liquidity)
-func (_Pancake *PancakeTransactorSession) Mint(to common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.Mint(&_Pancake.TransactOpts, to)
+func (_IPancakePair *IPancakePairTransactorSession) Mint(to common.Address) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Mint(&_IPancakePair.TransactOpts, to)
 }
 
 // Permit is a paid mutator transaction binding the contract method 0xd505accf.
 //
 // Solidity: function permit(address owner, address spender, uint256 value, uint256 deadline, uint8 v, bytes32 r, bytes32 s) returns()
-func (_Pancake *PancakeTransactor) Permit(opts *bind.TransactOpts, owner common.Address, spender common.Address, value *big.Int, deadline *big.Int, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "permit", owner, spender, value, deadline, v, r, s)
+func (_IPancakePair *IPancakePairTransactor) Permit(opts *bind.TransactOpts, owner common.Address, spender common.Address, value *big.Int, deadline *big.Int, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "permit", owner, spender, value, deadline, v, r, s)
 }
 
 // Permit is a paid mutator transaction binding the contract method 0xd505accf.
 //
 // Solidity: function permit(address owner, address spender, uint256 value, uint256 deadline, uint8 v, bytes32 r, bytes32 s) returns()
-func (_Pancake *PancakeSession) Permit(owner common.Address, spender common.Address, value *big.Int, deadline *big.Int, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
-	return _Pancake.Contract.Permit(&_Pancake.TransactOpts, owner, spender, value, deadline, v, r, s)
+func (_IPancakePair *IPancakePairSession) Permit(owner common.Address, spender common.Address, value *big.Int, deadline *big.Int, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Permit(&_IPancakePair.TransactOpts, owner, spender, value, deadline, v, r, s)
 }
 
 // Permit is a paid mutator transaction binding the contract method 0xd505accf.
 //
 // Solidity: function permit(address owner, address spender, uint256 value, uint256 deadline, uint8 v, bytes32 r, bytes32 s) returns()
-func (_Pancake *PancakeTransactorSession) Permit(owner common.Address, spender common.Address, value *big.Int, deadline *big.Int, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
-	return _Pancake.Contract.Permit(&_Pancake.TransactOpts, owner, spender, value, deadline, v, r, s)
+func (_IPancakePair *IPancakePairTransactorSession) Permit(owner common.Address, spender common.Address, value *big.Int, deadline *big.Int, v uint8, r [32]byte, s [32]byte) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Permit(&_IPancakePair.TransactOpts, owner, spender, value, deadline, v, r, s)
 }
 
 // Skim is a paid mutator transaction binding the contract method 0xbc25cf77.
 //
 // Solidity: function skim(address to) returns()
-func (_Pancake *PancakeTransactor) Skim(opts *bind.TransactOpts, to common.Address) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "skim", to)
+func (_IPancakePair *IPancakePairTransactor) Skim(opts *bind.TransactOpts, to common.Address) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "skim", to)
 }
 
 // Skim is a paid mutator transaction binding the contract method 0xbc25cf77.
 //
 // Solidity: function skim(address to) returns()
-func (_Pancake *PancakeSession) Skim(to common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.Skim(&_Pancake.TransactOpts, to)
+func (_IPancakePair *IPancakePairSession) Skim(to common.Address) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Skim(&_IPancakePair.TransactOpts, to)
 }
 
 // Skim is a paid mutator transaction binding the contract method 0xbc25cf77.
 //
 // Solidity: function skim(address to) returns()
-func (_Pancake *PancakeTransactorSession) Skim(to common.Address) (*types.Transaction, error) {
-	return _Pancake.Contract.Skim(&_Pancake.TransactOpts, to)
+func (_IPancakePair *IPancakePairTransactorSession) Skim(to common.Address) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Skim(&_IPancakePair.TransactOpts, to)
 }
 
 // Swap is a paid mutator transaction binding the contract method 0x022c0d9f.
 //
 // Solidity: function swap(uint256 amount0Out, uint256 amount1Out, address to, bytes data) returns()
-func (_Pancake *PancakeTransactor) Swap(opts *bind.TransactOpts, amount0Out *big.Int, amount1Out *big.Int, to common.Address, data []byte) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "swap", amount0Out, amount1Out, to, data)
+func (_IPancakePair *IPancakePairTransactor) Swap(opts *bind.TransactOpts, amount0Out *big.Int, amount1Out *big.Int, to common.Address, data []byte) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "swap", amount0Out, amount1Out, to, data)
 }
 
 // Swap is a paid mutator transaction binding the contract method 0x022c0d9f.
 //
 // Solidity: function swap(uint256 amount0Out, uint256 amount1Out, address to, bytes data) returns()
-func (_Pancake *PancakeSession) Swap(amount0Out *big.Int, amount1Out *big.Int, to common.Address, data []byte) (*types.Transaction, error) {
-	return _Pancake.Contract.Swap(&_Pancake.TransactOpts, amount0Out, amount1Out, to, data)
+func (_IPancakePair *IPancakePairSession) Swap(amount0Out *big.Int, amount1Out *big.Int, to common.Address, data []byte) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Swap(&_IPancakePair.TransactOpts, amount0Out, amount1Out, to, data)
 }
 
 // Swap is a paid mutator transaction binding the contract method 0x022c0d9f.
 //
 // Solidity: function swap(uint256 amount0Out, uint256 amount1Out, address to, bytes data) returns()
-func (_Pancake *PancakeTransactorSession) Swap(amount0Out *big.Int, amount1Out *big.Int, to common.Address, data []byte) (*types.Transaction, error) {
-	return _Pancake.Contract.Swap(&_Pancake.TransactOpts, amount0Out, amount1Out, to, data)
+func (_IPancakePair *IPancakePairTransactorSession) Swap(amount0Out *big.Int, amount1Out *big.Int, to common.Address, data []byte) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Swap(&_IPancakePair.TransactOpts, amount0Out, amount1Out, to, data)
 }
 
 // Sync is a paid mutator transaction binding the contract method 0xfff6cae9.
 //
 // Solidity: function sync() returns()
-func (_Pancake *PancakeTransactor) Sync(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "sync")
+func (_IPancakePair *IPancakePairTransactor) Sync(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "sync")
 }
 
 // Sync is a paid mutator transaction binding the contract method 0xfff6cae9.
 //
 // Solidity: function sync() returns()
-func (_Pancake *PancakeSession) Sync() (*types.Transaction, error) {
-	return _Pancake.Contract.Sync(&_Pancake.TransactOpts)
+func (_IPancakePair *IPancakePairSession) Sync() (*types.Transaction, error) {
+	return _IPancakePair.Contract.Sync(&_IPancakePair.TransactOpts)
 }
 
 // Sync is a paid mutator transaction binding the contract method 0xfff6cae9.
 //
 // Solidity: function sync() returns()
-func (_Pancake *PancakeTransactorSession) Sync() (*types.Transaction, error) {
-	return _Pancake.Contract.Sync(&_Pancake.TransactOpts)
+func (_IPancakePair *IPancakePairTransactorSession) Sync() (*types.Transaction, error) {
+	return _IPancakePair.Contract.Sync(&_IPancakePair.TransactOpts)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
 //
 // Solidity: function transfer(address to, uint256 value) returns(bool)
-func (_Pancake *PancakeTransactor) Transfer(opts *bind.TransactOpts, to common.Address, value *big.Int) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "transfer", to, value)
+func (_IPancakePair *IPancakePairTransactor) Transfer(opts *bind.TransactOpts, to common.Address, value *big.Int) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "transfer", to, value)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
 //
 // Solidity: function transfer(address to, uint256 value) returns(bool)
-func (_Pancake *PancakeSession) Transfer(to common.Address, value *big.Int) (*types.Transaction, error) {
-	return _Pancake.Contract.Transfer(&_Pancake.TransactOpts, to, value)
+func (_IPancakePair *IPancakePairSession) Transfer(to common.Address, value *big.Int) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Transfer(&_IPancakePair.TransactOpts, to, value)
 }
 
 // Transfer is a paid mutator transaction binding the contract method 0xa9059cbb.
 //
 // Solidity: function transfer(address to, uint256 value) returns(bool)
-func (_Pancake *PancakeTransactorSession) Transfer(to common.Address, value *big.Int) (*types.Transaction, error) {
-	return _Pancake.Contract.Transfer(&_Pancake.TransactOpts, to, value)
+func (_IPancakePair *IPancakePairTransactorSession) Transfer(to common.Address, value *big.Int) (*types.Transaction, error) {
+	return _IPancakePair.Contract.Transfer(&_IPancakePair.TransactOpts, to, value)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
 //
 // Solidity: function transferFrom(address from, address to, uint256 value) returns(bool)
-func (_Pancake *PancakeTransactor) TransferFrom(opts *bind.TransactOpts, from common.Address, to common.Address, value *big.Int) (*types.Transaction, error) {
-	return _Pancake.contract.Transact(opts, "transferFrom", from, to, value)
+func (_IPancakePair *IPancakePairTransactor) TransferFrom(opts *bind.TransactOpts, from common.Address, to common.Address, value *big.Int) (*types.Transaction, error) {
+	return _IPancakePair.contract.Transact(opts, "transferFrom", from, to, value)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
 //
 // Solidity: function transferFrom(address from, address to, uint256 value) returns(bool)
-func (_Pancake *PancakeSession) TransferFrom(from common.Address, to common.Address, value *big.Int) (*types.Transaction, error) {
-	return _Pancake.Contract.TransferFrom(&_Pancake.TransactOpts, from, to, value)
+func (_IPancakePair *IPancakePairSession) TransferFrom(from common.Address, to common.Address, value *big.Int) (*types.Transaction, error) {
+	return _IPancakePair.Contract.TransferFrom(&_IPancakePair.TransactOpts, from, to, value)
 }
 
 // TransferFrom is a paid mutator transaction binding the contract method 0x23b872dd.
 //
 // Solidity: function transferFrom(address from, address to, uint256 value) returns(bool)
-func (_Pancake *PancakeTransactorSession) TransferFrom(from common.Address, to common.Address, value *big.Int) (*types.Transaction, error) {
-	return _Pancake.Contract.TransferFrom(&_Pancake.TransactOpts, from, to, value)
+func (_IPancakePair *IPancakePairTransactorSession) TransferFrom(from common.Address, to common.Address, value *big.Int) (*types.Transaction, error) {
+	return _IPancakePair.Contract.TransferFrom(&_IPancakePair.TransactOpts, from, to, value)
 }
 
-// PancakeApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the Pancake contract.
-type PancakeApprovalIterator struct {
-	Event *PancakeApproval // Event containing the contract specifics and raw log
+// IPancakePairApprovalIterator is returned from FilterApproval and is used to iterate over the raw logs and unpacked data for Approval events raised by the IPancakePair contract.
+type IPancakePairApprovalIterator struct {
+	Event *IPancakePairApproval // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -943,7 +943,7 @@ type PancakeApprovalIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *PancakeApprovalIterator) Next() bool {
+func (it *IPancakePairApprovalIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -952,7 +952,7 @@ func (it *PancakeApprovalIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(PancakeApproval)
+			it.Event = new(IPancakePairApproval)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -967,7 +967,7 @@ func (it *PancakeApprovalIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(PancakeApproval)
+		it.Event = new(IPancakePairApproval)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -983,19 +983,19 @@ func (it *PancakeApprovalIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *PancakeApprovalIterator) Error() error {
+func (it *IPancakePairApprovalIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *PancakeApprovalIterator) Close() error {
+func (it *IPancakePairApprovalIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// PancakeApproval represents a Approval event raised by the Pancake contract.
-type PancakeApproval struct {
+// IPancakePairApproval represents a Approval event raised by the IPancakePair contract.
+type IPancakePairApproval struct {
 	Owner   common.Address
 	Spender common.Address
 	Value   *big.Int
@@ -1005,7 +1005,7 @@ type PancakeApproval struct {
 // FilterApproval is a free log retrieval operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
 // Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_Pancake *PancakeFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*PancakeApprovalIterator, error) {
+func (_IPancakePair *IPancakePairFilterer) FilterApproval(opts *bind.FilterOpts, owner []common.Address, spender []common.Address) (*IPancakePairApprovalIterator, error) {
 
 	var ownerRule []interface{}
 	for _, ownerItem := range owner {
@@ -1016,17 +1016,17 @@ func (_Pancake *PancakeFilterer) FilterApproval(opts *bind.FilterOpts, owner []c
 		spenderRule = append(spenderRule, spenderItem)
 	}
 
-	logs, sub, err := _Pancake.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
+	logs, sub, err := _IPancakePair.contract.FilterLogs(opts, "Approval", ownerRule, spenderRule)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeApprovalIterator{contract: _Pancake.contract, event: "Approval", logs: logs, sub: sub}, nil
+	return &IPancakePairApprovalIterator{contract: _IPancakePair.contract, event: "Approval", logs: logs, sub: sub}, nil
 }
 
 // WatchApproval is a free log subscription operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
 // Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_Pancake *PancakeFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *PancakeApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
+func (_IPancakePair *IPancakePairFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<- *IPancakePairApproval, owner []common.Address, spender []common.Address) (event.Subscription, error) {
 
 	var ownerRule []interface{}
 	for _, ownerItem := range owner {
@@ -1037,7 +1037,7 @@ func (_Pancake *PancakeFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<-
 		spenderRule = append(spenderRule, spenderItem)
 	}
 
-	logs, sub, err := _Pancake.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
+	logs, sub, err := _IPancakePair.contract.WatchLogs(opts, "Approval", ownerRule, spenderRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1047,8 +1047,8 @@ func (_Pancake *PancakeFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<-
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(PancakeApproval)
-				if err := _Pancake.contract.UnpackLog(event, "Approval", log); err != nil {
+				event := new(IPancakePairApproval)
+				if err := _IPancakePair.contract.UnpackLog(event, "Approval", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1072,18 +1072,18 @@ func (_Pancake *PancakeFilterer) WatchApproval(opts *bind.WatchOpts, sink chan<-
 // ParseApproval is a log parse operation binding the contract event 0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925.
 //
 // Solidity: event Approval(address indexed owner, address indexed spender, uint256 value)
-func (_Pancake *PancakeFilterer) ParseApproval(log types.Log) (*PancakeApproval, error) {
-	event := new(PancakeApproval)
-	if err := _Pancake.contract.UnpackLog(event, "Approval", log); err != nil {
+func (_IPancakePair *IPancakePairFilterer) ParseApproval(log types.Log) (*IPancakePairApproval, error) {
+	event := new(IPancakePairApproval)
+	if err := _IPancakePair.contract.UnpackLog(event, "Approval", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// PancakeBurnIterator is returned from FilterBurn and is used to iterate over the raw logs and unpacked data for Burn events raised by the Pancake contract.
-type PancakeBurnIterator struct {
-	Event *PancakeBurn // Event containing the contract specifics and raw log
+// IPancakePairBurnIterator is returned from FilterBurn and is used to iterate over the raw logs and unpacked data for Burn events raised by the IPancakePair contract.
+type IPancakePairBurnIterator struct {
+	Event *IPancakePairBurn // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1097,7 +1097,7 @@ type PancakeBurnIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *PancakeBurnIterator) Next() bool {
+func (it *IPancakePairBurnIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1106,7 +1106,7 @@ func (it *PancakeBurnIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(PancakeBurn)
+			it.Event = new(IPancakePairBurn)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1121,7 +1121,7 @@ func (it *PancakeBurnIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(PancakeBurn)
+		it.Event = new(IPancakePairBurn)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1137,19 +1137,19 @@ func (it *PancakeBurnIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *PancakeBurnIterator) Error() error {
+func (it *IPancakePairBurnIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *PancakeBurnIterator) Close() error {
+func (it *IPancakePairBurnIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// PancakeBurn represents a Burn event raised by the Pancake contract.
-type PancakeBurn struct {
+// IPancakePairBurn represents a Burn event raised by the IPancakePair contract.
+type IPancakePairBurn struct {
 	Sender  common.Address
 	Amount0 *big.Int
 	Amount1 *big.Int
@@ -1160,7 +1160,7 @@ type PancakeBurn struct {
 // FilterBurn is a free log retrieval operation binding the contract event 0xdccd412f0b1252819cb1fd330b93224ca42612892bb3f4f789976e6d81936496.
 //
 // Solidity: event Burn(address indexed sender, uint256 amount0, uint256 amount1, address indexed to)
-func (_Pancake *PancakeFilterer) FilterBurn(opts *bind.FilterOpts, sender []common.Address, to []common.Address) (*PancakeBurnIterator, error) {
+func (_IPancakePair *IPancakePairFilterer) FilterBurn(opts *bind.FilterOpts, sender []common.Address, to []common.Address) (*IPancakePairBurnIterator, error) {
 
 	var senderRule []interface{}
 	for _, senderItem := range sender {
@@ -1172,17 +1172,17 @@ func (_Pancake *PancakeFilterer) FilterBurn(opts *bind.FilterOpts, sender []comm
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _Pancake.contract.FilterLogs(opts, "Burn", senderRule, toRule)
+	logs, sub, err := _IPancakePair.contract.FilterLogs(opts, "Burn", senderRule, toRule)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeBurnIterator{contract: _Pancake.contract, event: "Burn", logs: logs, sub: sub}, nil
+	return &IPancakePairBurnIterator{contract: _IPancakePair.contract, event: "Burn", logs: logs, sub: sub}, nil
 }
 
 // WatchBurn is a free log subscription operation binding the contract event 0xdccd412f0b1252819cb1fd330b93224ca42612892bb3f4f789976e6d81936496.
 //
 // Solidity: event Burn(address indexed sender, uint256 amount0, uint256 amount1, address indexed to)
-func (_Pancake *PancakeFilterer) WatchBurn(opts *bind.WatchOpts, sink chan<- *PancakeBurn, sender []common.Address, to []common.Address) (event.Subscription, error) {
+func (_IPancakePair *IPancakePairFilterer) WatchBurn(opts *bind.WatchOpts, sink chan<- *IPancakePairBurn, sender []common.Address, to []common.Address) (event.Subscription, error) {
 
 	var senderRule []interface{}
 	for _, senderItem := range sender {
@@ -1194,7 +1194,7 @@ func (_Pancake *PancakeFilterer) WatchBurn(opts *bind.WatchOpts, sink chan<- *Pa
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _Pancake.contract.WatchLogs(opts, "Burn", senderRule, toRule)
+	logs, sub, err := _IPancakePair.contract.WatchLogs(opts, "Burn", senderRule, toRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1204,8 +1204,8 @@ func (_Pancake *PancakeFilterer) WatchBurn(opts *bind.WatchOpts, sink chan<- *Pa
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(PancakeBurn)
-				if err := _Pancake.contract.UnpackLog(event, "Burn", log); err != nil {
+				event := new(IPancakePairBurn)
+				if err := _IPancakePair.contract.UnpackLog(event, "Burn", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1229,18 +1229,18 @@ func (_Pancake *PancakeFilterer) WatchBurn(opts *bind.WatchOpts, sink chan<- *Pa
 // ParseBurn is a log parse operation binding the contract event 0xdccd412f0b1252819cb1fd330b93224ca42612892bb3f4f789976e6d81936496.
 //
 // Solidity: event Burn(address indexed sender, uint256 amount0, uint256 amount1, address indexed to)
-func (_Pancake *PancakeFilterer) ParseBurn(log types.Log) (*PancakeBurn, error) {
-	event := new(PancakeBurn)
-	if err := _Pancake.contract.UnpackLog(event, "Burn", log); err != nil {
+func (_IPancakePair *IPancakePairFilterer) ParseBurn(log types.Log) (*IPancakePairBurn, error) {
+	event := new(IPancakePairBurn)
+	if err := _IPancakePair.contract.UnpackLog(event, "Burn", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// PancakeMintIterator is returned from FilterMint and is used to iterate over the raw logs and unpacked data for Mint events raised by the Pancake contract.
-type PancakeMintIterator struct {
-	Event *PancakeMint // Event containing the contract specifics and raw log
+// IPancakePairMintIterator is returned from FilterMint and is used to iterate over the raw logs and unpacked data for Mint events raised by the IPancakePair contract.
+type IPancakePairMintIterator struct {
+	Event *IPancakePairMint // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1254,7 +1254,7 @@ type PancakeMintIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *PancakeMintIterator) Next() bool {
+func (it *IPancakePairMintIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1263,7 +1263,7 @@ func (it *PancakeMintIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(PancakeMint)
+			it.Event = new(IPancakePairMint)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1278,7 +1278,7 @@ func (it *PancakeMintIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(PancakeMint)
+		it.Event = new(IPancakePairMint)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1294,19 +1294,19 @@ func (it *PancakeMintIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *PancakeMintIterator) Error() error {
+func (it *IPancakePairMintIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *PancakeMintIterator) Close() error {
+func (it *IPancakePairMintIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// PancakeMint represents a Mint event raised by the Pancake contract.
-type PancakeMint struct {
+// IPancakePairMint represents a Mint event raised by the IPancakePair contract.
+type IPancakePairMint struct {
 	Sender  common.Address
 	Amount0 *big.Int
 	Amount1 *big.Int
@@ -1316,31 +1316,31 @@ type PancakeMint struct {
 // FilterMint is a free log retrieval operation binding the contract event 0x4c209b5fc8ad50758f13e2e1088ba56a560dff690a1c6fef26394f4c03821c4f.
 //
 // Solidity: event Mint(address indexed sender, uint256 amount0, uint256 amount1)
-func (_Pancake *PancakeFilterer) FilterMint(opts *bind.FilterOpts, sender []common.Address) (*PancakeMintIterator, error) {
+func (_IPancakePair *IPancakePairFilterer) FilterMint(opts *bind.FilterOpts, sender []common.Address) (*IPancakePairMintIterator, error) {
 
 	var senderRule []interface{}
 	for _, senderItem := range sender {
 		senderRule = append(senderRule, senderItem)
 	}
 
-	logs, sub, err := _Pancake.contract.FilterLogs(opts, "Mint", senderRule)
+	logs, sub, err := _IPancakePair.contract.FilterLogs(opts, "Mint", senderRule)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeMintIterator{contract: _Pancake.contract, event: "Mint", logs: logs, sub: sub}, nil
+	return &IPancakePairMintIterator{contract: _IPancakePair.contract, event: "Mint", logs: logs, sub: sub}, nil
 }
 
 // WatchMint is a free log subscription operation binding the contract event 0x4c209b5fc8ad50758f13e2e1088ba56a560dff690a1c6fef26394f4c03821c4f.
 //
 // Solidity: event Mint(address indexed sender, uint256 amount0, uint256 amount1)
-func (_Pancake *PancakeFilterer) WatchMint(opts *bind.WatchOpts, sink chan<- *PancakeMint, sender []common.Address) (event.Subscription, error) {
+func (_IPancakePair *IPancakePairFilterer) WatchMint(opts *bind.WatchOpts, sink chan<- *IPancakePairMint, sender []common.Address) (event.Subscription, error) {
 
 	var senderRule []interface{}
 	for _, senderItem := range sender {
 		senderRule = append(senderRule, senderItem)
 	}
 
-	logs, sub, err := _Pancake.contract.WatchLogs(opts, "Mint", senderRule)
+	logs, sub, err := _IPancakePair.contract.WatchLogs(opts, "Mint", senderRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1350,8 +1350,8 @@ func (_Pancake *PancakeFilterer) WatchMint(opts *bind.WatchOpts, sink chan<- *Pa
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(PancakeMint)
-				if err := _Pancake.contract.UnpackLog(event, "Mint", log); err != nil {
+				event := new(IPancakePairMint)
+				if err := _IPancakePair.contract.UnpackLog(event, "Mint", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1375,18 +1375,18 @@ func (_Pancake *PancakeFilterer) WatchMint(opts *bind.WatchOpts, sink chan<- *Pa
 // ParseMint is a log parse operation binding the contract event 0x4c209b5fc8ad50758f13e2e1088ba56a560dff690a1c6fef26394f4c03821c4f.
 //
 // Solidity: event Mint(address indexed sender, uint256 amount0, uint256 amount1)
-func (_Pancake *PancakeFilterer) ParseMint(log types.Log) (*PancakeMint, error) {
-	event := new(PancakeMint)
-	if err := _Pancake.contract.UnpackLog(event, "Mint", log); err != nil {
+func (_IPancakePair *IPancakePairFilterer) ParseMint(log types.Log) (*IPancakePairMint, error) {
+	event := new(IPancakePairMint)
+	if err := _IPancakePair.contract.UnpackLog(event, "Mint", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// PancakeSwapIterator is returned from FilterSwap and is used to iterate over the raw logs and unpacked data for Swap events raised by the Pancake contract.
-type PancakeSwapIterator struct {
-	Event *PancakeSwap // Event containing the contract specifics and raw log
+// IPancakePairSwapIterator is returned from FilterSwap and is used to iterate over the raw logs and unpacked data for Swap events raised by the IPancakePair contract.
+type IPancakePairSwapIterator struct {
+	Event *IPancakePairSwap // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1400,7 +1400,7 @@ type PancakeSwapIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *PancakeSwapIterator) Next() bool {
+func (it *IPancakePairSwapIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1409,7 +1409,7 @@ func (it *PancakeSwapIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(PancakeSwap)
+			it.Event = new(IPancakePairSwap)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1424,7 +1424,7 @@ func (it *PancakeSwapIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(PancakeSwap)
+		it.Event = new(IPancakePairSwap)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1440,19 +1440,19 @@ func (it *PancakeSwapIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *PancakeSwapIterator) Error() error {
+func (it *IPancakePairSwapIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *PancakeSwapIterator) Close() error {
+func (it *IPancakePairSwapIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// PancakeSwap represents a Swap event raised by the Pancake contract.
-type PancakeSwap struct {
+// IPancakePairSwap represents a Swap event raised by the IPancakePair contract.
+type IPancakePairSwap struct {
 	Sender     common.Address
 	Amount0In  *big.Int
 	Amount1In  *big.Int
@@ -1465,7 +1465,7 @@ type PancakeSwap struct {
 // FilterSwap is a free log retrieval operation binding the contract event 0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822.
 //
 // Solidity: event Swap(address indexed sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out, uint256 amount1Out, address indexed to)
-func (_Pancake *PancakeFilterer) FilterSwap(opts *bind.FilterOpts, sender []common.Address, to []common.Address) (*PancakeSwapIterator, error) {
+func (_IPancakePair *IPancakePairFilterer) FilterSwap(opts *bind.FilterOpts, sender []common.Address, to []common.Address) (*IPancakePairSwapIterator, error) {
 
 	var senderRule []interface{}
 	for _, senderItem := range sender {
@@ -1477,17 +1477,17 @@ func (_Pancake *PancakeFilterer) FilterSwap(opts *bind.FilterOpts, sender []comm
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _Pancake.contract.FilterLogs(opts, "Swap", senderRule, toRule)
+	logs, sub, err := _IPancakePair.contract.FilterLogs(opts, "Swap", senderRule, toRule)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeSwapIterator{contract: _Pancake.contract, event: "Swap", logs: logs, sub: sub}, nil
+	return &IPancakePairSwapIterator{contract: _IPancakePair.contract, event: "Swap", logs: logs, sub: sub}, nil
 }
 
 // WatchSwap is a free log subscription operation binding the contract event 0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822.
 //
 // Solidity: event Swap(address indexed sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out, uint256 amount1Out, address indexed to)
-func (_Pancake *PancakeFilterer) WatchSwap(opts *bind.WatchOpts, sink chan<- *PancakeSwap, sender []common.Address, to []common.Address) (event.Subscription, error) {
+func (_IPancakePair *IPancakePairFilterer) WatchSwap(opts *bind.WatchOpts, sink chan<- *IPancakePairSwap, sender []common.Address, to []common.Address) (event.Subscription, error) {
 
 	var senderRule []interface{}
 	for _, senderItem := range sender {
@@ -1499,7 +1499,7 @@ func (_Pancake *PancakeFilterer) WatchSwap(opts *bind.WatchOpts, sink chan<- *Pa
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _Pancake.contract.WatchLogs(opts, "Swap", senderRule, toRule)
+	logs, sub, err := _IPancakePair.contract.WatchLogs(opts, "Swap", senderRule, toRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1509,8 +1509,8 @@ func (_Pancake *PancakeFilterer) WatchSwap(opts *bind.WatchOpts, sink chan<- *Pa
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(PancakeSwap)
-				if err := _Pancake.contract.UnpackLog(event, "Swap", log); err != nil {
+				event := new(IPancakePairSwap)
+				if err := _IPancakePair.contract.UnpackLog(event, "Swap", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1534,18 +1534,18 @@ func (_Pancake *PancakeFilterer) WatchSwap(opts *bind.WatchOpts, sink chan<- *Pa
 // ParseSwap is a log parse operation binding the contract event 0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822.
 //
 // Solidity: event Swap(address indexed sender, uint256 amount0In, uint256 amount1In, uint256 amount0Out, uint256 amount1Out, address indexed to)
-func (_Pancake *PancakeFilterer) ParseSwap(log types.Log) (*PancakeSwap, error) {
-	event := new(PancakeSwap)
-	if err := _Pancake.contract.UnpackLog(event, "Swap", log); err != nil {
+func (_IPancakePair *IPancakePairFilterer) ParseSwap(log types.Log) (*IPancakePairSwap, error) {
+	event := new(IPancakePairSwap)
+	if err := _IPancakePair.contract.UnpackLog(event, "Swap", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// PancakeSyncIterator is returned from FilterSync and is used to iterate over the raw logs and unpacked data for Sync events raised by the Pancake contract.
-type PancakeSyncIterator struct {
-	Event *PancakeSync // Event containing the contract specifics and raw log
+// IPancakePairSyncIterator is returned from FilterSync and is used to iterate over the raw logs and unpacked data for Sync events raised by the IPancakePair contract.
+type IPancakePairSyncIterator struct {
+	Event *IPancakePairSync // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1559,7 +1559,7 @@ type PancakeSyncIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *PancakeSyncIterator) Next() bool {
+func (it *IPancakePairSyncIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1568,7 +1568,7 @@ func (it *PancakeSyncIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(PancakeSync)
+			it.Event = new(IPancakePairSync)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1583,7 +1583,7 @@ func (it *PancakeSyncIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(PancakeSync)
+		it.Event = new(IPancakePairSync)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1599,19 +1599,19 @@ func (it *PancakeSyncIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *PancakeSyncIterator) Error() error {
+func (it *IPancakePairSyncIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *PancakeSyncIterator) Close() error {
+func (it *IPancakePairSyncIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// PancakeSync represents a Sync event raised by the Pancake contract.
-type PancakeSync struct {
+// IPancakePairSync represents a Sync event raised by the IPancakePair contract.
+type IPancakePairSync struct {
 	Reserve0 *big.Int
 	Reserve1 *big.Int
 	Raw      types.Log // Blockchain specific contextual infos
@@ -1620,21 +1620,21 @@ type PancakeSync struct {
 // FilterSync is a free log retrieval operation binding the contract event 0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1.
 //
 // Solidity: event Sync(uint112 reserve0, uint112 reserve1)
-func (_Pancake *PancakeFilterer) FilterSync(opts *bind.FilterOpts) (*PancakeSyncIterator, error) {
+func (_IPancakePair *IPancakePairFilterer) FilterSync(opts *bind.FilterOpts) (*IPancakePairSyncIterator, error) {
 
-	logs, sub, err := _Pancake.contract.FilterLogs(opts, "Sync")
+	logs, sub, err := _IPancakePair.contract.FilterLogs(opts, "Sync")
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeSyncIterator{contract: _Pancake.contract, event: "Sync", logs: logs, sub: sub}, nil
+	return &IPancakePairSyncIterator{contract: _IPancakePair.contract, event: "Sync", logs: logs, sub: sub}, nil
 }
 
 // WatchSync is a free log subscription operation binding the contract event 0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1.
 //
 // Solidity: event Sync(uint112 reserve0, uint112 reserve1)
-func (_Pancake *PancakeFilterer) WatchSync(opts *bind.WatchOpts, sink chan<- *PancakeSync) (event.Subscription, error) {
+func (_IPancakePair *IPancakePairFilterer) WatchSync(opts *bind.WatchOpts, sink chan<- *IPancakePairSync) (event.Subscription, error) {
 
-	logs, sub, err := _Pancake.contract.WatchLogs(opts, "Sync")
+	logs, sub, err := _IPancakePair.contract.WatchLogs(opts, "Sync")
 	if err != nil {
 		return nil, err
 	}
@@ -1644,8 +1644,8 @@ func (_Pancake *PancakeFilterer) WatchSync(opts *bind.WatchOpts, sink chan<- *Pa
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(PancakeSync)
-				if err := _Pancake.contract.UnpackLog(event, "Sync", log); err != nil {
+				event := new(IPancakePairSync)
+				if err := _IPancakePair.contract.UnpackLog(event, "Sync", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1669,18 +1669,18 @@ func (_Pancake *PancakeFilterer) WatchSync(opts *bind.WatchOpts, sink chan<- *Pa
 // ParseSync is a log parse operation binding the contract event 0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1.
 //
 // Solidity: event Sync(uint112 reserve0, uint112 reserve1)
-func (_Pancake *PancakeFilterer) ParseSync(log types.Log) (*PancakeSync, error) {
-	event := new(PancakeSync)
-	if err := _Pancake.contract.UnpackLog(event, "Sync", log); err != nil {
+func (_IPancakePair *IPancakePairFilterer) ParseSync(log types.Log) (*IPancakePairSync, error) {
+	event := new(IPancakePairSync)
+	if err := _IPancakePair.contract.UnpackLog(event, "Sync", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
 	return event, nil
 }
 
-// PancakeTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the Pancake contract.
-type PancakeTransferIterator struct {
-	Event *PancakeTransfer // Event containing the contract specifics and raw log
+// IPancakePairTransferIterator is returned from FilterTransfer and is used to iterate over the raw logs and unpacked data for Transfer events raised by the IPancakePair contract.
+type IPancakePairTransferIterator struct {
+	Event *IPancakePairTransfer // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -1694,7 +1694,7 @@ type PancakeTransferIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *PancakeTransferIterator) Next() bool {
+func (it *IPancakePairTransferIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -1703,7 +1703,7 @@ func (it *PancakeTransferIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(PancakeTransfer)
+			it.Event = new(IPancakePairTransfer)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -1718,7 +1718,7 @@ func (it *PancakeTransferIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(PancakeTransfer)
+		it.Event = new(IPancakePairTransfer)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -1734,19 +1734,19 @@ func (it *PancakeTransferIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *PancakeTransferIterator) Error() error {
+func (it *IPancakePairTransferIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *PancakeTransferIterator) Close() error {
+func (it *IPancakePairTransferIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// PancakeTransfer represents a Transfer event raised by the Pancake contract.
-type PancakeTransfer struct {
+// IPancakePairTransfer represents a Transfer event raised by the IPancakePair contract.
+type IPancakePairTransfer struct {
 	From  common.Address
 	To    common.Address
 	Value *big.Int
@@ -1756,7 +1756,7 @@ type PancakeTransfer struct {
 // FilterTransfer is a free log retrieval operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
 // Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_Pancake *PancakeFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*PancakeTransferIterator, error) {
+func (_IPancakePair *IPancakePairFilterer) FilterTransfer(opts *bind.FilterOpts, from []common.Address, to []common.Address) (*IPancakePairTransferIterator, error) {
 
 	var fromRule []interface{}
 	for _, fromItem := range from {
@@ -1767,17 +1767,17 @@ func (_Pancake *PancakeFilterer) FilterTransfer(opts *bind.FilterOpts, from []co
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _Pancake.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
+	logs, sub, err := _IPancakePair.contract.FilterLogs(opts, "Transfer", fromRule, toRule)
 	if err != nil {
 		return nil, err
 	}
-	return &PancakeTransferIterator{contract: _Pancake.contract, event: "Transfer", logs: logs, sub: sub}, nil
+	return &IPancakePairTransferIterator{contract: _IPancakePair.contract, event: "Transfer", logs: logs, sub: sub}, nil
 }
 
 // WatchTransfer is a free log subscription operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
 // Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_Pancake *PancakeFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *PancakeTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
+func (_IPancakePair *IPancakePairFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<- *IPancakePairTransfer, from []common.Address, to []common.Address) (event.Subscription, error) {
 
 	var fromRule []interface{}
 	for _, fromItem := range from {
@@ -1788,7 +1788,7 @@ func (_Pancake *PancakeFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<-
 		toRule = append(toRule, toItem)
 	}
 
-	logs, sub, err := _Pancake.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
+	logs, sub, err := _IPancakePair.contract.WatchLogs(opts, "Transfer", fromRule, toRule)
 	if err != nil {
 		return nil, err
 	}
@@ -1798,8 +1798,8 @@ func (_Pancake *PancakeFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<-
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(PancakeTransfer)
-				if err := _Pancake.contract.UnpackLog(event, "Transfer", log); err != nil {
+				event := new(IPancakePairTransfer)
+				if err := _IPancakePair.contract.UnpackLog(event, "Transfer", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -1823,9 +1823,9 @@ func (_Pancake *PancakeFilterer) WatchTransfer(opts *bind.WatchOpts, sink chan<-
 // ParseTransfer is a log parse operation binding the contract event 0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef.
 //
 // Solidity: event Transfer(address indexed from, address indexed to, uint256 value)
-func (_Pancake *PancakeFilterer) ParseTransfer(log types.Log) (*PancakeTransfer, error) {
-	event := new(PancakeTransfer)
-	if err := _Pancake.contract.UnpackLog(event, "Transfer", log); err != nil {
+func (_IPancakePair *IPancakePairFilterer) ParseTransfer(log types.Log) (*IPancakePairTransfer, error) {
+	event := new(IPancakePairTransfer)
+	if err := _IPancakePair.contract.UnpackLog(event, "Transfer", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log
