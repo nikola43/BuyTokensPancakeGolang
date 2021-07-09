@@ -1,9 +1,10 @@
 package errorsutil
 
-import "log"
+import "fmt"
 
 func HandleError(err error) {
+	fmt.Println(err)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }
