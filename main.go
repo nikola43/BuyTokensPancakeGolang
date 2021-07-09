@@ -60,7 +60,6 @@ func main() {
 	transactor, transactOptsErr := bind.NewKeyedTransactorWithChainID(privateKey, chainID)
 	errorsutil.HandleError(transactOptsErr)
 
-
 	// create pancakeRouter pancakeRouterInstance
 	IERC20Instance, IERC20InstanceErr := IERC20.NewPancake(wBusdContractAddress, client)
 	errorsutil.HandleError(IERC20InstanceErr)
@@ -70,7 +69,6 @@ func main() {
 	errorsutil.HandleError(IERC20InstanceBalance)
 	fmt.Println("bal")
 	fmt.Println(bal)
-
 
 	// calculate next nonce
 	nonce, nonceErr := client.PendingNonceAt(context.Background(), fromAddress)
@@ -101,16 +99,16 @@ func main() {
 	fmt.Println("transactor")
 
 	/*
-	// create pancakeRouter pancakeRouterInstance
-	IPancakePairInstance, IPancakePairErr := IPancakePair.NewPancake(wBusdContractAddress, client)
-	errorsutil.HandleError(IPancakePairErr)
-	fmt.Println("IPancakePairInstance contract is loaded")
+		// create pancakeRouter pancakeRouterInstance
+		IPancakePairInstance, IPancakePairErr := IPancakePair.NewPancake(wBusdContractAddress, client)
+		errorsutil.HandleError(IPancakePairErr)
+		fmt.Println("IPancakePairInstance contract is loaded")
 	*/
 
 	swapTx, ApproveErr := IERC20Instance.Approve(
 		transactor,
 		fromAddress,
-		ethutils.EtherToWei(big.NewFloat(2)))
+		big.NewInt(0).Sub(bal, big.NewInt(0).Div(big.NewInt(0).Mul(bal, big.NewInt(10)), big.NewInt(100))))
 	if ApproveErr != nil {
 		fmt.Println("ApproveErr")
 		fmt.Println(ApproveErr)
@@ -146,7 +144,6 @@ func main() {
 	gasSellFee := ethutils.CalcGasCost(gasSellLimit, gasSellPrice)
 	finalSellValue := big.NewInt(0).Sub(bal, big.NewInt(0).Div(big.NewInt(0).Mul(bal, big.NewInt(10)), big.NewInt(100)))
 	transactorSell.Nonce = big.NewInt(int64(nonceSell))
-	transactorSell.Value = ethutils.EtherToWei(big.NewFloat(1))
 	transactorSell.Context = context.Background()
 	deadline := big.NewInt(time.Now().Unix() + 10000)
 
@@ -180,8 +177,9 @@ func main() {
 	errorsutil.HandleError(instanceErr)
 	fmt.Println("pancakeRouterInstance contract is loaded")
 
-	swapTx2, SwapExactETHForTokensErr := pancakeRouterInstance.SwapExactETHForTokens(
+	swapTx2, SwapExactETHForTokensErr := pancakeRouterInstance.SwapExactTokensForETH(
 		transactorSell,
+		finalSellValue,
 		big.NewInt(0),
 		path,
 		fromAddress,
