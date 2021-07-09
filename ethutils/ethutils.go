@@ -1,10 +1,16 @@
 package ethutils
 
 import (
+	"context"
+	"crypto/ecdsa"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/shopspring/decimal"
+	"log"
 	"math/big"
 	"reflect"
 	"regexp"
@@ -153,4 +159,58 @@ func ToDecimal(ivalue interface{}, decimals int) decimal.Decimal {
 func CalcGasCost(gasLimit uint64, gasPrice *big.Int) *big.Int {
 	gasLimitBig := big.NewInt(int64(gasLimit))
 	return gasLimitBig.Mul(gasLimitBig, gasPrice)
+}
+
+func GeneratePath(tokenAContractPlainAddress string, tokenBContractPlainAddress string )  []common.Address  {
+	tokenAContractAddress := common.HexToAddress(tokenAContractPlainAddress)
+	tokenBContractAddress := common.HexToAddress(tokenBContractPlainAddress)
+
+	path := make([]common.Address, 0)
+	path = append(path, tokenAContractAddress)
+	path = append(path, tokenBContractAddress)
+
+	return path
+}
+
+func CancelTransaction(client *ethclient.Client, transaction *types.Transaction, privateKey *ecdsa.PrivateKey) (*types.Transaction, error)  {
+	value := big.NewInt(0)
+
+	// generate public key and address from private key
+	publicKey := privateKey.Public()
+	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
+	if !ok {
+		log.Fatal("error casting public key to ECDSA")
+	}
+
+	// generate address from public key
+	address := crypto.PubkeyToAddress(*publicKeyECDSA)
+
+	var data []byte
+
+	fmt.Println(transaction.GasPrice())
+
+	newGasPrice := big.NewInt(0).Add(transaction.GasPrice(), big.NewInt(0).Div(big.NewInt(0).Mul(transaction.GasPrice(), big.NewInt(10)), big.NewInt(100)))
+	fmt.Println(newGasPrice)
+	tx := types.NewTransaction(transaction.Nonce(), address, value, transaction.Gas(), newGasPrice, data)
+
+	// get chain id
+	chainID, chainIDErr := client.ChainID(context.Background())
+	if chainIDErr != nil {
+		log.Fatal(chainIDErr)
+		return nil, chainIDErr
+	}
+
+	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), privateKey)
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+
+	err = client.SendTransaction(context.Background(), signedTx)
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+
+	return signedTx, nil
 }
