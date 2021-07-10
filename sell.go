@@ -10,10 +10,10 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/nikola43/buy_pancake/contracts/IERC20"
 	"github.com/nikola43/buy_pancake/contracts/PancakeRouter"
-	"github.com/nikola43/buy_pancake/errorsutil"
 	"github.com/nikola43/buy_pancake/ethbasedclient"
-	"github.com/nikola43/buy_pancake/ethutils"
-	"github.com/nikola43/buy_pancake/genericutils"
+	"github.com/nikola43/buy_pancake/utils/errorsutil"
+	"github.com/nikola43/buy_pancake/utils/ethutil"
+	"github.com/nikola43/buy_pancake/utils/genericutil"
 	"log"
 	"math/big"
 	"os"
@@ -55,7 +55,7 @@ func main() {
 	// calculate gas and gas limit
 	gasLimit := uint64(210000) // in units
 	gasPrice, gasPriceErr := gas.SuggestGasPrice(gas.GasPriorityAverage)
-	gasFee := ethutils.CalcGasCost(gasLimit, gasPrice)
+	gasFee := ethutil.CalcGasCost(gasLimit, gasPrice)
 	fmt.Println(gasFee)
 	errorsutil.HandleError(gasPriceErr)
 
@@ -74,7 +74,7 @@ func main() {
 
 	txHash := swapTx.Hash().Hex()
 	fmt.Println(txHash)
-	genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
+	genericutil.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
 
 	time.Sleep(1 * time.Second)
 	fmt.Println("Swapping {tokenValue2} {symbol} for BNB")
@@ -89,10 +89,10 @@ func main() {
 	// set transaction data
 	ethBasedClient.ConfigureTransactor(big.NewInt(-1), gasPrice, gasLimit)
 	deadline = big.NewInt(time.Now().Unix() + 10000)
-	path := ethutils.GeneratePath(tokenContractAddress.Hex(), wBnbContractAddress.Hex())
+	path := ethutil.GeneratePath(tokenContractAddress.Hex(), wBnbContractAddress.Hex())
 
 
-	gasSellFee := ethutils.CalcGasCost(gasSellLimit, gasSellPrice)
+	gasSellFee := ethutil.CalcGasCost(gasSellLimit, gasSellPrice)
 	finalSellValue := big.NewInt(0).Sub(bal, big.NewInt(0).Div(big.NewInt(0).Mul(bal, big.NewInt(10)), big.NewInt(100)))
 
 	fmt.Println(gasSellFee)
@@ -116,7 +116,7 @@ func main() {
 
 	txHash2 := swapTx2.Hash().Hex()
 	fmt.Println(txHash)
-	genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash2)
+	genericutil.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash2)
 
 	os.Exit(0)
 }

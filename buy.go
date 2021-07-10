@@ -7,11 +7,10 @@ import (
 	"github.com/hrharder/go-gas"
 	"github.com/joho/godotenv"
 	"github.com/nikola43/buy_pancake/contracts/PancakeRouter"
-	"github.com/nikola43/buy_pancake/errorsutil"
 	"github.com/nikola43/buy_pancake/ethbasedclient"
-	"github.com/nikola43/buy_pancake/ethutils"
-	"github.com/nikola43/buy_pancake/genericutils"
-	"log"
+	"github.com/nikola43/buy_pancake/utils/errorsutil"
+	"github.com/nikola43/buy_pancake/utils/ethutil"
+	"github.com/nikola43/buy_pancake/utils/genericutil"
 	"math/big"
 	"os"
 	"time"
@@ -20,9 +19,7 @@ import (
 func main() {
 	// load .env file
 	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
+	errorsutil.HandleError(err)
 
 	// connect with rpc
 	rawurl := "https://data-seed-prebsc-1-s1.binance.org:8545/"
@@ -31,7 +28,7 @@ func main() {
 
 	// contract addresses
 	pancakeContractAddress := common.HexToAddress("0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3") // pancake router address
-	wBnbContractAddress := "0xae13d989dac2f0debff460ac112a837c89baa7cd"                         // wbnb token adddress
+	wBnbContractAddress := common.HexToAddress("0xae13d989dac2f0debff460ac112a837c89baa7cd")    // wbnb token adddress
 	tokenContractAddress := common.HexToAddress("0x8babbb98678facc7342735486c851abd7a0d17ca")   // eth token adddress
 
 	// create pancakeRouter pancakeRouterInstance
@@ -45,15 +42,15 @@ func main() {
 	errorsutil.HandleError(gasPriceErr)
 
 	// calculate fee and final value
-	gasFee := ethutils.CalcGasCost(gasLimit, gasPrice)
-	ethValue := ethutils.EtherToWei(big.NewFloat(1.0))
+	gasFee := ethutil.CalcGasCost(gasLimit, gasPrice)
+	ethValue := ethutil.EtherToWei(big.NewFloat(1.0))
 	finalValue := big.NewInt(0).Sub(ethValue, gasFee)
 
 	// set transaction data
 	ethBasedClient.ConfigureTransactor(finalValue, gasPrice, gasLimit)
 	amountOutMin := big.NewInt(1000)
 	deadline := big.NewInt(time.Now().Unix() + 10000)
-	path := ethutils.GeneratePath(wBnbContractAddress, tokenContractAddress.Hex())
+	path := ethutil.GeneratePath(wBnbContractAddress.Hex(), tokenContractAddress.Hex())
 
 	// send transaction
 	swapTx, SwapExactETHForTokensErr := pancakeRouterInstance.SwapExactETHForTokens(
@@ -69,15 +66,16 @@ func main() {
 
 	txHash := swapTx.Hash().Hex()
 	fmt.Println(txHash)
-	genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
+	genericutil.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
 
-	tx, err := ethutils.CancelTransaction(ethBasedClient.Client, swapTx, ethBasedClient.PrivateKey)
-	errorsutil.HandleError(err)
+	/*
+		tx, err := ethutils.CancelTransaction(ethBasedClient.Client, swapTx, ethBasedClient.PrivateKey)
+		errorsutil.HandleError(err)
 
-	txHash = tx.Hash().Hex()
-	fmt.Println(txHash)
-	genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
-	os.Exit(0)
+		txHash = tx.Hash().Hex()
+		fmt.Println(txHash)
+		genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
+	*/
 }
 
 /*

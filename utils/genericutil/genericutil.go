@@ -1,8 +1,7 @@
-package genericutils
+package genericutil
 
 import (
 	"fmt"
-	"log"
 	"os/exec"
 	"runtime"
 )
@@ -21,6 +20,6 @@ func OpenBrowser(url string) {
 		err = fmt.Errorf("unsupported platform")
 	}
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }

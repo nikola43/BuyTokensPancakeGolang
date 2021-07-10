@@ -5,57 +5,32 @@ import (
 	"crypto/ecdsa"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/nikola43/buy_pancake/errorsutil"
-	"log"
+	"github.com/nikola43/buy_pancake/utils/errorsutil"
+	"github.com/nikola43/buy_pancake/utils/ethutil"
 	"math/big"
 )
 
 type EthBasedClient struct {
-	Client         *ethclient.Client
-	PrivateKey     *ecdsa.PrivateKey
-	PublicKeyECDSA *ecdsa.PublicKey
-	Address        common.Address
-	ChainID        *big.Int
-	Transactor     *bind.TransactOpts
-	Nonce *big.Int
+	Client     *ethclient.Client
+	PrivateKey *ecdsa.PrivateKey
+	Address    common.Address
+	ChainID    *big.Int
+	Transactor *bind.TransactOpts
+	Nonce      *big.Int
 }
 
-func New(rawurl, plainPrivateKey string) EthBasedClient {
-	// connect with bsc
-	client, err := ethclient.Dial(rawurl)
+func New(rawUrl, plainPrivateKey string) EthBasedClient {
+	client, err := ethclient.Dial(rawUrl)
 	errorsutil.HandleError(err)
 
-	// create privateKey from string key
-	privateKey, privateKeyErr := crypto.HexToECDSA(plainPrivateKey)
-	errorsutil.HandleError(privateKeyErr)
-
-	// generate public key and address from private key
-	publicKey := privateKey.Public()
-	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
-	if !ok {
-		log.Fatal("error casting public key to ECDSA")
-	}
-
-	// generate address from public key
-	address := crypto.PubkeyToAddress(*publicKeyECDSA)
-
-	// get chain id
-	chainID, chainIDErr := client.ChainID(context.Background())
-	errorsutil.HandleError(chainIDErr)
-
-	// generate transactor for transactions management
-	transactor, transactOptsErr := bind.NewKeyedTransactorWithChainID(privateKey, chainID)
-	errorsutil.HandleError(transactOptsErr)
-
+	privateKey := ethutil.GenerateEcdsaPrivateKey(plainPrivateKey)
 	ethBasedClientTemp := EthBasedClient{
-		Client:         client,
-		PrivateKey:     privateKey,
-		PublicKeyECDSA: publicKeyECDSA,
-		Address:        address,
-		ChainID:        chainID,
-		Transactor:     transactor,
+		Client:     client,
+		PrivateKey: privateKey,
+		Address:    ethutil.GenerateAddress(privateKey),
+		ChainID:    ethutil.GetChainID(client),
+		Transactor: ethutil.GenerateTransactor(client, privateKey),
 	}
 
 	return ethBasedClientTemp
@@ -74,14 +49,12 @@ func (ethBasedClient *EthBasedClient) ConfigureTransactor(value *big.Int, gasPri
 }
 
 func (ethBasedClient *EthBasedClient) Balance() *big.Int {
-	// get current balance
 	balance, balanceErr := ethBasedClient.Client.BalanceAt(context.Background(), ethBasedClient.Address, nil)
 	errorsutil.HandleError(balanceErr)
 	return balance
 }
 
 func (ethBasedClient *EthBasedClient) PendingNonce() *big.Int {
-	// calculate next nonce
 	nonce, nonceErr := ethBasedClient.Client.PendingNonceAt(context.Background(), ethBasedClient.Address)
 	errorsutil.HandleError(nonceErr)
 	return big.NewInt(int64(nonce))

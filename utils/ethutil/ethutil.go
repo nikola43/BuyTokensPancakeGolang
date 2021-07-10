@@ -1,28 +1,23 @@
-package ethutils
+package ethutil
 
 import (
 	"context"
 	"crypto/ecdsa"
+	"errors"
 	"fmt"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/params"
+	"github.com/nikola43/buy_pancake/utils/errorsutil"
 	"github.com/shopspring/decimal"
-	"log"
 	"math/big"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
-)
-
-const (
-	Fastest = 78
-	Fast    = 66
-	Average = 15
-	Cheap   = 0.03
 )
 
 func GweiToEther(wei *big.Int) *big.Float {
@@ -36,9 +31,7 @@ func GweiToEther(wei *big.Int) *big.Float {
 }
 
 func GweiToWei(wei *big.Int) *big.Int {
-	eth := GweiToEther(wei)
-	ethWei := EtherToWei(eth)
-	return ethWei
+	return EtherToWei(GweiToEther(wei))
 }
 
 // Wei ->
@@ -51,7 +44,6 @@ func WeiToGwei(wei *big.Int) *big.Int {
 	fWei.SetMode(big.ToNearestEven)
 	v := f.Quo(fWei.SetInt(wei), big.NewFloat(params.GWei))
 	i, _ := new(big.Int).SetString(v.String(), 10)
-
 	return i
 }
 
@@ -65,12 +57,10 @@ func WeiToEther(wei *big.Int) *big.Float {
 	return f.Quo(fWei.SetInt(wei), big.NewFloat(params.Ether))
 }
 
-// ETH ->
+// ETH -> Wei
 func EtherToWei(eth *big.Float) *big.Int {
 	s, err := strconv.ParseFloat(eth.String(), 64)
-	if err != nil {
-		fmt.Println(err)
-	}
+	errorsutil.HandleError(err)
 	return ToWei(s, 18)
 }
 
@@ -157,11 +147,10 @@ func ToDecimal(ivalue interface{}, decimals int) decimal.Decimal {
 
 // CalcGasCost calculate gas cost given gas limit (units) and gas price (wei)
 func CalcGasCost(gasLimit uint64, gasPrice *big.Int) *big.Int {
-	gasLimitBig := big.NewInt(int64(gasLimit))
-	return gasLimitBig.Mul(gasLimitBig, gasPrice)
+	return big.NewInt(0).Mul(big.NewInt(int64(gasLimit)), gasPrice)
 }
 
-func GeneratePath(tokenAContractPlainAddress string, tokenBContractPlainAddress string )  []common.Address  {
+func GeneratePath(tokenAContractPlainAddress string, tokenBContractPlainAddress string) []common.Address {
 	tokenAContractAddress := common.HexToAddress(tokenAContractPlainAddress)
 	tokenBContractAddress := common.HexToAddress(tokenBContractPlainAddress)
 
@@ -172,45 +161,74 @@ func GeneratePath(tokenAContractPlainAddress string, tokenBContractPlainAddress 
 	return path
 }
 
-func CancelTransaction(client *ethclient.Client, transaction *types.Transaction, privateKey *ecdsa.PrivateKey) (*types.Transaction, error)  {
-	value := big.NewInt(0)
+func GetChainID(client *ethclient.Client) *big.Int {
+	// get chain id
+	chainID, err := client.ChainID(context.Background())
+	errorsutil.HandleError(err)
+	return chainID
+}
 
-	// generate public key and address from private key
+func CalculatePercent(value *big.Int, percent int64) *big.Int {
+	return big.NewInt(0).Div(big.NewInt(0).Mul(value, big.NewInt(percent)), big.NewInt(100))
+}
+
+func CancelTransaction(client *ethclient.Client, transaction *types.Transaction, privateKey *ecdsa.PrivateKey) (*types.Transaction, error) {
+	var txData []byte
+
+	newGasPrice := big.NewInt(0).Add(transaction.GasPrice(), CalculatePercent(transaction.GasPrice(), 10))
+	tx := types.NewTransaction(
+		transaction.Nonce(),
+		GenerateAddress(privateKey),
+		big.NewInt(0),
+		transaction.Gas(),
+		newGasPrice,
+		txData)
+
+	signedTx := SendTransaction(client, tx, privateKey)
+
+	return signedTx, nil
+}
+
+func SendTransaction(client *ethclient.Client, tx *types.Transaction, privateKey *ecdsa.PrivateKey) *types.Transaction {
+	signedTx := SignTransaction(client, tx, privateKey)
+
+	err := client.SendTransaction(context.Background(), signedTx)
+	errorsutil.HandleError(err)
+
+	return signedTx
+}
+
+func GenerateTransactor(client *ethclient.Client, privateKey *ecdsa.PrivateKey) *bind.TransactOpts {
+	chainID := GetChainID(client)
+
+	transactor, err := bind.NewKeyedTransactorWithChainID(privateKey, chainID)
+	errorsutil.HandleError(err)
+
+	return transactor
+}
+
+func GenerateEcdsaPrivateKey(plainPrivateKey string) *ecdsa.PrivateKey {
+	privateKey, privateKeyErr := crypto.HexToECDSA(plainPrivateKey)
+	errorsutil.HandleError(privateKeyErr)
+
+	return privateKey
+}
+
+func GenerateAddress(privateKey *ecdsa.PrivateKey) common.Address {
 	publicKey := privateKey.Public()
 	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 	if !ok {
-		log.Fatal("error casting public key to ECDSA")
+		errorsutil.HandleError(errors.New("error casting public key to ECDSA"))
 	}
 
-	// generate address from public key
-	address := crypto.PubkeyToAddress(*publicKeyECDSA)
+	return crypto.PubkeyToAddress(*publicKeyECDSA)
+}
 
-	var data []byte
-
-	fmt.Println(transaction.GasPrice())
-
-	newGasPrice := big.NewInt(0).Add(transaction.GasPrice(), big.NewInt(0).Div(big.NewInt(0).Mul(transaction.GasPrice(), big.NewInt(10)), big.NewInt(100)))
-	fmt.Println(newGasPrice)
-	tx := types.NewTransaction(transaction.Nonce(), address, value, transaction.Gas(), newGasPrice, data)
-
-	// get chain id
-	chainID, chainIDErr := client.ChainID(context.Background())
-	if chainIDErr != nil {
-		log.Fatal(chainIDErr)
-		return nil, chainIDErr
-	}
+func SignTransaction(client *ethclient.Client, tx *types.Transaction, privateKey *ecdsa.PrivateKey) *types.Transaction {
+	chainID := GetChainID(client)
 
 	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), privateKey)
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
+	errorsutil.HandleError(err)
 
-	err = client.SendTransaction(context.Background(), signedTx)
-	if err != nil {
-		log.Fatal(err)
-		return nil, err
-	}
-
-	return signedTx, nil
+	return signedTx
 }
