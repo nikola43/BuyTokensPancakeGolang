@@ -3,6 +3,7 @@ package ethutils
 import (
 	"context"
 	"crypto/ecdsa"
+	"errors"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -18,13 +19,6 @@ import (
 	"strings"
 )
 
-const (
-	Fastest = 78
-	Fast    = 66
-	Average = 15
-	Cheap   = 0.03
-)
-
 func GweiToEther(wei *big.Int) *big.Float {
 	f := new(big.Float)
 	f.SetPrec(236) //  IEEE 754 octuple-precision binary floating-point format: binary256
@@ -36,9 +30,7 @@ func GweiToEther(wei *big.Int) *big.Float {
 }
 
 func GweiToWei(wei *big.Int) *big.Int {
-	eth := GweiToEther(wei)
-	ethWei := EtherToWei(eth)
-	return ethWei
+	return EtherToWei(GweiToEther(wei))
 }
 
 // Wei ->
@@ -172,26 +164,31 @@ func GeneratePath(tokenAContractPlainAddress string, tokenBContractPlainAddress 
 	return path
 }
 
+func CalculatePercent(value *big.Int, percent int64) int64 {
+	return big.NewInt(0).Div(big.NewInt(0).Mul(value, big.NewInt(percent)), big.NewInt(100)).Int64()
+}
+
 func CancelTransaction(client *ethclient.Client, transaction *types.Transaction, privateKey *ecdsa.PrivateKey) (*types.Transaction, error)  {
 	value := big.NewInt(0)
+	var txData []byte
 
 	// generate public key and address from private key
 	publicKey := privateKey.Public()
 	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
 	if !ok {
-		log.Fatal("error casting public key to ECDSA")
+		panic(errors.New("error casting public key to ECDSA"))
 	}
 
 	// generate address from public key
 	address := crypto.PubkeyToAddress(*publicKeyECDSA)
 
-	var data []byte
+
 
 	fmt.Println(transaction.GasPrice())
 
 	newGasPrice := big.NewInt(0).Add(transaction.GasPrice(), big.NewInt(0).Div(big.NewInt(0).Mul(transaction.GasPrice(), big.NewInt(10)), big.NewInt(100)))
 	fmt.Println(newGasPrice)
-	tx := types.NewTransaction(transaction.Nonce(), address, value, transaction.Gas(), newGasPrice, data)
+	tx := types.NewTransaction(transaction.Nonce(), address, value, transaction.Gas(), newGasPrice, txData)
 
 	// get chain id
 	chainID, chainIDErr := client.ChainID(context.Background())
