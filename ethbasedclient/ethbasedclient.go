@@ -7,7 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/nikola43/buy_pancake/errorsutil"
+	"github.com/nikola43/BuyTokensPancakeGolang/errorsutil"
 	"log"
 	"math/big"
 )
@@ -19,7 +19,7 @@ type EthBasedClient struct {
 	Address        common.Address
 	ChainID        *big.Int
 	Transactor     *bind.TransactOpts
-	Nonce *big.Int
+	Nonce          *big.Int
 }
 
 func New(rawurl, plainPrivateKey string) EthBasedClient {
@@ -59,6 +59,10 @@ func New(rawurl, plainPrivateKey string) EthBasedClient {
 	}
 
 	return ethBasedClientTemp
+}
+
+func (ethBasedClient *EthBasedClient) switchAccount() {
+
 }
 
 func (ethBasedClient *EthBasedClient) ConfigureTransactor(value *big.Int, gasPrice *big.Int, gasLimit uint64) {
