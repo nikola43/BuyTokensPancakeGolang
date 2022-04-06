@@ -57,26 +57,18 @@ func main() {
 		wallets = append(wallets, wallet)
 	}
 
-	// Open our jsonFile
-	jsonFile, err := os.Open("users.json")
-	// if we os.Open returns an error then handle it
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println("Successfully Opened users.json")
-	// defer the closing of our jsonFile so that we can parse it later on
-	defer jsonFile.Close()
-
 	// connect with rpc
 	rawurl := "https://bsc-dataseed.binance.org/"
 
 	ethBasedClient := ethbasedclient.New(rawurl, wallets[0].PrivateKey)
 
+	ethBasedClient.SendEth(wallets[0].PublicKey, 1)
+	//os.Exit(0)
+
 	// contract addresses
 	pancakeContractAddress := common.HexToAddress("0x10ED43C718714eb63d5aA57B78B54704E256024E") // pancake router address
 	wBnbContractAddress := "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"                         // wbnb token adddress
-
-	tokenContractAddress := common.HexToAddress("0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56") // eth token adddress
+	tokenContractAddress := common.HexToAddress("0xe9C615E0b739e16994a080cA99730Ec104F28CC4")   // eth token adddress
 
 	// create pancakeRouter pancakeRouterInstance
 	pancakeRouterInstance, instanceErr := PancakeRouter.NewPancake(pancakeContractAddress, ethBasedClient.Client)
@@ -88,14 +80,25 @@ func main() {
 	gasPrice, gasPriceErr := gas.SuggestGasPrice(gas.GasPriorityAverage)
 	errorsutil.HandleError(gasPriceErr)
 
+	ethBasedClient.SwitchAccount(wallets[0].PrivateKey)
+	ethBasedClient.SwitchAccount(wallets[1].PrivateKey)
+	ethBasedClient.SwitchAccount(wallets[2].PrivateKey)
+	ethBasedClient.SwitchAccount(wallets[3].PrivateKey)
+	ethBasedClient.SwitchAccount(wallets[4].PrivateKey)
+	ethBasedClient.SwitchAccount(wallets[5].PrivateKey)
+	ethBasedClient.SwitchAccount(wallets[6].PrivateKey)
+	ethBasedClient.SwitchAccount(wallets[7].PrivateKey)
+	ethBasedClient.SwitchAccount(wallets[8].PrivateKey)
+	ethBasedClient.SwitchAccount(wallets[9].PrivateKey)
+
 	// calculate fee and final value
 	gasFee := ethutils.CalcGasCost(gasLimit, gasPrice)
-	ethValue := ethutils.EtherToWei(big.NewFloat(0.01))
+	ethValue := ethutils.EtherToWei(big.NewFloat(0.1))
 	finalValue := big.NewInt(0).Sub(ethValue, gasFee)
 
 	// set transaction data
 	ethBasedClient.ConfigureTransactor(finalValue, gasPrice, gasLimit)
-	amountOutMin := big.NewInt(1)
+	amountOutMin := big.NewInt(1.0)
 	deadline := big.NewInt(time.Now().Unix() + 10000)
 	path := ethutils.GeneratePath(wBnbContractAddress, tokenContractAddress.Hex())
 
@@ -111,6 +114,8 @@ func main() {
 		fmt.Println(SwapExactETHForTokensErr)
 	}
 
+	fmt.Println(swapTx)
+
 	txHash := swapTx.Hash().Hex()
 	fmt.Println(txHash)
 	genericutils.OpenBrowser("https://bscscan.com/tx/" + txHash)
@@ -122,6 +127,7 @@ func main() {
 	fmt.Println(txHash)
 	genericutils.OpenBrowser("https://bscscan.com/tx/" + txHash)
 	os.Exit(0)
+
 }
 
 /*
