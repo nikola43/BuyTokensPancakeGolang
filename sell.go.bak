@@ -8,12 +8,12 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/hrharder/go-gas"
 	"github.com/joho/godotenv"
-	"github.com/nikola43/buy_pancake/contracts/IERC20"
-	"github.com/nikola43/buy_pancake/contracts/PancakeRouter"
-	"github.com/nikola43/buy_pancake/errorsutil"
-	"github.com/nikola43/buy_pancake/ethbasedclient"
-	"github.com/nikola43/buy_pancake/ethutils"
-	"github.com/nikola43/buy_pancake/genericutils"
+	"github.com/nikola43/BuyTokensPancakeGolang/contracts/IERC20"
+	"github.com/nikola43/BuyTokensPancakeGolang/contracts/PancakeRouter"
+	"github.com/nikola43/BuyTokensPancakeGolang/errorsutil"
+	"github.com/nikola43/BuyTokensPancakeGolang/ethbasedclient"
+	"github.com/nikola43/BuyTokensPancakeGolang/ethutils"
+	"github.com/nikola43/BuyTokensPancakeGolang/genericutils"
 	"log"
 	"math/big"
 	"os"
@@ -90,7 +90,6 @@ func main() {
 	ethBasedClient.ConfigureTransactor(big.NewInt(-1), gasPrice, gasLimit)
 	deadline = big.NewInt(time.Now().Unix() + 10000)
 	path := ethutils.GeneratePath(tokenContractAddress.Hex(), wBnbContractAddress.Hex())
-
 
 	gasSellFee := ethutils.CalcGasCost(gasSellLimit, gasSellPrice)
 	finalSellValue := big.NewInt(0).Sub(bal, big.NewInt(0).Div(big.NewInt(0).Mul(bal, big.NewInt(10)), big.NewInt(100)))
