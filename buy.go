@@ -11,7 +11,6 @@ import (
 	"github.com/nikola43/BuyTokensPancakeGolang/errorsutil"
 	"github.com/nikola43/BuyTokensPancakeGolang/ethbasedclient"
 	"github.com/nikola43/BuyTokensPancakeGolang/ethutils"
-	"github.com/nikola43/BuyTokensPancakeGolang/genericutils"
 	"io/ioutil"
 	"log"
 	"math/big"
@@ -34,7 +33,7 @@ func main() {
 		log.Fatalf("Error loading .env file")
 	}
 
-	wPath := "/home/nkt/wallets"
+	wPath := "./wallets"
 	files, err := ioutil.ReadDir(wPath)
 	if err != nil {
 		log.Fatal(err)
@@ -57,16 +56,6 @@ func main() {
 		wallets = append(wallets, wallet)
 	}
 
-	// Open our jsonFile
-	jsonFile, err := os.Open("users.json")
-	// if we os.Open returns an error then handle it
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println("Successfully Opened users.json")
-	// defer the closing of our jsonFile so that we can parse it later on
-	defer jsonFile.Close()
-
 	// connect with rpc
 	rawurl := "https://bsc-dataseed.binance.org/"
 
@@ -82,9 +71,13 @@ func main() {
 	pancakeRouterInstance, instanceErr := PancakeRouter.NewPancake(pancakeContractAddress, ethBasedClient.Client)
 	errorsutil.HandleError(instanceErr)
 	fmt.Println("pancakeRouterInstance contract is loaded")
+	fmt.Println("pancakeRouterInstance", pancakeRouterInstance)
 
 	// calculate gas and gas limit
 	gasLimit := uint64(2100000) // in units
+
+
+
 	gasPrice, gasPriceErr := gas.SuggestGasPrice(gas.GasPriorityAverage)
 	errorsutil.HandleError(gasPriceErr)
 
@@ -99,6 +92,11 @@ func main() {
 	deadline := big.NewInt(time.Now().Unix() + 10000)
 	path := ethutils.GeneratePath(wBnbContractAddress, tokenContractAddress.Hex())
 
+	fmt.Println("amountOutMin", amountOutMin)
+	fmt.Println("deadline", deadline)
+	fmt.Println("path", path)
+
+	/*
 	// send transaction
 	swapTx, SwapExactETHForTokensErr := pancakeRouterInstance.SwapExactETHForTokensSupportingFeeOnTransferTokens(
 		ethBasedClient.Transactor,
@@ -122,6 +120,7 @@ func main() {
 	fmt.Println(txHash)
 	genericutils.OpenBrowser("https://bscscan.com/tx/" + txHash)
 	os.Exit(0)
+	*/
 }
 
 /*
