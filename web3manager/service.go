@@ -2,27 +2,24 @@ package web3manager
 
 import (
 	"context"
+	"crypto/ecdsa"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
-	"math/big"
-	"net/url"
-	"strconv"
-	"strings"
-	"time"
-
-	"github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/fatih/color"
-	"github.com/hokaccha/go-prettyjson"
+	"github.com/nikola43/BuyTokensPancakeGolang/errorsutil"
+	"github.com/nikola43/BuyTokensPancakeGolang/ethutils"
+	web3util "github.com/nikola43/BuyTokensPancakeGolang/web3manager/util"
 	"golang.org/x/crypto/sha3"
-
-	web3util "./util" // for demo
+	"log"
+	"math/big"
+	"net/url"
+	"strconv"
+	"time"
 )
 
 type LogLevel int
@@ -151,7 +148,7 @@ func NewHttpWeb3Client(rpcUrl string, plainPrivateKey interface{}) *Web3Manager 
 
 	if plainPrivateKey != nil {
 		web3Manager.plainPrivateKey = plainPrivateKey.(string)
-		web3Manager.fromAddress = web3util.GeneratePublicAddressFromPrivateKey(web3Manager.plainPrivateKey)
+		web3Manager.fromAddress = GeneratePublicAddressFromPrivateKey(web3Manager.plainPrivateKey)
 	}
 
 	return web3Manager
@@ -315,25 +312,25 @@ func (w *Web3Manager) SubscribeContractBridgeBSCEvent(contractAddressString stri
 			fmt.Println("vLog.BlockNumber: " + strconv.FormatUint(vLog.BlockNumber, 10))
 
 			/*
-		
-				event := struct {
-					Key   [32]byte
-					Value [32]byte
-				}{}
-		
 
-			contractAbi, err := abi.JSON(strings.NewReader(bridgeAvax.BridgeAvaxMetaData.ABI))
-			if err != nil {
-				log.Fatal(err)
-			}
+					event := struct {
+						Key   [32]byte
+						Value [32]byte
+					}{}
 
-			//r, err := contractAbi.Unpack(&event, "ItemSet", vLog.Data)
-			r, err := contractAbi.Unpack("Transfer", vLog.Data)
-			if err != nil {
-				log.Fatal(err)
-			}
 
-			fmt.Println(r)
+				contractAbi, err := abi.JSON(strings.NewReader(bridgeAvax.BridgeAvaxMetaData.ABI))
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				//r, err := contractAbi.Unpack(&event, "ItemSet", vLog.Data)
+				r, err := contractAbi.Unpack("Transfer", vLog.Data)
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				fmt.Println(r)
 
 			*/
 
@@ -504,4 +501,82 @@ func (w *Web3Manager) CancelTx(to string, nonce uint64, multiplier int64) (strin
 	}
 
 	return txId, nil
+}
+
+func (w *Web3Manager) SendEth(to string, val float64) {
+	fromAddress := crypto.PubkeyToAddress(*w.PublicKeyECDSA)
+	toAddress := common.HexToAddress(to)
+	var data []byte
+	nonce, err := w.Client.PendingNonceAt(context.Background(), fromAddress)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	gasLimit := uint64(2100000) // in units
+	gasPrice, err := w.Client.SuggestGasPrice(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ethValue := ethutils.EtherToWei(big.NewFloat(val))
+	tx := types.NewTransaction(nonce, toAddress, ethValue, gasLimit, gasPrice, data)
+
+	chainID, err := w.Client.NetworkID(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	signedTx, err := types.SignTx(tx, types.NewEIP155Signer(chainID), w.PrivateKey)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = w.Client.SendTransaction(context.Background(), signedTx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("tx sent: %s", signedTx.Hash().Hex())
+}
+func (w *Web3Manager) SwitchAccount(plainPrivateKey string) {
+	// create privateKey from string key
+	privateKey, privateKeyErr := crypto.HexToECDSA(plainPrivateKey)
+	errorsutil.HandleError(privateKeyErr)
+
+	// generate public key and address from private key
+	publicKey := privateKey.Public()
+	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
+	if !ok {
+		log.Fatal("error casting public key to ECDSA")
+	}
+
+	// generate address from public key
+	address := crypto.PubkeyToAddress(*publicKeyECDSA)
+	w.Address = address
+}
+
+func (w *Web3Manager) ConfigureTransactor(value *big.Int, gasPrice *big.Int, gasLimit uint64) {
+
+	if value.String() != "-1" {
+		w.Transactor.Value = value
+	}
+
+	w.Transactor.GasPrice = gasPrice
+	w.Transactor.GasLimit = gasLimit
+	w.Transactor.Nonce = w.PendingNonce()
+	w.Transactor.Context = context.Background()
+}
+
+func (w *Web3Manager) Balance() *big.Int {
+	// get current balance
+	balance, balanceErr := w.Client.BalanceAt(context.Background(), w.Address, nil)
+	errorsutil.HandleError(balanceErr)
+	return balance
+}
+
+func (w *Web3Manager) PendingNonce() *big.Int {
+	// calculate next nonce
+	nonce, nonceErr := w.Client.PendingNonceAt(context.Background(), w.Address)
+	errorsutil.HandleError(nonceErr)
+	return big.NewInt(int64(nonce))
 }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/buy_pancake.iml" filepath="$PROJECT_DIR$/.idea/buy_pancake.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/BuyTokensPancakeGolang.iml" filepath="$PROJECT_DIR$/.idea/BuyTokensPancakeGolang.iml" />
     </modules>
   </component>
 </project>

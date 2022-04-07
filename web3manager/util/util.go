@@ -5,12 +5,12 @@ import (
 	"crypto/ecdsa"
 	"errors"
 	"fmt"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/ethclient"
 	"log"
 	"math/big"
-	"os/exec"
 	"reflect"
 	"regexp"
-	"runtime"
 	"strconv"
 	"strings"
 
@@ -51,7 +51,6 @@ func WeiToGwei(wei *big.Int) *big.Int {
 	return i
 }
 
-
 func EtherToGwei(eth *big.Float) *big.Int {
 	truncInt, _ := eth.Int(nil)
 	truncInt = new(big.Int).Mul(truncInt, big.NewInt(params.GWei))
@@ -68,7 +67,7 @@ func CalcGasCost(gasLimit uint64, gasPrice *big.Int) *big.Int {
 	return gasLimitBig.Mul(gasLimitBig, gasPrice)
 }
 
-func GeneratePath(tokenAContractPlainAddress string, tokenBContractPlainAddress string )  []common.Address  {
+func GeneratePath(tokenAContractPlainAddress string, tokenBContractPlainAddress string) []common.Address {
 	tokenAContractAddress := common.HexToAddress(tokenAContractPlainAddress)
 	tokenBContractAddress := common.HexToAddress(tokenBContractPlainAddress)
 
@@ -79,7 +78,7 @@ func GeneratePath(tokenAContractPlainAddress string, tokenBContractPlainAddress 
 	return path
 }
 
-func CancelTransaction(client *ethclient.Client, transaction *types.Transaction, privateKey *ecdsa.PrivateKey) (*types.Transaction, error)  {
+func CancelTransaction(client *ethclient.Client, transaction *types.Transaction, privateKey *ecdsa.PrivateKey) (*types.Transaction, error) {
 	value := big.NewInt(0)
 
 	// generate public key and address from private key
@@ -121,7 +120,6 @@ func CancelTransaction(client *ethclient.Client, transaction *types.Transaction,
 
 	return signedTx, nil
 }
-
 
 // IsValidAddress validate hex address
 func IsValidAddress(iaddress interface{}) bool {
@@ -235,7 +233,6 @@ func ValidateAddress(address string) bool {
 	re := regexp.MustCompile("^0x[0-9a-fA-F]{40}$")
 	return re.MatchString(address)
 }
-
 
 // SigRSV signatures R S V returned as arrays
 func SigRSV(isig interface{}) ([32]byte, [32]byte, uint8) {
