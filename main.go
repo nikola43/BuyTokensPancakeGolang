@@ -70,6 +70,13 @@ func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
 	return res
 }
 
+func UpdateLiquidity(txHash string) bool {
+	var event EventsCatched
+	db.First(&event, "TxHash = ?", txHash)
+
+	return res
+}
+
 func checkTokens() {
 	// Get all records
 	//result := db.Find(&users)
