@@ -11,6 +11,7 @@ import (
 	"github.com/nikola43/BuyTokensPancakeGolang/errorsutil"
 	"github.com/nikola43/BuyTokensPancakeGolang/ethbasedclient"
 	"github.com/nikola43/BuyTokensPancakeGolang/ethutils"
+	"github.com/nikola43/web3golanghelper"
 	"io/ioutil"
 	"log"
 	"math/big"
