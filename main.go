@@ -8,7 +8,6 @@ import (
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	models "github.com/nikola43/BuyTokensPancakeGolang/models"
 	"github.com/nikola43/web3golanghelper/web3helper"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -29,6 +28,7 @@ func main() {
 	fmt.Println("Chain Id: " + chainID.String())
 
 	db := InitDatabase()
+	fmt.Println(db)
 
 	contractAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"
 	logs := make(chan types.Log)
@@ -50,7 +50,6 @@ func main() {
 		case vLog := <-logs:
 			fmt.Println("vLog.TxHash: " + vLog.TxHash.Hex())
 			fmt.Println("vLog.BlockNumber: " + strconv.FormatUint(vLog.BlockNumber, 10))
-			db.In
 		}
 	}
 }

@@ -5,13 +5,13 @@ go 1.17
 require (
 	github.com/ethereum/go-ethereum v1.10.17
 	github.com/nikola43/web3golanghelper v0.0.0-20220508041047-61cf935e613b
+	gorm.io/gorm v1.23.5
 )
 
 require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/mattn/go-sqlite3 v1.14.12 // indirect
-	gorm.io/gorm v1.23.4 // indirect
 )
 
 require (
