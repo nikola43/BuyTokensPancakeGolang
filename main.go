@@ -50,7 +50,9 @@ func main() {
 		case vLog := <-logs:
 			fmt.Println("vLog.TxHash: " + vLog.TxHash.Hex())
 			fmt.Println("vLog.BlockNumber: " + strconv.FormatUint(vLog.BlockNumber, 10))
-			db.In
+			event := new(models.EventsCatched)
+			event.Tx
+			InsertNewEvent(db)
 		}
 	}
 }
@@ -71,7 +73,7 @@ func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
 }
 
 func UpdateLiquidity(txHash string) bool {
-	var event EventsCatched
+	var event *models.EventsCatched
 	db.First(&event, "TxHash = ?", txHash)
 
 	return res
