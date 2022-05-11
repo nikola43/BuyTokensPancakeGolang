@@ -51,9 +51,9 @@ func main() {
 		case vLog := <-logs:
 			fmt.Println("vLog.TxHash: " + vLog.TxHash.Hex())
 			fmt.Println("vLog.BlockNumber: " + strconv.FormatUint(vLog.BlockNumber, 10))
-			event := new(models.EventsCatched)
-			event.Tx
-			InsertNewEvent(db)
+			// event := new(models.EventsCatched)
+			// event.Tx
+			// InsertNewEvent(db)
 		}
 	}
 }
@@ -68,16 +68,16 @@ func InitDatabase() *gorm.DB {
 }
 
 func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
-	res := db.Create(&models.EventsCatched{TxHash: newEvent.TxHash, TokenAddress: newEvent.TokenAddress, LPAddress: newEvent.LPAddress, LPPairA: newEvent.LPPairA, LPPairB: newEvent.LPPairB, Timestamp: newEvent.Timestamp, HasLiquidity: false})
+	db.Create(&models.EventsCatched{TxHash: newEvent.TxHash, TokenAddress: newEvent.TokenAddress, LPAddress: newEvent.LPAddress, LPPairA: newEvent.LPPairA, LPPairB: newEvent.LPPairB, Timestamp: newEvent.Timestamp, HasLiquidity: false})
 
-	return res
+	return true
 }
 
-func UpdateLiquidity(txHash string) bool {
+func UpdateLiquidity(db *gorm.DB, txHash string) bool {
 	var event *models.EventsCatched
 	db.First(&event, "TxHash = ?", txHash)
 
-	return res
+	return true
 }
 
 func checkTokens() {
