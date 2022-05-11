@@ -68,7 +68,14 @@ func InitDatabase() *gorm.DB {
 }
 
 func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
-	db.Create(&models.EventsCatched{TxHash: newEvent.TxHash, TokenAddress: newEvent.TokenAddress, LPAddress: newEvent.LPAddress, LPPairA: newEvent.LPPairA, LPPairB: newEvent.LPPairB, Timestamp: newEvent.Timestamp, HasLiquidity: false})
+	lpPairs := make([]models.LPPair, 0)
+	lpPairs = append(lpPairs, models.LPPair{
+		LPAddress:    "",
+		LPPairA:      "",
+		LPPairB:      "",
+		HasLiquidity: false,
+	})
+	db.Create(&models.EventsCatched{TxHash: newEvent.TxHash, TokenAddress: newEvent.TokenAddress, LPPairs: lpPairs})
 
 	return true
 }
