@@ -1,4 +1,4 @@
-package main
+package database
 
 import (
 	"gorm.io/driver/sqlite"
@@ -16,7 +16,7 @@ type EventsCatched struct {
 	HasLiquidity bool
 }
 
-func main() {
+func InitDatabase() {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")

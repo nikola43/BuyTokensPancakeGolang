@@ -8,7 +8,10 @@ import (
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	models "github.com/nikola43/BuyTokensPancakeGolang/models"
 	"github.com/nikola43/web3golanghelper/web3helper"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 func main() {
@@ -24,6 +27,8 @@ func main() {
 	}
 
 	fmt.Println("Chain Id: " + chainID.String())
+
+	db := InitDatabase()
 
 	contractAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"
 	logs := make(chan types.Log)
@@ -45,9 +50,24 @@ func main() {
 		case vLog := <-logs:
 			fmt.Println("vLog.TxHash: " + vLog.TxHash.Hex())
 			fmt.Println("vLog.BlockNumber: " + strconv.FormatUint(vLog.BlockNumber, 10))
-			//out <- vLog.TxHash.Hex()
+			db.In
 		}
 	}
+}
+
+func InitDatabase() *gorm.DB {
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	return db
+}
+
+func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
+	res := db.Create(&models.EventsCatched{TxHash: newEvent.TxHash, TokenAddress: newEvent.TokenAddress, LPAddress: newEvent.LPAddress, LPPairA: newEvent.LPPairA, LPPairB: newEvent.LPPairB, Timestamp: newEvent.Timestamp, HasLiquidity: false})
+
+	return res
 }
 
 func checkTokens() {
