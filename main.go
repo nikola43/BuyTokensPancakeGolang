@@ -1,6 +1,7 @@
 package main
 
 import (
+	"buytokenspancakegolang/models"
 	"context"
 	"fmt"
 	"strconv"
@@ -8,7 +9,6 @@ import (
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	models "github.com/nikola43/BuyTokensPancakeGolang/models"
 	"github.com/nikola43/web3golanghelper/web3helper"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -29,6 +29,7 @@ func main() {
 	fmt.Println("Chain Id: " + chainID.String())
 
 	db := InitDatabase()
+	fmt.Println(db)
 
 	contractAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"
 	logs := make(chan types.Log)
