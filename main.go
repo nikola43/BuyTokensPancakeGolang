@@ -5,10 +5,14 @@ import (
 	"buytokenspancakegolang/models"
 	"bytes"
 	"context"
+	"crypto/ecdsa"
 	"encoding/gob"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"math/big"
+	"os"
 	"strings"
 	"time"
 
@@ -20,7 +24,9 @@ import (
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/fatih/color"
 	"github.com/hrharder/go-gas"
 	"github.com/mattn/go-colorable"
@@ -38,6 +44,10 @@ var red = color.New(color.FgRed).SprintFunc()
 var cyan = color.New(color.FgCyan).SprintFunc()
 var green = color.New(color.FgGreen).SprintFunc()
 
+type Wallet struct {
+	PublicKey  string `json:"PublicKey"`
+	PrivateKey string `json:"PrivateKey"`
+}
 type Reserve struct {
 	Reserve0           *big.Int
 	Reserve1           *big.Int
@@ -45,6 +55,9 @@ type Reserve struct {
 }
 
 func main() {
+
+	GenerateWallet()
+
 	// Declarations
 	web3GolangHelper := initWeb3()
 	db := InitDatabase()
@@ -412,4 +425,68 @@ func getPairLiquidityIcon(pair *models.LpPair) string {
 		icon = "🟢"
 	}
 	return icon
+}
+
+func GenerateWallet() {
+
+	privateKey, err := crypto.GenerateKey()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	privateKeyBytes := crypto.FromECDSA(privateKey)
+	fmt.Println(hexutil.Encode(privateKeyBytes)[2:]) // fad9c8855b740a0b7ed4c221dbad0f33a83a49cad6b3fe8d5817ac83d38b6a19
+
+	publicKey := privateKey.Public()
+	publicKeyECDSA, ok := publicKey.(*ecdsa.PublicKey)
+	if !ok {
+		log.Fatal("cannot assert type: publicKey is not of type *ecdsa.PublicKey")
+	}
+
+	publicKeyBytes := crypto.FromECDSAPub(publicKeyECDSA)
+	fmt.Println(hexutil.Encode(publicKeyBytes)[4:]) // 9a7df67f79246283fdc93af76d4f8cdd62c4886e8cd870944e817dd0b97934fdd7719d0810951e03418205868a5c1b40b192451367f28e0088dd75e15de40c05
+
+	address := crypto.PubkeyToAddress(*publicKeyECDSA).Hex()
+	fmt.Println(address) // 0x96216849c49358B10257cb55b28eA603c874b05E
+
+	hash := sha3.NewLegacyKeccak256()
+	hash.Write(publicKeyBytes[1:])
+	fmt.Println(hexutil.Encode(hash.Sum(nil)[12:])) // 0x96216849c49358b10257cb55b28ea603c874b05e
+
+	wallet := Wallet{
+		PublicKey:  address,
+		PrivateKey: hexutil.Encode(privateKeyBytes)[2:],
+	}
+
+	file, _ := json.MarshalIndent(wallet, "", " ")
+	_ = ioutil.WriteFile("wallets/"+address+".json", file, 0644)
+}
+
+func getWallets() {
+	wallets := make([]Wallet, 0)
+
+	wPath := "./wallets"
+	files, err := ioutil.ReadDir(wPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+		fileName := file.Name()
+		fmt.Println("fileName", fileName)
+
+		wallet := Wallet{
+			PublicKey:  "",
+			PrivateKey: "",
+		}
+
+		// Open our jsonFile
+		jsonFile, _ := os.Open(wPath + "/" + fileName)
+		byteValue, _ := ioutil.ReadAll(jsonFile)
+		json.Unmarshal(byteValue, &wallet)
+		fmt.Println(wallet)
+		wallets = append(wallets, wallet)
+	}
+
+	fmt.Println(wallets)
 }
