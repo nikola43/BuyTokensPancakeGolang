@@ -56,8 +56,7 @@ func main() {
 	fmt.Println("Chain Id: " + chainID.String())
 
 	db := InitDatabase()
-	fmt.Println(db)
-
+	checkTokens(db)
 	contractAddress := "0x9ac64cc6e4415144c455bd8e4837fea55603e5c3"
 	logs := make(chan types.Log)
 	query := ethereum.FilterQuery{
@@ -127,10 +126,13 @@ func UpdateLiquidity(db *gorm.DB, txHash string) bool {
 	return true
 }
 
-func checkTokens() {
-	// Get all records
-	//result := db.Find(&users)
-	// SELECT * FROM users;
+func checkTokens(db *gorm.DB) {
+	events := make([]*models.EventsCatched, 0)
+	db.Find(&events)
+	lo.ForEach(events, func(element *models.EventsCatched, _ int) {
+		printTokenStatus(element)
+	})
+
 }
 
 func Buy(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) {
@@ -274,7 +276,7 @@ func BuyV2(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string, v
 */
 
 func updateTokenStatus(token *models.EventsCatched) {
-	
+
 }
 
 func printTokenStatus(token *models.EventsCatched) {
