@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"log"
 	"math/big"
-	"strconv"
 	"strings"
 	"time"
 
@@ -315,7 +314,10 @@ func updateTokenStatus(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelpe
 		fmt.Println(getNameErr)
 	}
 
-	fmt.Println(tokenName)
+	reserves := getReserves(web3GolangHelper, token.TokenAddress)
+	if *reserves.Reserve0 > web3helper.EtherToWei(big.NewFloat(0)) {
+		UpdateLiquidity(db, token.ID)
+	}
 
 }
 
