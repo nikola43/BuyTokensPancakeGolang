@@ -58,7 +58,7 @@ func main() {
 	db := InitDatabase()
 	fmt.Println(db)
 
-	contractAddress := "0xD2327bEc9C7b47cc29282Fc0fc3D76Bcaf4c3fB7"
+	contractAddress := "0x9ac64cc6e4415144c455bd8e4837fea55603e5c3"
 	logs := make(chan types.Log)
 	query := ethereum.FilterQuery{
 		Addresses: []common.Address{common.HexToAddress(contractAddress)},
@@ -277,8 +277,6 @@ func printTokenStatus(token *models.EventsCatched) {
 	logrus.SetFormatter(&logrus.TextFormatter{ForceColors: true})
 	logrus.SetOutput(colorable.NewColorableStdout())
 	logrus.Info("TOKEN INFO")
-
-
 
 	fmt.Printf("%s: %s\n", cyan("Token Address"), yellow(token.TokenAddress))
 	fmt.Printf("%s:\n", cyan("LP Pairs"))
