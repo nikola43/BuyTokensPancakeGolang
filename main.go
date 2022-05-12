@@ -63,7 +63,7 @@ func main() {
 	// Declarations
 	web3GolangHelper := initWeb3()
 	db := InitDatabase()
-	migrate(db)
+	//migrate(db)
 	factoryAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"
 	factoryAbi, _ := abi.JSON(strings.NewReader(string(pancakeFactory.PancakeABI)))
 
