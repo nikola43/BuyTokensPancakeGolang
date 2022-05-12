@@ -1,12 +1,14 @@
 package models
 
-import "gorm.io/gorm"
-
+import (
+	"github.com/ethereum/go-ethereum/common"
+	"gorm.io/gorm"
+)
 
 type LPPair struct {
 	gorm.Model
-	LPAddress    string
-	LPPairA      string
-	LPPairB      string
+	LPAddress    common.Address
+	LPPairA      common.Address
+	LPPairB      common.Address
 	HasLiquidity bool
 }
