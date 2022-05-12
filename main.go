@@ -3,7 +3,9 @@ package main
 import (
 	"buytokenspancakegolang/genericutils"
 	"buytokenspancakegolang/models"
+	"bytes"
 	"context"
+	"encoding/gob"
 	"fmt"
 	"log"
 	"math/big"
@@ -20,6 +22,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/hrharder/go-gas"
 	"github.com/nikola43/web3golanghelper/web3helper"
+	"golang.org/x/crypto/sha3"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -173,3 +176,78 @@ func Buy(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) {
 	genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
 
 }
+
+/*
+    function swapExactETHForTokensSupportingFeeOnTransferTokens(
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) external payable;
+	*/
+
+func BuyV2(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string,  value *big.Int) {
+	toAddress := common.HexToAddress("0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3")
+	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"     
+
+	transferFnSignature := []byte("swapExactETHForTokensSupportingFeeOnTransferTokens(uint,address[],address,uint)")
+	hash := sha3.NewLegacyKeccak256()
+	hash.Write(transferFnSignature)
+	methodID := hash.Sum(nil)[:4]
+
+	path := web3helper.GeneratePath(wBnbContractAddress, tokenAddress)
+	pathString := []string{path[0].Hex(), path[1].Hex()}
+
+	deadline := big.NewInt(time.Now().Unix() + 10000)
+	buf := &bytes.Buffer{}
+    gob.NewEncoder(buf).Encode(pathString)
+    bs := buf.Bytes()
+    fmt.Printf("%q", bs)
+
+	paddedAmountOutMin := common.LeftPadBytes(value.Bytes(), 32)
+	paddedPathA := common.LeftPadBytes(path[0].Bytes(), 32)
+	paddedPathB := common.LeftPadBytes(path[1].Bytes(), 32)
+	paddedPath := common.LeftPadBytes(bs, 32)
+	paddedTo := common.LeftPadBytes(toAddress.Bytes(), 32)
+	paddedDeadline := common.LeftPadBytes(deadline.Bytes(), 32)
+
+	fmt.Println("paddedAmountOutMin",paddedAmountOutMin )
+	fmt.Println("paddedPathA",paddedPathA )
+	fmt.Println("paddedPathB", paddedPathB)
+	fmt.Println("paddedPath", paddedPath)
+	fmt.Println("paddedTo",paddedTo )
+	fmt.Println("paddedDeadline",paddedDeadline )
+	fmt.Println("paddedAmountOutMin",paddedAmountOutMin )
+	fmt.Println("paddedAmountOutMin",paddedAmountOutMin )
+
+	txData := web3helper.BuildTxData(methodID, paddedAmountOutMin, paddedPath, paddedTo, paddedDeadline)
+	estimateGas := web3GolangHelper.EstimateGas(toAddress.Hex(), txData)
+	txId, txNonce, err := web3GolangHelper.SignAndSendTransaction(toAddress.Hex(), web3helper.ToWei(value, 18), txData, web3GolangHelper.PendingNonce(), nil, estimateGas)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(txId)
+	fmt.Println(txNonce)
+}
+
+/*
+	toAddress := common.HexToAddress(toAddressString)
+
+	transferFnSignature := []byte("transfer(address,uint256)")
+	hash := sha3.NewLegacyKeccak256()
+	hash.Write(transferFnSignature)
+	methodID := hash.Sum(nil)[:4]
+	paddedAddress := common.LeftPadBytes(toAddress.Bytes(), 32)
+	paddedAmount := common.LeftPadBytes(value.Bytes(), 32)
+
+	txData := BuildTxData(methodID, paddedAddress, paddedAmount)
+
+	estimateGas := w.EstimateGas(tokenAddressString, txData)
+	txId, txNonce, err := w.SignAndSendTransaction(toAddressString, ToWei(value, 18), txData, w.PendingNonce(), nil, estimateGas)
+	if err != nil {
+		return "", big.NewInt(0), err
+	}
+
+	return txId, txNonce, nil
+*/
