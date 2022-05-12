@@ -31,6 +31,8 @@ func main() {
 	wsUrl := "wss://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet/ws"
 	web3GolangHelper := web3helper.NewWeb3GolangHelper(rpcUrl, wsUrl, pk)
 
+	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
+
 	chainID, err := web3GolangHelper.HttpClient().NetworkID(context.Background())
 	if err != nil {
 		fmt.Println(err)
@@ -68,7 +70,7 @@ func main() {
 			}
 			event := new(models.EventsCatched)
 			event.TxHash = vLog.TxHash.Hex()
-			if res[0].(common.Address) != common.HexToAddress("0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd") {
+			if res[0].(common.Address) != common.HexToAddress(wBnbContractAddress) {
 				event.TokenAddress = res[0].(common.Address)
 			} else {
 				event.TokenAddress = res[1].(common.Address)
@@ -113,11 +115,11 @@ func checkTokens() {
 	// SELECT * FROM users;
 }
 
-func Buy(web3GolangHelper *web3helper.Web3GolangHelper, url string) {
+func Buy(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) {
 	// contract addresses
-	pancakeContractAddress := common.HexToAddress("0x10ED43C718714eb63d5aA57B78B54704E256024E") // pancake router address
-	wBnbContractAddress := "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"                         // wbnb token adddress
-	tokenContractAddress := common.HexToAddress("0xe9C615E0b739e16994a080cA99730Ec104F28CC4")   // eth token adddress
+	pancakeContractAddress := common.HexToAddress("0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3") // pancake router address
+	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"                         // wbnb token adddress
+	tokenContractAddress := common.HexToAddress(tokenAddress)   // eth token adddress
 
 	// create pancakeRouter pancakeRouterInstance
 	pancakeRouterInstance, instanceErr := pancakeRouter.NewPancake(pancakeContractAddress, web3GolangHelper.HttpClient())
@@ -168,6 +170,6 @@ func Buy(web3GolangHelper *web3helper.Web3GolangHelper, url string) {
 
 	txHash := swapTx.Hash().Hex()
 	fmt.Println(txHash)
-	genericutils.OpenBrowser("https://bscscan.com/tx/" + txHash)
+	genericutils.OpenBrowser("https://testnet.bscscan.com/tx/" + txHash)
 
 }
