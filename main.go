@@ -141,13 +141,13 @@ func InsertNewEvent(db *gorm.DB, newEvent []interface{}, vLog types.Log) bool {
 
 	event.TxHash = vLog.TxHash.Hex()
 	event.LPPairs = lpPairs
-	if newEvent[0].(common.Address) != common.HexToAddress(wBnbContractAddress) {
-		event.TokenAddress = newEvent[0].(common.Address).Hex()
+	if tokenAddressA.Hex() != wBnbContractAddress {
+		event.TokenAddress = tokenAddressA.Hex()
 	} else {
-		event.TokenAddress = newEvent[1].(common.Address).Hex()
+		event.TokenAddress = tokenAddressB.Hex()
 	}
 
-	db.Create(newEvent)
+	db.Create(event)
 
 	return true
 }
