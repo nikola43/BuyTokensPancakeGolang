@@ -119,9 +119,9 @@ func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
 	return true
 }
 
-func UpdateLiquidity(db *gorm.DB, txHash string) bool {
-	var event *models.EventsCatched
-	db.First(&event, "TxHash = ?", txHash)
+func UpdateLiquidity(db *gorm.DB, eventID uint) bool {
+	event := new(models.LpPair)
+	db.First(&event, "events_catched_id = ?", eventID).Update("has_liquidity", 1)
 
 	return true
 }
@@ -131,6 +131,10 @@ func checkTokens(db *gorm.DB) {
 	db.Find(&events)
 	lo.ForEach(events, func(element *models.EventsCatched, _ int) {
 		printTokenStatus(element)
+		liquidity := false
+		if liquidity {
+			UpdateLiquidity(db, element.ID)
+		}
 	})
 
 }
