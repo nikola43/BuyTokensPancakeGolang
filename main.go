@@ -48,11 +48,12 @@ func main() {
 	// Declarations
 	web3GolangHelper := initWeb3()
 	db := InitDatabase()
+	//migrate(db)
 	factoryAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"
 	factoryAbi, _ := abi.JSON(strings.NewReader(string(pancakeFactory.PancakeABI)))
 
 	// LOGIC -----------------------------------------------------------
-	checkTokens(db)
+	checkTokens(db, web3GolangHelper)
 	proccessEvents(db, web3GolangHelper, factoryAddress, factoryAbi)
 }
 
@@ -116,6 +117,13 @@ func InitDatabase() *gorm.DB {
 	return db
 }
 
+// func migrate(db *gorm.DB) {
+// 	db.Migrator().DropTable(&models.EventsCatched{})
+// 	db.Migrator().DropTable(&models.LpPair{})
+// 	db.Migrator().CreateTable(&models.LpPair{})
+// 	db.Migrator().CreateTable(&models.EventsCatched{})
+// }
+
 func InsertNewEvent(db *gorm.DB, newEvent []interface{}, vLog types.Log) bool {
 	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
 	event := new(models.EventsCatched)
@@ -154,15 +162,12 @@ func UpdateName(db *gorm.DB, token string, name string) bool {
 	return true
 }
 
-func checkTokens(db *gorm.DB) {
+func checkTokens(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelper) {
 	events := make([]*models.EventsCatched, 0)
 	db.Find(&events)
 	lo.ForEach(events, func(element *models.EventsCatched, _ int) {
 		printTokenStatus(element)
-		liquidity := false
-		if liquidity {
-			UpdateLiquidity(db, element.ID)
-		}
+		updateTokenStatus(db, web3GolangHelper, element)
 	})
 
 }
