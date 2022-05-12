@@ -68,7 +68,8 @@ func main() {
 =======
 	
 	contractAddress := "0x9ac64cc6e4415144c455bd8e4837fea55603e5c3"
-	sub := BuildContractEventSubscription(web3GolangHelper, contractAddress)
+	logs := make(chan types.Log)
+	sub := BuildContractEventSubscription(web3GolangHelper, contractAddress, logs)
 
 >>>>>>> 1e02325785ba734577be26862b4b6a82dd63cd48
 
@@ -109,8 +110,8 @@ func main() {
 	}
 }
 
-func BuildContractEventSubscription(web3GolangHelper *web3helper.Web3GolangHelper, contractAddress string) ethereum.Subscription {
-	logs := make(chan types.Log)
+func BuildContractEventSubscription(web3GolangHelper *web3helper.Web3GolangHelper, contractAddress string, logs chan types.Log) ethereum.Subscription {
+	
 	query := ethereum.FilterQuery{
 		Addresses: []common.Address{common.HexToAddress(contractAddress)},
 	}
