@@ -114,7 +114,7 @@ func InitDatabase() *gorm.DB {
 }
 
 func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
-	db.Create(&models.EventsCatched{TxHash: newEvent.TxHash, TokenAddress: newEvent.TokenAddress, LPPairs: lpPairs})
+	db.Create(newEvent)
 
 	return true
 }
@@ -276,6 +276,8 @@ func printTokenStatus(token *models.EventsCatched) {
 	logrus.SetFormatter(&logrus.TextFormatter{ForceColors: true})
 	logrus.SetOutput(colorable.NewColorableStdout())
 	logrus.Info("TOKEN INFO")
+
+
 
 	fmt.Printf("%s: %s\n", cyan("Token Address"), yellow(token.TokenAddress))
 	fmt.Printf("%s:\n", cyan("LP Pairs"))
