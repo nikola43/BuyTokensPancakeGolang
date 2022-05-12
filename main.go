@@ -85,8 +85,8 @@ func main() {
 			}
 			fmt.Println(res)
 			event := new(models.EventsCatched)
-			lpPairs := make([]models.LpPair, 0)
-			lpPairs = append(lpPairs, models.LpPair{
+			lpPairs := make([]*models.LpPair, 0)
+			lpPairs = append(lpPairs, &models.LpPair{
 				LPAddress:    common.HexToAddress("0").Hex(),
 				LPPairA:      res[0].(common.Address).Hex(),
 				LPPairB:      res[1].(common.Address).Hex(),
@@ -273,6 +273,10 @@ func BuyV2(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string, v
 	return txId, txNonce, nil
 */
 
+func updateTokenStatus(token *models.EventsCatched) {
+	
+}
+
 func printTokenStatus(token *models.EventsCatched) {
 	logrus.SetFormatter(&logrus.TextFormatter{ForceColors: true})
 	logrus.SetOutput(colorable.NewColorableStdout())
@@ -280,10 +284,27 @@ func printTokenStatus(token *models.EventsCatched) {
 
 	fmt.Printf("%s: %s\n", cyan("Token Address"), yellow(token.TokenAddress))
 	fmt.Printf("%s:\n", cyan("LP Pairs"))
-	lo.ForEach[models.LpPair](token.LPPairs, func(element models.LpPair, _ int) {
+	lo.ForEach(token.LPPairs, func(element *models.LpPair, _ int) {
 		fmt.Printf("\t%s: %s\n", cyan("LP Address"), yellow(element.LPAddress))
 		fmt.Printf("\t%s: %s\n", cyan("LP TokenA Address"), yellow(element.LPPairA))
 		fmt.Printf("\t%s: %s\n", cyan("LP TokenB Address"), yellow(element.LPPairB))
-		fmt.Printf("\t%s: %s\n\n", cyan("LP Has Liquidity"), yellow(element.HasLiquidity))
+		fmt.Printf("\t%s: %s\n\n", cyan("LP Has Liquidity"), getPairLiquidityIcon(element))
+		fmt.Printf("\t%s: %s\n\n", cyan("Trading Enabled"), getPairTradingIcon(element))
 	})
+}
+
+func getPairTradingIcon(pair *models.LpPair) string {
+	icon := "🔴"
+	if pair.TradingEnabled {
+		icon = "🟢"
+	}
+	return icon
+}
+
+func getPairLiquidityIcon(pair *models.LpPair) string {
+	icon := "🔴"
+	if pair.HasLiquidity {
+		icon = "🟢"
+	}
+	return icon
 }
