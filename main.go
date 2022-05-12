@@ -276,10 +276,11 @@ func printTokenStatus(token *models.EventsCatched) {
 	logrus.Info("TOKEN INFO")
 
 	fmt.Printf("%s: %s\n", cyan("Token Address"), yellow(token.TokenAddress))
+	fmt.Printf("%s:\n", cyan("LP Pairs"))
 	lo.ForEach[string](token.LPPairs, func(element models.LpPair, _ int) {
-		fmt.Printf("%s: %s\n", cyan("LP Address"), yellow(element.LPAddress))
-		fmt.Printf("%s: %s\n", cyan("LP TokenA Address"), yellow(element.LPPairA))
-		fmt.Printf("%s: %s\n", cyan("LP TokenB Address"), yellow(element.LPPairB))
-		fmt.Printf("%s: %s\n\n", cyan("LP Has Liquidity"), yellow(element.HasLiquidity))
+		fmt.Printf("\t%s: %s\n", cyan("LP Address"), yellow(element.LPAddress))
+		fmt.Printf("\t%s: %s\n", cyan("LP TokenA Address"), yellow(element.LPPairA))
+		fmt.Printf("\t%s: %s\n", cyan("LP TokenB Address"), yellow(element.LPPairB))
+		fmt.Printf("\t%s: %s\n\n", cyan("LP Has Liquidity"), yellow(element.HasLiquidity))
 	})
 }
