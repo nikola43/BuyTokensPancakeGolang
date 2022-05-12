@@ -126,12 +126,16 @@ func InitDatabase() *gorm.DB {
 
 func InsertNewEvent(db *gorm.DB, newEvent []interface{}, vLog types.Log) bool {
 	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
+
+	tokenAddressA := vLog.Topics[0]
+	tokenAddressB := vLog.Topics[1]
+
 	event := new(models.EventsCatched)
 	lpPairs := make([]*models.LpPair, 0)
 	lpPairs = append(lpPairs, &models.LpPair{
-		LPAddress:    common.HexToAddress("0").Hex(),
-		LPPairA:      newEvent[0].(common.Address).Hex(),
-		LPPairB:      newEvent[1].(common.Address).Hex(),
+		LPAddress:    newEvent[0].(common.Address).Hex(),
+		LPPairA:      tokenAddressA.Hex(),
+		LPPairB:      tokenAddressB.Hex(),
 		HasLiquidity: false,
 	})
 
