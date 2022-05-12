@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2806d54-3ad9-4a9b-8e0a-a078a4acde92" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/BuyTokensPancakeGolang.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/buy_pancake.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/errorsutil/errorsutil.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web3manager/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/web3manager/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web3manager/util/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/web3manager/util/util.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1649321767608</updated>
       <workItem from="1649321767608" duration="438000" />
+      <workItem from="1652319137446" duration="3000" />
     </task>
     <servers />
   </component>

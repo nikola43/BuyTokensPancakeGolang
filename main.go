@@ -20,14 +20,26 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/fatih/color"
 	"github.com/hrharder/go-gas"
+	"github.com/mattn/go-colorable"
 	"github.com/nikola43/web3golanghelper/web3helper"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/crypto/sha3"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"github.com/samber/lo"
 )
 
+// Create SprintXxx functions to mix strings with other non-colorized strings:
+var yellow = color.New(color.FgYellow).SprintFunc()
+var red = color.New(color.FgRed).SprintFunc()
+var cyan = color.New(color.FgCyan).SprintFunc()
+var green = color.New(color.FgGreen).SprintFunc()
+
 func main() {
+
+	printTokenStatus()
 
 	pk := "b366406bc0b4883b9b4b3b41117d6c62839174b7d21ec32a5ad0cc76cb3496bd"
 	rpcUrl := "https://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet"
@@ -222,11 +234,11 @@ func BuyV2(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string, v
 
 	txData := web3helper.BuildTxData(methodID, paddedAmountOutMin, paddedPath, paddedTo, paddedDeadline)
 
-	fmt.Println("txData",txData )
+	fmt.Println("txData", txData)
 
 	estimateGas := web3GolangHelper.EstimateGas(toAddress.Hex(), txData)
 
-	fmt.Println("estimateGas",estimateGas )
+	fmt.Println("estimateGas", estimateGas)
 
 	txId, txNonce, err := web3GolangHelper.SignAndSendTransaction(toAddress.Hex(), web3helper.ToWei(value, 18), txData, web3GolangHelper.PendingNonce(), nil, estimateGas)
 	if err != nil {
@@ -257,3 +269,17 @@ func BuyV2(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string, v
 
 	return txId, txNonce, nil
 */
+
+func printTokenStatus(token *models.EventsCatched) {
+	logrus.SetFormatter(&logrus.TextFormatter{ForceColors: true})
+	logrus.SetOutput(colorable.NewColorableStdout())
+	logrus.Info("TOKEN INFO")
+
+	fmt.Printf("%s: %s\n", cyan("Token Address"), yellow(token.TokenAddress))
+	lo.ForEach[string](token.LPPairs, func(element models.LpPair, _ int) {
+		fmt.Printf("%s: %s\n", cyan("LP Address"), yellow(element.LPAddress))
+		fmt.Printf("%s: %s\n", cyan("LP TokenA Address"), yellow(element.LPPairA))
+		fmt.Printf("%s: %s\n", cyan("LP TokenB Address"), yellow(element.LPPairB))
+		fmt.Printf("%s: %s\n\n", cyan("LP Has Liquidity"), yellow(element.HasLiquidity))
+	})
+}
