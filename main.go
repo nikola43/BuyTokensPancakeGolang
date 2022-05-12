@@ -13,6 +13,7 @@ import (
 	"log"
 	"math/big"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -57,6 +58,7 @@ type Reserve struct {
 func main() {
 
 	GenerateWallet()
+	fmt.Println(parseDateTime())
 
 	// Declarations
 	web3GolangHelper := initWeb3()
@@ -489,4 +491,9 @@ func getWallets() {
 	}
 
 	fmt.Println(wallets)
+}
+
+func parseDateTime() string {
+	now := time.Now()
+	return strconv.Itoa(now.Year()) + "/" + now.Month().String() + "/" +strconv.Itoa(now.Day()) + " " +strconv.Itoa(now.Hour()) + ":" +strconv.Itoa(now.Minute()) + ":" + strconv.Itoa(now.Second())+":" + strconv.Itoa(now.Nanosecond())
 }
