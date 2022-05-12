@@ -24,11 +24,11 @@ import (
 	"github.com/hrharder/go-gas"
 	"github.com/mattn/go-colorable"
 	"github.com/nikola43/web3golanghelper/web3helper"
+	"github.com/samber/lo"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/crypto/sha3"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"github.com/samber/lo"
 )
 
 // Create SprintXxx functions to mix strings with other non-colorized strings:
@@ -39,7 +39,7 @@ var green = color.New(color.FgGreen).SprintFunc()
 
 func main() {
 
-	printTokenStatus()
+	//printTokenStatus()
 
 	pk := "b366406bc0b4883b9b4b3b41117d6c62839174b7d21ec32a5ad0cc76cb3496bd"
 	rpcUrl := "https://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet"
@@ -58,7 +58,7 @@ func main() {
 	db := InitDatabase()
 	fmt.Println(db)
 
-	contractAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"
+	contractAddress := "0xD2327bEc9C7b47cc29282Fc0fc3D76Bcaf4c3fB7"
 	logs := make(chan types.Log)
 	query := ethereum.FilterQuery{
 		Addresses: []common.Address{common.HexToAddress(contractAddress)},
@@ -84,7 +84,16 @@ func main() {
 				log.Fatal(err)
 			}
 			event := new(models.EventsCatched)
+			lpPairs := make([]models.LpPair, 0)
+			lpPairs = append(lpPairs, models.LpPair{
+				LPAddress:    common.HexToAddress("0").Hex(),
+				LPPairA:      common.HexToAddress("0").Hex(),
+				LPPairB:      common.HexToAddress("0").Hex(),
+				HasLiquidity: false,
+			})
+
 			event.TxHash = vLog.TxHash.Hex()
+			event.LPPairs = lpPairs
 			if res[0].(common.Address) != common.HexToAddress(wBnbContractAddress) {
 				event.TokenAddress = res[0].(common.Address).Hex()
 			} else {
@@ -105,13 +114,6 @@ func InitDatabase() *gorm.DB {
 }
 
 func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
-	lpPairs := make([]models.LpPair, 0)
-	lpPairs = append(lpPairs, models.LpPair{
-		LPAddress:    common.HexToAddress("0").Hex(),
-		LPPairA:      common.HexToAddress("0").Hex(),
-		LPPairB:      common.HexToAddress("0").Hex(),
-		HasLiquidity: false,
-	})
 	db.Create(&models.EventsCatched{TxHash: newEvent.TxHash, TokenAddress: newEvent.TokenAddress, LPPairs: lpPairs})
 
 	return true
@@ -277,7 +279,7 @@ func printTokenStatus(token *models.EventsCatched) {
 
 	fmt.Printf("%s: %s\n", cyan("Token Address"), yellow(token.TokenAddress))
 	fmt.Printf("%s:\n", cyan("LP Pairs"))
-	lo.ForEach[string](token.LPPairs, func(element models.LpPair, _ int) {
+	lo.ForEach[models.LpPair](token.LPPairs, func(element models.LpPair, _ int) {
 		fmt.Printf("\t%s: %s\n", cyan("LP Address"), yellow(element.LPAddress))
 		fmt.Printf("\t%s: %s\n", cyan("LP TokenA Address"), yellow(element.LPPairA))
 		fmt.Printf("\t%s: %s\n", cyan("LP TokenB Address"), yellow(element.LPPairB))
