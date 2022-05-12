@@ -83,12 +83,13 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
+			fmt.Println(res)
 			event := new(models.EventsCatched)
 			lpPairs := make([]models.LpPair, 0)
 			lpPairs = append(lpPairs, models.LpPair{
 				LPAddress:    common.HexToAddress("0").Hex(),
-				LPPairA:      common.HexToAddress("0").Hex(),
-				LPPairB:      common.HexToAddress("0").Hex(),
+				LPPairA:      res[0].(common.Address).Hex(),
+				LPPairB:      res[1].(common.Address).Hex(),
 				HasLiquidity: false,
 			})
 
