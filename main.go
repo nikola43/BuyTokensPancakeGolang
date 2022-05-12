@@ -221,7 +221,13 @@ func BuyV2(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string,  
 	fmt.Println("paddedAmountOutMin",paddedAmountOutMin )
 
 	txData := web3helper.BuildTxData(methodID, paddedAmountOutMin, paddedPath, paddedTo, paddedDeadline)
+
+	fmt.Println("txData",txData )
+
 	estimateGas := web3GolangHelper.EstimateGas(toAddress.Hex(), txData)
+
+	fmt.Println("estimateGas",estimateGas )
+
 	txId, txNonce, err := web3GolangHelper.SignAndSendTransaction(toAddress.Hex(), web3helper.ToWei(value, 18), txData, web3GolangHelper.PendingNonce(), nil, estimateGas)
 	if err != nil {
 		fmt.Println(err)
