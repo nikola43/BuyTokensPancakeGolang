@@ -63,7 +63,7 @@ func main() {
 	// Declarations
 	web3GolangHelper := initWeb3()
 	db := InitDatabase()
-	//migrate(db)
+	migrate(db)
 	factoryAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"
 	factoryAbi, _ := abi.JSON(strings.NewReader(string(pancakeFactory.PancakeABI)))
 
@@ -132,12 +132,12 @@ func InitDatabase() *gorm.DB {
 	return db
 }
 
-// func migrate(db *gorm.DB) {
-// 	db.Migrator().DropTable(&models.EventsCatched{})
-// 	db.Migrator().DropTable(&models.LpPair{})
-// 	db.Migrator().CreateTable(&models.LpPair{})
-// 	db.Migrator().CreateTable(&models.EventsCatched{})
-// }
+func migrate(db *gorm.DB) {
+	db.Migrator().DropTable(&models.EventsCatched{})
+	db.Migrator().DropTable(&models.LpPair{})
+	db.Migrator().CreateTable(&models.LpPair{})
+	db.Migrator().CreateTable(&models.EventsCatched{})
+}
 
 func InsertNewEvent(db *gorm.DB, newEvent []interface{}, vLog types.Log) bool {
 	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
@@ -149,8 +149,8 @@ func InsertNewEvent(db *gorm.DB, newEvent []interface{}, vLog types.Log) bool {
 	lpPairs := make([]*models.LpPair, 0)
 	lpPairs = append(lpPairs, &models.LpPair{
 		LPAddress:    newEvent[0].(common.Address).Hex(),
-		LPPairA:      tokenAddressA.Hex(),
-		LPPairB:      tokenAddressB.Hex(),
+		LPPairA:      tokenAddressA.String(),
+		LPPairB:      tokenAddressB.String(),
 		HasLiquidity: false,
 	})
 
@@ -169,14 +169,14 @@ func InsertNewEvent(db *gorm.DB, newEvent []interface{}, vLog types.Log) bool {
 
 func UpdateLiquidity(db *gorm.DB, eventID uint) bool {
 	lpPair := new(models.LpPair)
-	db.First(&lpPair, "events_catched_id = ?", eventID).Update("has_liquidity", 1)
+	db.Where(&lpPair, "events_catched_id = ?", eventID).Update("has_liquidity", 1)
 
 	return true
 }
 
 func UpdateName(db *gorm.DB, token string, name string) bool {
 	event := new(models.EventsCatched)
-	db.First(&event, "token_address = ?", token).Update("token_name", 1)
+	db.Where(&event, "token_address = ?", token).Update("token_name", 1)
 
 	return true
 }
@@ -338,7 +338,6 @@ func updateTokenStatus(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelpe
 	if instanceErr != nil {
 		fmt.Println(instanceErr)
 	}
-	fmt.Println("pancakeRouterInstance contract is loaded")
 
 	tokenName, getNameErr := tokenContractInstance.Name(nil)
 	if getNameErr != nil {
@@ -495,5 +494,5 @@ func getWallets() {
 
 func parseDateTime() string {
 	now := time.Now()
-	return strconv.Itoa(now.Year()) + "/" + now.Month().String() + "/" +strconv.Itoa(now.Day()) + " " +strconv.Itoa(now.Hour()) + ":" +strconv.Itoa(now.Minute()) + ":" + strconv.Itoa(now.Second())+":" + strconv.Itoa(now.Nanosecond())
+	return strconv.Itoa(now.Year()) + "/" + now.Month().String() + "/" + strconv.Itoa(now.Day()) + " " + strconv.Itoa(now.Hour()) + ":" + strconv.Itoa(now.Minute()) + ":" + strconv.Itoa(now.Second()) + ":" + strconv.Itoa(now.Nanosecond())
 }
