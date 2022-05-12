@@ -4,9 +4,14 @@ import (
 	"buytokenspancakegolang/models"
 	"context"
 	"fmt"
+	"log"
 	"strconv"
+	"strings"
+
+	pancakeFactory "buytokenspancakegolang/contracts/IPancakeFactory"
 
 	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/nikola43/web3golanghelper/web3helper"
@@ -41,6 +46,7 @@ func main() {
 	if err != nil {
 		fmt.Println(sub)
 	}
+	contractAbi, _ := abi.JSON(strings.NewReader(string(pancakeFactory.PancakeABI)))
 
 	for {
 		select {
@@ -51,9 +57,18 @@ func main() {
 		case vLog := <-logs:
 			fmt.Println("vLog.TxHash: " + vLog.TxHash.Hex())
 			fmt.Println("vLog.BlockNumber: " + strconv.FormatUint(vLog.BlockNumber, 10))
-			// event := new(models.EventsCatched)
-			// event.Tx
-			// InsertNewEvent(db)
+			res, err := contractAbi.Unpack("PairCreated", vLog.Data)
+			if err != nil {
+				log.Fatal(err)
+			}
+			event := new(models.EventsCatched)
+			event.TxHash = vLog.TxHash.Hex()
+			if res[0].(string) != "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc" {
+				event.TokenAddress = res[0].(string)
+			} else {
+				event.TokenAddress = res[1].(string)
+			}
+			InsertNewEvent(db, event)
 		}
 	}
 }
