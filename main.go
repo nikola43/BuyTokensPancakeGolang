@@ -285,7 +285,16 @@ func printTokenStatus(token *models.EventsCatched) {
 		fmt.Printf("\t%s: %s\n", cyan("LP TokenA Address"), yellow(element.LPPairA))
 		fmt.Printf("\t%s: %s\n", cyan("LP TokenB Address"), yellow(element.LPPairB))
 		fmt.Printf("\t%s: %s\n\n", cyan("LP Has Liquidity"), getPairLiquidityIcon(element))
+		fmt.Printf("\t%s: %s\n\n", cyan("Trading Enabled"), getPairTradingIcon(element))
 	})
+}
+
+func getPairTradingIcon(pair *models.LpPair) string {
+	icon := "🔴"
+	if pair.TradingEnabled {
+		icon = "🟢"
+	}
+	return icon
 }
 
 func getPairLiquidityIcon(pair *models.LpPair) string {

@@ -10,5 +10,6 @@ type LpPair struct {
 	LPPairA         string
 	LPPairB         string
 	HasLiquidity    bool
+	TradingEnabled    bool
 	EventsCatchedID uint
 }
