@@ -57,8 +57,9 @@ type Reserve struct {
 
 func main() {
 
-	GenerateWallet()
+	//GenerateWallet()
 	fmt.Println(parseDateTime())
+	getWallets()
 
 	// Declarations
 	web3GolangHelper := initWeb3()
