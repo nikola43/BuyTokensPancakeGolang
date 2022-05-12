@@ -41,24 +41,23 @@ var green = color.New(color.FgGreen).SprintFunc()
 
 func main() {
 
-
 	web3GolangHelper := initWeb3()
 	db := InitDatabase()
 	checkTokens(db)
 
 	contractAddress := "0x9ac64cc6e4415144c455bd8e4837fea55603e5c3"
-	logs := make(chan types.Log)
-	sub := BuildContractEventSubscription(web3GolangHelper, contractAddress, logs)
 
 	contractAbi, _ := abi.JSON(strings.NewReader(string(pancakeFactory.PancakeABI)))
 
-	proccessEvents(sub, contractAbi)
-	
+	proccessEvents(db, web3GolangHelper, contractAddress, contractAbi)
+
 }
 
-func proccessEvents(sub ethereum.Subscription, contractAbi abi.ABI) {
+func proccessEvents(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelper, contractAddress string, contractAbi abi.ABI) {
 
 	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
+	logs := make(chan types.Log)
+	sub := BuildContractEventSubscription(web3GolangHelper, contractAddress, logs)
 
 	for {
 		select {
