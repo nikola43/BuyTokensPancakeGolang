@@ -53,7 +53,6 @@ func main() {
 
 func proccessEvents(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelper, contractAddress string, contractAbi abi.ABI) {
 
-	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
 	logs := make(chan types.Log)
 	sub := BuildContractEventSubscription(web3GolangHelper, contractAddress, logs)
 
@@ -70,23 +69,8 @@ func proccessEvents(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelper, 
 				log.Fatal(err)
 			}
 			fmt.Println(res)
-			event := new(models.EventsCatched)
-			lpPairs := make([]*models.LpPair, 0)
-			lpPairs = append(lpPairs, &models.LpPair{
-				LPAddress:    common.HexToAddress("0").Hex(),
-				LPPairA:      res[0].(common.Address).Hex(),
-				LPPairB:      res[1].(common.Address).Hex(),
-				HasLiquidity: false,
-			})
 
-			event.TxHash = vLog.TxHash.Hex()
-			event.LPPairs = lpPairs
-			if res[0].(common.Address) != common.HexToAddress(wBnbContractAddress) {
-				event.TokenAddress = res[0].(common.Address).Hex()
-			} else {
-				event.TokenAddress = res[1].(common.Address).Hex()
-			}
-			InsertNewEvent(db, event)
+			InsertNewEvent(db, res, vLog)
 		}
 	}
 }
@@ -127,7 +111,26 @@ func InitDatabase() *gorm.DB {
 	return db
 }
 
-func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
+func InsertNewEvent(db *gorm.DB, newEvent []interface{}, vLog types.Log) bool {
+	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
+	event := new(models.EventsCatched)
+	lpPairs := make([]*models.LpPair, 0)
+	lpPairs = append(lpPairs, &models.LpPair{
+		LPAddress:    common.HexToAddress("0").Hex(),
+		LPPairA:      newEvent[0].(common.Address).Hex(),
+		LPPairB:      newEvent[1].(common.Address).Hex(),
+		HasLiquidity: false,
+	})
+
+	event.TxHash = vLog.TxHash.Hex()
+	event.LPPairs = lpPairs
+	if newEvent[0].(common.Address) != common.HexToAddress(wBnbContractAddress) {
+		event.TokenAddress = newEvent[0].(common.Address).Hex()
+	} else {
+		event.TokenAddress = newEvent[1].(common.Address).Hex()
+	}
+
+
 	db.Create(newEvent)
 
 	return true
