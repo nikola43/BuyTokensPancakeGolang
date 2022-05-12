@@ -158,20 +158,23 @@ func Buy(web3GolangHelper *web3helper.Web3GolangHelper, url string) {
 	path := web3helper.GeneratePath(wBnbContractAddress, tokenContractAddress.Hex())
 	
 
+
 	swapTx, SwapExactETHForTokensErr := pancakeRouterInstance.SwapExactETHForTokensSupportingFeeOnTransferTokens(
 		transactor,
 		amountOutMin,
 		path,
-		web3GolangHelper.FromAddress,
+		*web3GolangHelper.FromAddress,
 		deadline)
 	if SwapExactETHForTokensErr != nil {
 		fmt.Println("SwapExactETHForTokensErr")
 		fmt.Println(SwapExactETHForTokensErr)
 	}
-	
+
+		
 	fmt.Println(swapTx)
 	
 	txHash := swapTx.Hash().Hex()
 	fmt.Println(txHash)
 	genericutils.OpenBrowser("https://bscscan.com/tx/" + txHash)
+
 	}
