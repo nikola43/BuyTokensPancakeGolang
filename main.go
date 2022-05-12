@@ -40,17 +40,15 @@ var cyan = color.New(color.FgCyan).SprintFunc()
 var green = color.New(color.FgGreen).SprintFunc()
 
 func main() {
-
+	// Declarations
 	web3GolangHelper := initWeb3()
 	db := InitDatabase()
+	factoryAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"
+	factoryAbi, _ := abi.JSON(strings.NewReader(string(pancakeFactory.PancakeABI)))
+
+	// LOGIC -----------------------------------------------------------
 	checkTokens(db)
-
-	contractAddress := "0x9ac64cc6e4415144c455bd8e4837fea55603e5c3"
-
-	contractAbi, _ := abi.JSON(strings.NewReader(string(pancakeFactory.PancakeABI)))
-
-	proccessEvents(db, web3GolangHelper, contractAddress, contractAbi)
-
+	proccessEvents(db, web3GolangHelper, factoryAddress, factoryAbi)
 }
 
 func proccessEvents(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelper, contractAddress string, contractAbi abi.ABI) {
