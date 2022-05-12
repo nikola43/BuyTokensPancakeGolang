@@ -59,16 +59,19 @@ func main() {
 
 	db := InitDatabase()
 	checkTokens(db)
+<<<<<<< HEAD
 	factoryAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc" // pancakeFactory
 	logs := make(chan types.Log)
 	query := ethereum.FilterQuery{
 		Addresses: []common.Address{common.HexToAddress(factoryAddress)},
 	}
+=======
+	
+	contractAddress := "0x9ac64cc6e4415144c455bd8e4837fea55603e5c3"
+	sub := BuildContractEventSubscription(web3GolangHelper, contractAddress)
 
-	sub, err := web3GolangHelper.WebSocketClient().SubscribeFilterLogs(context.Background(), query, logs)
-	if err != nil {
-		fmt.Println(sub)
-	}
+>>>>>>> 1e02325785ba734577be26862b4b6a82dd63cd48
+
 	contractAbi, _ := abi.JSON(strings.NewReader(string(pancakeFactory.PancakeABI)))
 
 	for {
@@ -104,6 +107,19 @@ func main() {
 			InsertNewEvent(db, event)
 		}
 	}
+}
+
+func BuildContractEventSubscription(web3GolangHelper *web3helper.Web3GolangHelper, contractAddress string) ethereum.Subscription {
+	logs := make(chan types.Log)
+	query := ethereum.FilterQuery{
+		Addresses: []common.Address{common.HexToAddress(contractAddress)},
+	}
+
+	sub, err := web3GolangHelper.WebSocketClient().SubscribeFilterLogs(context.Background(), query, logs)
+	if err != nil {
+		fmt.Println(sub)
+	}
+	return sub
 }
 
 func InitDatabase() *gorm.DB {
