@@ -87,7 +87,7 @@ func main() {
 	}
 }
 
-func initWeb3() *web3helper.Web3GolangHelper  {
+func initWeb3() *web3helper.Web3GolangHelper {
 	pk := "b366406bc0b4883b9b4b3b41117d6c62839174b7d21ec32a5ad0cc76cb3496bd"
 	rpcUrl := "https://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet"
 	wsUrl := "wss://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet/ws"
@@ -130,8 +130,15 @@ func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
 }
 
 func UpdateLiquidity(db *gorm.DB, eventID uint) bool {
-	event := new(models.LpPair)
-	db.First(&event, "events_catched_id = ?", eventID).Update("has_liquidity", 1)
+	lpPair := new(models.LpPair)
+	db.First(&lpPair, "events_catched_id = ?", eventID).Update("has_liquidity", 1)
+
+	return true
+}
+
+func UpdateName(db *gorm.DB, token string, name string) bool {
+	event := new(models.EventsCatched)
+	db.First(&event, "token_address = ?", token).Update("token_name", 1)
 
 	return true
 }
@@ -289,7 +296,7 @@ func BuyV2(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string, v
 	return txId, txNonce, nil
 */
 
-func updateTokenStatus(web3GolangHelper *web3helper.Web3GolangHelper, token *models.EventsCatched) {
+func updateTokenStatus(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelper, token *models.EventsCatched) {
 
 	// create pancakeRouter pancakeRouterInstance
 	tokenContractInstance, instanceErr := ierc20.NewPancake(common.HexToAddress(token.TokenAddress), web3GolangHelper.HttpClient())
@@ -300,6 +307,7 @@ func updateTokenStatus(web3GolangHelper *web3helper.Web3GolangHelper, token *mod
 
 	tokenName, getNameErr := tokenContractInstance.Name(nil)
 	if getNameErr != nil {
+		UpdateName(db, token.TokenAddress, tokenName)
 		fmt.Println(getNameErr)
 	}
 
@@ -307,7 +315,7 @@ func updateTokenStatus(web3GolangHelper *web3helper.Web3GolangHelper, token *mod
 
 }
 
-func getTokenPairs(web3GolangHelper *web3helper.Web3GolangHelper, token *models.EventsCatched) {
+func getTokenPairs(web3GolangHelper *web3helper.Web3GolangHelper, token *models.EventsCatched) string {
 	//lpPairs := make([]*models.LpPair, 0)
 
 	lpPairAddress := getPair(web3GolangHelper, token.TokenAddress)
@@ -315,7 +323,7 @@ func getTokenPairs(web3GolangHelper *web3helper.Web3GolangHelper, token *models.
 	//append(lpPairs, )
 
 	fmt.Println("lpPairAddress", lpPairAddress)
-
+	return lpPairAddress
 }
 
 func getReserves(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) struct {
