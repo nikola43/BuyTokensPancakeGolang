@@ -63,7 +63,7 @@ func main() {
 			}
 			event := new(models.EventsCatched)
 			event.TxHash = vLog.TxHash.Hex()
-			if res[0].(string) != "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc" {
+			if res[0].(string) != "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd" {
 				event.TokenAddress = res[0].(string)
 			} else {
 				event.TokenAddress = res[1].(string)
