@@ -38,6 +38,12 @@ var red = color.New(color.FgRed).SprintFunc()
 var cyan = color.New(color.FgCyan).SprintFunc()
 var green = color.New(color.FgGreen).SprintFunc()
 
+type Reserve struct {
+	Reserve0           *big.Int
+	Reserve1           *big.Int
+	BlockTimestampLast uint32
+}
+
 func main() {
 	// Declarations
 	web3GolangHelper := initWeb3()
@@ -128,7 +134,6 @@ func InsertNewEvent(db *gorm.DB, newEvent []interface{}, vLog types.Log) bool {
 	} else {
 		event.TokenAddress = newEvent[1].(common.Address).Hex()
 	}
-
 
 	db.Create(newEvent)
 
@@ -318,7 +323,7 @@ func updateTokenStatus(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelpe
 	}
 
 	reserves := getReserves(web3GolangHelper, token.TokenAddress)
-	if *reserves.Reserve0 > web3helper.EtherToWei(big.NewFloat(0)) {
+	if reserves.Reserve0.Uint64() > web3helper.EtherToWei(big.NewFloat(0)).Uint64() {
 		UpdateLiquidity(db, token.ID)
 	}
 
@@ -335,11 +340,7 @@ func getTokenPairs(web3GolangHelper *web3helper.Web3GolangHelper, token *models.
 	return lpPairAddress
 }
 
-func getReserves(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) struct {
-	Reserve0           *big.Int
-	Reserve1           *big.Int
-	BlockTimestampLast uint32
-} {
+func getReserves(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) Reserve {
 
 	pairInstance, instanceErr := pancakePair.NewPancake(common.HexToAddress("0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"), web3GolangHelper.HttpClient())
 	if instanceErr != nil {
