@@ -1,12 +1,15 @@
 package main
 
 import (
+	"buytokenspancakegolang/genericutils"
 	"buytokenspancakegolang/models"
 	"context"
 	"fmt"
 	"log"
+	"math/big"
 	"strconv"
 	"strings"
+	"time"
 
 	pancakeFactory "buytokenspancakegolang/contracts/IPancakeFactory"
 	pancakeRouter "buytokenspancakegolang/contracts/IPancakeRouter02"
@@ -139,40 +142,32 @@ func Buy(web3GolangHelper *web3helper.Web3GolangHelper, url string) {
 		gasPrice,
 	)
 
-	/*
+	// calculate fee and final value
+	gasFee := web3helper.CalcGasCost(gasLimit, gasPrice)
+	ethValue := web3helper.EtherToWei(big.NewFloat(0.1))
+	finalValue := big.NewInt(0).Sub(ethValue, gasFee)
 
-		// calculate fee and final value
-		gasFee := web3GolangHelper.CalcGasCost(gasLimit, gasPrice)
-		ethValue := web3GolangHelper.EtherToWei(big.NewFloat(0.1))
-		finalValue := big.NewInt(0).Sub(ethValue, gasFee)
+	// set transaction data
+	transactor := web3GolangHelper.BuildTransactor(finalValue, gasPrice, gasLimit)
+	amountOutMin := big.NewInt(1.0)
+	deadline := big.NewInt(time.Now().Unix() + 10000)
+	path := web3helper.GeneratePath(wBnbContractAddress, tokenContractAddress.Hex())
 
-		// set transaction data
-		ethBasedClient.ConfigureTransactor(finalValue, gasPrice, gasLimit)
-		amountOutMin := big.NewInt(1.0)
-		deadline := big.NewInt(time.Now().Unix() + 10000)
-		path := ethutils.GeneratePath(wBnbContractAddress, tokenContractAddress.Hex())
+	swapTx, SwapExactETHForTokensErr := pancakeRouterInstance.SwapExactETHForTokensSupportingFeeOnTransferTokens(
+		transactor,
+		amountOutMin,
+		path,
+		*web3GolangHelper.FromAddress,
+		deadline)
+	if SwapExactETHForTokensErr != nil {
+		fmt.Println("SwapExactETHForTokensErr")
+		fmt.Println(SwapExactETHForTokensErr)
+	}
 
+	fmt.Println(swapTx)
 
-		if transactOptsErr {
-			fmt.Println(transactOptsErr)
-		}
+	txHash := swapTx.Hash().Hex()
+	fmt.Println(txHash)
+	genericutils.OpenBrowser("https://bscscan.com/tx/" + txHash)
 
-		swapTx, SwapExactETHForTokensErr := pancakeRouterInstance.SwapExactETHForTokensSupportingFeeOnTransferTokens(
-			ethBasedClient.Transactor,
-			amountOutMin,
-			path,
-			web3GolangHelper.fromAddress,
-			deadline)
-		if SwapExactETHForTokensErr != nil {
-			fmt.Println("SwapExactETHForTokensErr")
-			fmt.Println(SwapExactETHForTokensErr)
-		}
-
-		fmt.Println(swapTx)
-
-		txHash := swapTx.Hash().Hex()
-		fmt.Println(txHash)
-		genericutils.OpenBrowser("https://bscscan.com/tx/" + txHash)
-
-	*/
 }
