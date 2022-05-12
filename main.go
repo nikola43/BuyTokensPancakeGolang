@@ -9,11 +9,13 @@ import (
 	"strings"
 
 	pancakeFactory "buytokenspancakegolang/contracts/IPancakeFactory"
+	pancakeRouter "buytokenspancakegolang/contracts/IPancakeRouter02"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/hrharder/go-gas"
 	"github.com/nikola43/web3golanghelper/web3helper"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -107,3 +109,72 @@ func checkTokens() {
 	//result := db.Find(&users)
 	// SELECT * FROM users;
 }
+
+
+
+func Buy(web3GolangHelper *web3helper.Web3GolangHelper, url string) {
+	// contract addresses
+	pancakeContractAddress := common.HexToAddress("0x10ED43C718714eb63d5aA57B78B54704E256024E") // pancake router address
+	wBnbContractAddress := "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"                         // wbnb token adddress
+	tokenContractAddress := common.HexToAddress("0xe9C615E0b739e16994a080cA99730Ec104F28CC4")   // eth token adddress
+	
+	// create pancakeRouter pancakeRouterInstance
+	pancakeRouterInstance, instanceErr := pancakeRouter.NewPancake(pancakeContractAddress, web3GolangHelper.HttpClient())
+	if instanceErr != nil {
+		fmt.Println(instanceErr)
+	}
+	fmt.Println("pancakeRouterInstance contract is loaded")
+	
+	// calculate gas and gas limit
+	gasLimit := uint64(2100000) // in units
+	gasPrice, gasPriceErr := gas.SuggestGasPrice(gas.GasPriorityAverage)
+	if gasPriceErr != nil {
+		fmt.Println(gasPriceErr)
+	}
+
+	fmt.Println(
+
+		wBnbContractAddress,
+		tokenContractAddress,
+		pancakeRouterInstance,
+		gasLimit,
+		gasPrice,
+	)
+	
+	/*
+	
+	// calculate fee and final value
+	gasFee := web3GolangHelper.CalcGasCost(gasLimit, gasPrice)
+	ethValue := web3GolangHelper.EtherToWei(big.NewFloat(0.1))
+	finalValue := big.NewInt(0).Sub(ethValue, gasFee)
+	
+	// set transaction data
+	ethBasedClient.ConfigureTransactor(finalValue, gasPrice, gasLimit)
+	amountOutMin := big.NewInt(1.0)
+	deadline := big.NewInt(time.Now().Unix() + 10000)
+	path := ethutils.GeneratePath(wBnbContractAddress, tokenContractAddress.Hex())
+	
+	
+	if transactOptsErr {
+		fmt.Println(transactOptsErr)
+	}
+	
+	swapTx, SwapExactETHForTokensErr := pancakeRouterInstance.SwapExactETHForTokensSupportingFeeOnTransferTokens(
+		ethBasedClient.Transactor,
+		amountOutMin,
+		path,
+		web3GolangHelper.fromAddress,
+		deadline)
+	if SwapExactETHForTokensErr != nil {
+		fmt.Println("SwapExactETHForTokensErr")
+		fmt.Println(SwapExactETHForTokensErr)
+	}
+	
+	fmt.Println(swapTx)
+	
+	txHash := swapTx.Hash().Hex()
+	fmt.Println(txHash)
+	genericutils.OpenBrowser("https://bscscan.com/tx/" + txHash)
+			
+*/
+	}
