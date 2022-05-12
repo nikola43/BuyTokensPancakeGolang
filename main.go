@@ -15,6 +15,7 @@ import (
 
 	pancakeFactory "buytokenspancakegolang/contracts/IPancakeFactory"
 	pancakeRouter "buytokenspancakegolang/contracts/IPancakeRouter02"
+	ierc20 "buytokenspancakegolang/contracts/IERC20"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
@@ -275,7 +276,51 @@ func BuyV2(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string, v
 	return txId, txNonce, nil
 */
 
-func updateTokenStatus(token *models.EventsCatched) {
+func updateTokenStatus(web3GolangHelper *web3helper.Web3GolangHelper, token *models.EventsCatched) {
+
+	// create pancakeRouter pancakeRouterInstance
+	tokenContractInstance, instanceErr := ierc20.NewPancake(common.HexToAddress(token.TokenAddress), web3GolangHelper.HttpClient())
+	if instanceErr != nil {
+		fmt.Println(instanceErr)
+	}
+	fmt.Println("pancakeRouterInstance contract is loaded")
+
+	tokenName, getNameErr := tokenContractInstance.Name(nil)
+	if getNameErr != nil {
+		fmt.Println(getNameErr)
+	}
+
+	fmt.Println(tokenName)
+
+}
+
+func getTokenPairs(web3GolangHelper *web3helper.Web3GolangHelper, token *models.EventsCatched) {
+	//lpPairs := make([]*models.LpPair, 0)
+
+
+	lpPairAddress := getPair(web3GolangHelper, token.TokenAddress)
+
+	//append(lpPairs, )
+
+	fmt.Println("lpPairAddress", lpPairAddress)
+
+}
+
+func getPair(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) string {
+
+	factoryInstance, instanceErr := pancakeFactory.NewPancake(common.HexToAddress("0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"), web3GolangHelper.HttpClient())
+	if instanceErr != nil {
+		fmt.Println(instanceErr)
+	}
+
+	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
+
+	lpPairAddress, getPairErr := factoryInstance.GetPair(nil, common.HexToAddress(wBnbContractAddress), common.HexToAddress(tokenAddress))
+	if getPairErr != nil {
+		fmt.Println(getPairErr)
+	}
+
+	return lpPairAddress.Hex()
 
 }
 
