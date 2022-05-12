@@ -1,14 +1,14 @@
 package models
 
 import (
-	"github.com/ethereum/go-ethereum/common"
 	"gorm.io/gorm"
 )
 
-type LPPair struct {
+type LpPair struct {
 	gorm.Model
-	LPAddress    common.Address
-	LPPairA      common.Address
-	LPPairB      common.Address
-	HasLiquidity bool
+	LPAddress       string `gorm:"lp_address"`
+	LPPairA         string
+	LPPairB         string
+	HasLiquidity    bool
+	EventsCatchedID uint
 }

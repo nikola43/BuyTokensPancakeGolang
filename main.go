@@ -69,9 +69,9 @@ func main() {
 			event := new(models.EventsCatched)
 			event.TxHash = vLog.TxHash.Hex()
 			if res[0].(common.Address) != common.HexToAddress("0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd") {
-				event.TokenAddress = res[0].(common.Address)
+				event.TokenAddress = res[0].(common.Address).Hex()
 			} else {
-				event.TokenAddress = res[1].(common.Address)
+				event.TokenAddress = res[1].(common.Address).Hex()
 			}
 			InsertNewEvent(db, event)
 		}
@@ -88,11 +88,11 @@ func InitDatabase() *gorm.DB {
 }
 
 func InsertNewEvent(db *gorm.DB, newEvent *models.EventsCatched) bool {
-	lpPairs := make([]models.LPPair, 0)
-	lpPairs = append(lpPairs, models.LPPair{
-		LPAddress:    common.HexToAddress("0"),
-		LPPairA:      common.HexToAddress("0"),
-		LPPairB:      common.HexToAddress("0"),
+	lpPairs := make([]models.LpPair, 0)
+	lpPairs = append(lpPairs, models.LpPair{
+		LPAddress:    common.HexToAddress("0").Hex(),
+		LPPairA:      common.HexToAddress("0").Hex(),
+		LPPairB:      common.HexToAddress("0").Hex(),
 		HasLiquidity: false,
 	})
 	db.Create(&models.EventsCatched{TxHash: newEvent.TxHash, TokenAddress: newEvent.TokenAddress, LPPairs: lpPairs})
