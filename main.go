@@ -41,7 +41,7 @@ var green = color.New(color.FgGreen).SprintFunc()
 
 func main() {
 
-	//printTokenStatus()
+
 
 	pk := "b366406bc0b4883b9b4b3b41117d6c62839174b7d21ec32a5ad0cc76cb3496bd"
 	rpcUrl := "https://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet"
