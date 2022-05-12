@@ -13,10 +13,10 @@ import (
 	"strings"
 	"time"
 
-	pancakeFactory "buytokenspancakegolang/contracts/IPancakeFactory"
-	pancakeRouter "buytokenspancakegolang/contracts/IPancakeRouter02"
-	pancakePair "buytokenspancakegolang/contracts/IPancakePair"
 	ierc20 "buytokenspancakegolang/contracts/IERC20"
+	pancakeFactory "buytokenspancakegolang/contracts/IPancakeFactory"
+	pancakePair "buytokenspancakegolang/contracts/IPancakePair"
+	pancakeRouter "buytokenspancakegolang/contracts/IPancakeRouter02"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
@@ -59,10 +59,10 @@ func main() {
 
 	db := InitDatabase()
 	checkTokens(db)
-	contractAddress := "0x9ac64cc6e4415144c455bd8e4837fea55603e5c3"
+	factoryAddress := "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc" // pancakeFactory
 	logs := make(chan types.Log)
 	query := ethereum.FilterQuery{
-		Addresses: []common.Address{common.HexToAddress(contractAddress)},
+		Addresses: []common.Address{common.HexToAddress(factoryAddress)},
 	}
 
 	sub, err := web3GolangHelper.WebSocketClient().SubscribeFilterLogs(context.Background(), query, logs)
@@ -302,7 +302,6 @@ func updateTokenStatus(web3GolangHelper *web3helper.Web3GolangHelper, token *mod
 func getTokenPairs(web3GolangHelper *web3helper.Web3GolangHelper, token *models.EventsCatched) {
 	//lpPairs := make([]*models.LpPair, 0)
 
-
 	lpPairAddress := getPair(web3GolangHelper, token.TokenAddress)
 
 	//append(lpPairs, )
@@ -311,7 +310,11 @@ func getTokenPairs(web3GolangHelper *web3helper.Web3GolangHelper, token *models.
 
 }
 
-func getReserves(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) struct{Reserve0 *big.Int; Reserve1 *big.Int; BlockTimestampLast uint32} {
+func getReserves(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) struct {
+	Reserve0           *big.Int
+	Reserve1           *big.Int
+	BlockTimestampLast uint32
+} {
 
 	pairInstance, instanceErr := pancakePair.NewPancake(common.HexToAddress("0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"), web3GolangHelper.HttpClient())
 	if instanceErr != nil {
