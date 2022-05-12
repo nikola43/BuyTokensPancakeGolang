@@ -15,6 +15,7 @@ import (
 
 	pancakeFactory "buytokenspancakegolang/contracts/IPancakeFactory"
 	pancakeRouter "buytokenspancakegolang/contracts/IPancakeRouter02"
+	pancakePair "buytokenspancakegolang/contracts/IPancakePair"
 	ierc20 "buytokenspancakegolang/contracts/IERC20"
 
 	"github.com/ethereum/go-ethereum"
@@ -308,6 +309,21 @@ func getTokenPairs(web3GolangHelper *web3helper.Web3GolangHelper, token *models.
 
 	fmt.Println("lpPairAddress", lpPairAddress)
 
+}
+
+func getReserves(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) struct{Reserve0 *big.Int; Reserve1 *big.Int; BlockTimestampLast uint32} {
+
+	pairInstance, instanceErr := pancakePair.NewPancake(common.HexToAddress("0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"), web3GolangHelper.HttpClient())
+	if instanceErr != nil {
+		fmt.Println(instanceErr)
+	}
+
+	reserves, getReservesErr := pairInstance.GetReserves(nil)
+	if getReservesErr != nil {
+		fmt.Println(getReservesErr)
+	}
+
+	return reserves
 }
 
 func getPair(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string) string {
