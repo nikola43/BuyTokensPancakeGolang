@@ -273,6 +273,10 @@ func BuyV2(web3GolangHelper *web3helper.Web3GolangHelper, tokenAddress string, v
 	return txId, txNonce, nil
 */
 
+func updateTokenStatus(token *models.EventsCatched) {
+	
+}
+
 func printTokenStatus(token *models.EventsCatched) {
 	logrus.SetFormatter(&logrus.TextFormatter{ForceColors: true})
 	logrus.SetOutput(colorable.NewColorableStdout())
