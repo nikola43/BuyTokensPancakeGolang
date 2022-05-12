@@ -65,7 +65,6 @@ func proccessEvents(db *gorm.DB, web3GolangHelper *web3helper.Web3GolangHelper, 
 
 		case vLog := <-logs:
 			fmt.Println("vLog.TxHash: " + vLog.TxHash.Hex())
-			fmt.Println("vLog.BlockNumber: " + strconv.FormatUint(vLog.BlockNumber, 10))
 			res, err := contractAbi.Unpack("PairCreated", vLog.Data)
 			if err != nil {
 				log.Fatal(err)
