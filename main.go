@@ -84,8 +84,8 @@ func main() {
 				log.Fatal(err)
 			}
 			event := new(models.EventsCatched)
-			lpPairs := make([]models.LpPair, 0)
-			lpPairs = append(lpPairs, models.LpPair{
+			lpPairs := make([]*models.LpPair, 0)
+			lpPairs = append(lpPairs, &models.LpPair{
 				LPAddress:    common.HexToAddress("0").Hex(),
 				LPPairA:      common.HexToAddress("0").Hex(),
 				LPPairB:      common.HexToAddress("0").Hex(),
@@ -277,14 +277,20 @@ func printTokenStatus(token *models.EventsCatched) {
 	logrus.SetOutput(colorable.NewColorableStdout())
 	logrus.Info("TOKEN INFO")
 
-
-
 	fmt.Printf("%s: %s\n", cyan("Token Address"), yellow(token.TokenAddress))
 	fmt.Printf("%s:\n", cyan("LP Pairs"))
-	lo.ForEach[models.LpPair](token.LPPairs, func(element models.LpPair, _ int) {
+	lo.ForEach(token.LPPairs, func(element *models.LpPair, _ int) {
 		fmt.Printf("\t%s: %s\n", cyan("LP Address"), yellow(element.LPAddress))
 		fmt.Printf("\t%s: %s\n", cyan("LP TokenA Address"), yellow(element.LPPairA))
 		fmt.Printf("\t%s: %s\n", cyan("LP TokenB Address"), yellow(element.LPPairB))
-		fmt.Printf("\t%s: %s\n\n", cyan("LP Has Liquidity"), yellow(element.HasLiquidity))
+		fmt.Printf("\t%s: %s\n\n", cyan("LP Has Liquidity"), getPairLiquidityIcon(element))
 	})
+}
+
+func getPairLiquidityIcon(pair *models.LpPair) string {
+	icon := "🔴"
+	if pair.HasLiquidity {
+		icon = "🟢"
+	}
+	return icon
 }

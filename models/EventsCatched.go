@@ -8,5 +8,5 @@ type EventsCatched struct {
 	gorm.Model
 	TxHash       string
 	TokenAddress string
-	LPPairs      []LpPair
+	LPPairs      []*LpPair
 }
