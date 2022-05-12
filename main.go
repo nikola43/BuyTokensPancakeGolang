@@ -41,22 +41,8 @@ var green = color.New(color.FgGreen).SprintFunc()
 
 func main() {
 
-
-
-	pk := "b366406bc0b4883b9b4b3b41117d6c62839174b7d21ec32a5ad0cc76cb3496bd"
-	rpcUrl := "https://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet"
-	wsUrl := "wss://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet/ws"
-	web3GolangHelper := web3helper.NewWeb3GolangHelper(rpcUrl, wsUrl, pk)
-
 	wBnbContractAddress := "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd"
-
-	chainID, err := web3GolangHelper.HttpClient().NetworkID(context.Background())
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println("Chain Id: " + chainID.String())
-
+	web3GolangHelper := initWeb3()
 	db := InitDatabase()
 	checkTokens(db)
 
@@ -99,6 +85,20 @@ func main() {
 			InsertNewEvent(db, event)
 		}
 	}
+}
+
+func initWeb3() *web3helper.Web3GolangHelper  {
+	pk := "b366406bc0b4883b9b4b3b41117d6c62839174b7d21ec32a5ad0cc76cb3496bd"
+	rpcUrl := "https://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet"
+	wsUrl := "wss://speedy-nodes-nyc.moralis.io/84a2745d907034e6d388f8d6/bsc/testnet/ws"
+	web3GolangHelper := web3helper.NewWeb3GolangHelper(rpcUrl, wsUrl, pk)
+
+	chainID, err := web3GolangHelper.HttpClient().NetworkID(context.Background())
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Chain Id: " + chainID.String())
+	return web3GolangHelper
 }
 
 func BuildContractEventSubscription(web3GolangHelper *web3helper.Web3GolangHelper, contractAddress string, logs chan types.Log) ethereum.Subscription {
